@@ -18,7 +18,7 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 	 * @param year
 	 * @return
 	 */
-	@Query("SELECT o FROM Order o JOIN o.event e JOIN e.annual a WHERE o.orderState = :orderstate AND ((MONTH(a.startDate) <= :month AND MONTH(a.endDate) >= :month) OR (YEAR(a.startDate) < :year AND MONTH(a.endDate) = :month))")
+	@Query("SELECT o FROM Order o JOIN o.event e JOIN e.annual a WHERE o.orderState = :orderState AND ((MONTH(a.startDate) <= :month AND MONTH(a.endDate) >= :month) OR (YEAR(a.startDate) < :year AND MONTH(a.endDate) = :month))")
 	List<Order> findAnnualOrdersByMonthAndOrderstate(@Param("orderState") OrderState orderstate, @Param("month") int month, @Param("year") int year);
 
 	/***
@@ -28,8 +28,8 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 	 * @param year
 	 * @return
 	 */
-	@Query("SELECT o FROM Order o JOIN o.event e JOIN e.duty d WHERE o.orderState = :orderstate AND MONTH(d.date) = :month AND YEAR (d.date)= :year")
-	List<Order> findDutyOrdersByMonthAndOrderstate(@Param("orderstate") OrderState orderstate, @Param("month") int month, @Param("year") int year);
+	@Query("SELECT o FROM Order o JOIN o.event e JOIN e.duty d WHERE o.orderState = :orderState AND MONTH(d.date) = :month AND YEAR (d.date)= :year")
+	List<Order> findDutyOrdersByMonthAndOrderstate(@Param("orderState") OrderState orderstate, @Param("month") int month, @Param("year") int year);
 
 
 }

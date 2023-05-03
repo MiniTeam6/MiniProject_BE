@@ -38,5 +38,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     List<User> findByUsernameContainingOrEmailContaining(String keyword1, String keyword2);
 
+    /***
+     * 회원가입 요청 리스트 조회(status : false)
+     * @return
+     */
+    @Query("SELECT u FROM User u WHERE u.status = false")
+    List<User> findUsersByStatus();
+
+
 
 }
