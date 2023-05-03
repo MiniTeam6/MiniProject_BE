@@ -9,10 +9,10 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-<<<<<<< HEAD
+
     @Query("select u from User u where u.email = :email")
     Optional<User> findByEmail(@Param("email") String email);
-=======
+
     @Query("select u from User u where u.username = :username")
     Optional<User> findByUsername(@Param("username") String username);
 
@@ -38,5 +38,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     List<User> findByUsernameContainingOrEmailContaining(String keyword1, String keyword2);
 
->>>>>>> a7036f2 (one to one 관계 추가, service 회원전체리스트, 검색 기능 추가)
+
 }
