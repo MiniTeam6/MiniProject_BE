@@ -18,7 +18,9 @@ import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.model.user.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -70,4 +72,33 @@ public class UserService {
         );
         return new UserResponse.DetailOutDTO(userPS);
     }
+
+
+    public List<UserResponse.UserListOutDTO> 회원리스트검색(String searchType ,String keyword){
+        if(searchType.equals("username")){
+            List<User> users = userRepository.findByUsernameContaining(keyword);
+            List<UserResponse.UserListOutDTO> userDTOs = users.stream()
+                    .map(UserResponse.UserListOutDTO::new)
+                    .collect(Collectors.toList());
+            return userDTOs;
+        }else{
+            List<User> users = userRepository.findByEmailContaining(keyword);
+            List<UserResponse.UserListOutDTO> userDTOs = users.stream()
+                    .map(UserResponse.UserListOutDTO::new)
+                    .collect(Collectors.toList());
+            return userDTOs;
+        }
+    }
+
+    public List<UserResponse.UserListOutDTO> 회원전체리스트(){
+        List<User> users=userRepository.findAll();
+        List<UserResponse.UserListOutDTO> userDTOs = users.stream()
+                .map(UserResponse.UserListOutDTO::new)
+                .collect(Collectors.toList());
+        return userDTOs;
+    }
+
+
+
+
 }

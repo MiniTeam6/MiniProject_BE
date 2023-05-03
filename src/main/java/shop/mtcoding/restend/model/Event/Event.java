@@ -1,6 +1,8 @@
 package shop.mtcoding.restend.model.Event;
 
 import lombok.*;
+import shop.mtcoding.restend.model.Annual.Annual;
+import shop.mtcoding.restend.model.Duty.Duty;
 import shop.mtcoding.restend.model.user.User;
 
 import javax.persistence.*;
@@ -20,6 +22,12 @@ public class Event {
 	private User user;
 	@Column(nullable = false)
 	private EventType eventType;
+	@OneToOne
+	@JoinColumn(name="annual_id")
+	private Annual annual;
+	@OneToOne
+	@JoinColumn(name="duty_id")
+	private Duty duty;
 
 	@Column(nullable = false)
 	private LocalDateTime createdAt;
