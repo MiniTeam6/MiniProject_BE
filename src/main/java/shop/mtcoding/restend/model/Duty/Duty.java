@@ -15,7 +15,6 @@ public class Duty {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(nullable = false)
-	private LocalDate startDate;
-	@Column(nullable = false)
-	private LocalDate endDate;
+	private LocalDate date;
+
 }
