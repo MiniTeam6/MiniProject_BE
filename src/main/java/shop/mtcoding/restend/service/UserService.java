@@ -33,7 +33,7 @@ public class UserService {
     @MyLog
     @Transactional
     public UserResponse.JoinOutDTO 회원가입(UserRequest.JoinInDTO joinInDTO){
-        Optional<User> userOP =userRepository.findByUsername(joinInDTO.getUsername());
+        Optional<User> userOP =userRepository.findByEmail(joinInDTO.getUsername());
         if(userOP.isPresent()){
             // 이 부분이 try catch 안에 있으면 Exception500에게 제어권을 뺏긴다.
             throw new Exception400("username", "유저네임이 존재합니다");
@@ -55,7 +55,7 @@ public class UserService {
     public String 로그인(UserRequest.LoginInDTO loginInDTO) {
         try {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
-                    = new UsernamePasswordAuthenticationToken(loginInDTO.getUsername(), loginInDTO.getPassword());
+                    = new UsernamePasswordAuthenticationToken(loginInDTO.getEmail(), loginInDTO.getPassword());
             Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
             MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
             return MyJwtProvider.create(myUserDetails.getUser());
