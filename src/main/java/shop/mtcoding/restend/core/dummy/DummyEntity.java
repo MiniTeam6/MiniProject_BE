@@ -21,7 +21,7 @@ public class DummyEntity {
                 .password(passwordEncoder.encode("1234"))
                 .email(email+"@nate.com")
                 .role("USER")
-                .status(true)
+                .status(false)
                 .build();
     }
 
@@ -32,14 +32,17 @@ public class DummyEntity {
             email="ssar";
         }else if(username.equals("러브")){
             email="love";
-        }else if(username.equals("코스"))
-            email="cos";
+        }else if(username.equals("코스")) {
+            email = "cos";
+        }else if(username.equals("코코")){
+            email ="coco";
+        }
         return User.builder()
                 .id(id)
                 .username(username)
                 .password(passwordEncoder.encode("1234"))
                 .email(email+"@nate.com")
-                .role("USER")
+                .role("ADMIN")
                 .status(true)
                 .createdAt(LocalDateTime.now())
                 .build();

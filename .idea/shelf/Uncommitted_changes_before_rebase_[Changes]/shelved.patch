@@ -1,0 +1,26 @@
+Index: src/main/java/shop/mtcoding/restend/core/dummy/DummyEntity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package shop.mtcoding.restend.core.dummy;\n\nimport org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;\nimport shop.mtcoding.restend.model.user.User;\n\nimport java.time.LocalDateTime;\n\npublic class DummyEntity {\n    public User newUser(String username, String fullName){\n        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();\n        return User.builder()\n                .username(username)\n                .password(passwordEncoder.encode(\"1234\"))\n                .fullName(fullName)\n                .email(username+\"@nate.com\")\n                .role(\"USER\")\n                .status(true)\n                .build();\n    }\n\n    public User newMockUser(Long id, String username, String fullName){\n        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();\n        return User.builder()\n                .id(id)\n                .username(username)\n                .password(passwordEncoder.encode(\"1234\"))\n                .fullName(fullName)\n                .email(username+\"@nate.com\")\n                .role(\"USER\")\n                .status(true)\n                .createdAt(LocalDateTime.now())\n                .build();\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/shop/mtcoding/restend/core/dummy/DummyEntity.java b/src/main/java/shop/mtcoding/restend/core/dummy/DummyEntity.java
+--- a/src/main/java/shop/mtcoding/restend/core/dummy/DummyEntity.java	(revision 48dc54575e4f24a6040d67a4281ad229d5ad4d20)
++++ b/src/main/java/shop/mtcoding/restend/core/dummy/DummyEntity.java	(date 1683126905526)
+@@ -11,7 +11,6 @@
+         return User.builder()
+                 .username(username)
+                 .password(passwordEncoder.encode("1234"))
+-                .fullName(fullName)
+                 .email(username+"@nate.com")
+                 .role("USER")
+                 .status(true)
+@@ -24,7 +23,6 @@
+                 .id(id)
+                 .username(username)
+                 .password(passwordEncoder.encode("1234"))
+-                .fullName(fullName)
+                 .email(username+"@nate.com")
+                 .role("USER")
+                 .status(true)
