@@ -4,8 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "duty_tb")
@@ -17,4 +15,10 @@ public class Duty {
 	@Column(nullable = false)
 	private LocalDate date;
 
+	@Builder
+
+	public Duty(Long id, LocalDate date) {
+		this.id = id;
+		this.date = date;
+	}
 }

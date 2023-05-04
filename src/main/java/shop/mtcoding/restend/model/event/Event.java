@@ -7,8 +7,6 @@ import shop.mtcoding.restend.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "event_tb")
@@ -42,5 +40,17 @@ public class Event {
 	@PreUpdate
 	protected void onUpdate() {
 		this.updatedAt = LocalDateTime.now();
+	}
+
+	@Builder
+
+	public Event(Long id, User user, EventType eventType, Annual annual, Duty duty, LocalDateTime createdAt, LocalDateTime updatedAt) {
+		this.id = id;
+		this.user = user;
+		this.eventType = eventType;
+		this.annual = annual;
+		this.duty = duty;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
 	}
 }

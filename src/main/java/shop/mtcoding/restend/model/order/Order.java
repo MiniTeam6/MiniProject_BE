@@ -6,8 +6,6 @@ import shop.mtcoding.restend.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "order_tb")
@@ -35,4 +33,12 @@ public class Order {
 		this.createdAt = LocalDateTime.now();
 	}
 
+	@Builder
+	public Order(Long id, Event event, OrderState orderState, User approver, LocalDateTime createdAt) {
+		this.id = id;
+		this.event = event;
+		this.orderState = orderState;
+		this.approver = approver;
+		this.createdAt = createdAt;
+	}
 }

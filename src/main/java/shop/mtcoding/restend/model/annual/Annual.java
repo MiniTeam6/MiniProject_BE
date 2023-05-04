@@ -4,8 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "annual_tb")
@@ -18,4 +16,11 @@ public class Annual {
 	private LocalDate startDate;
 	@Column(nullable = false)
 	private LocalDate endDate;
+
+	@Builder
+	public Annual(Long id, LocalDate startDate, LocalDate endDate) {
+		this.id = id;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
 }
