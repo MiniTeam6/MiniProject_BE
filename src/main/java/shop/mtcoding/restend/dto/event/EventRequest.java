@@ -1,7 +1,7 @@
 package shop.mtcoding.restend.dto.event;
 
 import lombok.Getter;
-import shop.mtcoding.restend.model.Event.EventType;
+import shop.mtcoding.restend.model.event.EventType;
 import shop.mtcoding.restend.model.user.User;
 
 import java.time.LocalDateTime;

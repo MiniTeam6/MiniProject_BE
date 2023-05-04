@@ -49,7 +49,7 @@ public class UserRepositoryTest extends DummyEntity {
 
         // then
         Assertions.assertThat(userPS.getId()).isEqualTo(1L);
-        Assertions.assertThat(userPS.getUsername()).isEqualTo("ssar");
+        Assertions.assertThat(userPS.getUsername()).isEqualTo("사르");
         Assertions.assertThat(
                 passwordEncoder.matches("1234", userPS.getPassword())
         ).isEqualTo(true);
@@ -63,7 +63,7 @@ public class UserRepositoryTest extends DummyEntity {
     @Test
     public void findByUsername() {
         // given
-        String username = "ssar";
+        String username = "사르";
 
         // when
         Optional<User> userOP = userRepository.findByUsername(username);
@@ -74,7 +74,7 @@ public class UserRepositoryTest extends DummyEntity {
 
         // then
         Assertions.assertThat(userPS.getId()).isEqualTo(1L);
-        Assertions.assertThat(userPS.getUsername()).isEqualTo("ssar");
+        Assertions.assertThat(userPS.getUsername()).isEqualTo("사르");
         Assertions.assertThat(
                 passwordEncoder.matches("1234", userPS.getPassword())
         ).isEqualTo(true);
@@ -95,7 +95,7 @@ public class UserRepositoryTest extends DummyEntity {
 
         // then (beforeEach에서 2건이 insert 되어 있음)
         Assertions.assertThat(userPS.getId()).isEqualTo(3L);
-        Assertions.assertThat(userPS.getUsername()).isEqualTo("love");
+        Assertions.assertThat(userPS.getUsername()).isEqualTo("러브");
         Assertions.assertThat(
                 passwordEncoder.matches("1234", userPS.getPassword())
         ).isEqualTo(true);

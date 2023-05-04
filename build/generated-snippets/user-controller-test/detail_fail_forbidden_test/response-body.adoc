@@ -1,0 +1,8 @@
+[source,options="nowrap"]
+----
+{
+  "status" : 403,
+  "msg" : "forbidden",
+  "data" : "권한이 없습니다"
+}
+----

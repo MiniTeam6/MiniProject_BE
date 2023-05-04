@@ -2,14 +2,10 @@ package shop.mtcoding.restend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import shop.mtcoding.restend.dto.event.EventRequest;
-import shop.mtcoding.restend.dto.event.EventResponse;
-import shop.mtcoding.restend.model.Annual.Annual;
-import shop.mtcoding.restend.model.Annual.AnnualRepository;
-import shop.mtcoding.restend.model.Duty.DutyRepository;
-import shop.mtcoding.restend.model.Event.Event;
-import shop.mtcoding.restend.model.Event.EventRepository;
-import shop.mtcoding.restend.model.Event.EventType;
+import shop.mtcoding.restend.model.annual.AnnualRepository;
+import shop.mtcoding.restend.model.duty.DutyRepository;
+import shop.mtcoding.restend.model.event.Event;
+import shop.mtcoding.restend.model.event.EventRepository;
 
 import java.util.List;
 

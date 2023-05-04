@@ -24,7 +24,8 @@ public class UserRequest {
     @Getter
     public static class JoinInDTO {
 //        @Pattern(regexp = "^[a-zA-Z0-9]{2,20}$", message = "영문/숫자 2~20자 이내로 작성해주세요")
-        @Pattern(regexp = "^[가-힣]{2,4}[\\\\s]?[가-힣]{2,5}$\n", message = "올바른 이름 형식으로 작성해주세요.")   //이름 정규표현식
+//        @Pattern(regexp = "^[가-힣]{2,4}[\\s]?[가-힣]{2,5}$", message = "올바른 이름 형식으로 작성해주세요.")   //이름 정규표현식
+        @Pattern(regexp = "^[가-힣]{1}[가-힣]{1,3}$", message = "올바른 이름 형식으로 작성해주세요.")
         @NotEmpty
         private String username;
 

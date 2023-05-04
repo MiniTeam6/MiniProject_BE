@@ -2,8 +2,8 @@ package shop.mtcoding.restend.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import shop.mtcoding.restend.model.Event.EventRepository;
-import shop.mtcoding.restend.model.Order.OrderRepository;
+import shop.mtcoding.restend.model.event.EventRepository;
+import shop.mtcoding.restend.model.order.OrderRepository;
 
 @Service
 @RequiredArgsConstructor

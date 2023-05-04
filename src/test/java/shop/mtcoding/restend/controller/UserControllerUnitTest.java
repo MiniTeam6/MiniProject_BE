@@ -25,6 +25,8 @@ import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.core.MyWithMockUser;
 import shop.mtcoding.restend.model.user.User;
+import shop.mtcoding.restend.service.AnnualService;
+import shop.mtcoding.restend.service.EventService;
 import shop.mtcoding.restend.service.UserService;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -57,11 +59,17 @@ public class UserControllerUnitTest extends DummyEntity {
     @MockBean
     private UserService userService;
 
+    @MockBean
+    private EventService eventService;
+
+    @MockBean
+    private AnnualService annualService;
+
     @Test
     public void join_test() throws Exception {
         // 준비
         UserRequest.JoinInDTO joinInDTO = new UserRequest.JoinInDTO();
-        joinInDTO.setUsername("cos");
+        joinInDTO.setUsername("코스");
         joinInDTO.setPassword("1234");
         joinInDTO.setEmail("cos@nate.com");
         String requestBody = om.writeValueAsString(joinInDTO);
@@ -73,14 +81,14 @@ public class UserControllerUnitTest extends DummyEntity {
 
         // 테스트진행
         ResultActions resultActions = mvc
-                .perform(post("/api/join").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+                .perform(post("/api/signup").content(requestBody).contentType(MediaType.APPLICATION_JSON));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
         // 검증해볼께
         resultActions.andExpect(jsonPath("$.data.id").value(1L));
-        resultActions.andExpect(jsonPath("$.data.username").value("cos"));
-        resultActions.andExpect(jsonPath("$.data.fullName").value("코스"));
+        resultActions.andExpect(jsonPath("$.data.username").value("코스"));
+        resultActions.andExpect(jsonPath("$.data.email").value("cos@nate.com"));
         resultActions.andExpect(status().isOk());
     }
 
@@ -107,7 +115,7 @@ public class UserControllerUnitTest extends DummyEntity {
         resultActions.andExpect(status().isOk());
     }
 
-    @MyWithMockUser(id = 1L, username = "cos", role = "USER", email = "cos@nate.com")
+    @MyWithMockUser(id = 1L, username = "코스", role = "USER", email = "cos@nate.com")
     //@WithMockUser(value = "ssar", password = "1234", roles = "USER")
     @Test
     public void detail_test() throws Exception {
@@ -121,15 +129,14 @@ public class UserControllerUnitTest extends DummyEntity {
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/user/"+id));
+                .perform(get("/api/user/"+id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
         // then
         resultActions.andExpect(jsonPath("$.data.id").value(1L));
-        resultActions.andExpect(jsonPath("$.data.username").value("cos"));
+        resultActions.andExpect(jsonPath("$.data.username").value("코스"));
         resultActions.andExpect(jsonPath("$.data.email").value("cos@nate.com"));
-        resultActions.andExpect(jsonPath("$.data.fullName").value("코스"));
         resultActions.andExpect(jsonPath("$.data.role").value("USER"));
         resultActions.andExpect(status().isOk());
     }

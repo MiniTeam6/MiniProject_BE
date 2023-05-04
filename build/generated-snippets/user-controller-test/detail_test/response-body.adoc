@@ -1,0 +1,13 @@
+[source,options="nowrap"]
+----
+{
+  "status" : 200,
+  "msg" : "성공",
+  "data" : {
+    "id" : 1,
+    "username" : "사르",
+    "email" : "ssar@nate.com",
+    "role" : "USER"
+  }
+}
+----

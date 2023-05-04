@@ -56,12 +56,12 @@ public class UserServiceTest extends DummyEntity {
 
         // given
         UserRequest.JoinInDTO joinInDTO = new UserRequest.JoinInDTO();
-        joinInDTO.setUsername("cos");
+        joinInDTO.setUsername("코스");
         joinInDTO.setPassword("1234");
         joinInDTO.setEmail("cos@nate.com");
 
         // stub 1
-        Mockito.when(userRepository.findByUsername(any())).thenReturn(Optional.empty());
+//        Mockito.when(userRepository.findByUsername(any())).thenReturn(Optional.empty());
 
         // stub 2
         User cos = newMockUser(1L, "코스");
@@ -72,7 +72,7 @@ public class UserServiceTest extends DummyEntity {
 
         // then
         Assertions.assertThat(joinOutDTO.getId()).isEqualTo(1L);
-        Assertions.assertThat(joinOutDTO.getUsername()).isEqualTo("cos");
+        Assertions.assertThat(joinOutDTO.getUsername()).isEqualTo("코스");
     }
 
     @Test
@@ -112,7 +112,7 @@ public class UserServiceTest extends DummyEntity {
 
         // then
         Assertions.assertThat(detailOutDTO.getId()).isEqualTo(1L);
-        Assertions.assertThat(detailOutDTO.getUsername()).isEqualTo("cos");
+        Assertions.assertThat(detailOutDTO.getUsername()).isEqualTo("코스");
         Assertions.assertThat(detailOutDTO.getEmail()).isEqualTo("cos@nate.com");
         Assertions.assertThat(detailOutDTO.getRole()).isEqualTo("USER");
     }
