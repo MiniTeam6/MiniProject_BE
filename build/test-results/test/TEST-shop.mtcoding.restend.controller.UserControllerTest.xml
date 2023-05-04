@@ -1,0 +1,1029 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="회원 API" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-05-04T03:01:35" hostname="jihoonui-MacBookAir.local" time="1.838">
+  <properties/>
+  <testcase name="회원상세보기 성공" classname="shop.mtcoding.restend.controller.UserControllerTest" time="0.296"/>
+  <testcase name="로그인 성공" classname="shop.mtcoding.restend.controller.UserControllerTest" time="0.392"/>
+  <testcase name="로그인 인증 실패" classname="shop.mtcoding.restend.controller.UserControllerTest" time="0.242"/>
+  <testcase name="회원상세보기 인증 실패" classname="shop.mtcoding.restend.controller.UserControllerTest" time="0.159"/>
+  <testcase name="회원가입 실패" classname="shop.mtcoding.restend.controller.UserControllerTest" time="0.187"/>
+  <testcase name="회원가입 유효성 검사 실패" classname="shop.mtcoding.restend.controller.UserControllerTest" time="0.163"/>
+  <testcase name="회원상세보기 권한 실패" classname="shop.mtcoding.restend.controller.UserControllerTest" time="0.162"/>
+  <testcase name="회원가입 성공" classname="shop.mtcoding.restend.controller.UserControllerTest" time="0.233"/>
+  <system-out><![CDATA[2023-05-04 12:01:35.227  INFO 95819 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [shop.mtcoding.restend.controller.UserControllerTest], using SpringBootContextLoader
+2023-05-04 12:01:35.228  INFO 95819 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [shop.mtcoding.restend.controller.UserControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-05-04 12:01:35.228  INFO 95819 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.mtcoding.restend.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-05-04 12:01:35.233  INFO 95819 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.mtcoding.restend.RestendApplication for test class shop.mtcoding.restend.controller.UserControllerTest
+2023-05-04 12:01:35.234  INFO 95819 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-05-04 12:01:35.234  INFO 95819 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@26864891, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5946e540, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@651a399, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@79ef8115, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6db99c79, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3bb186b, org.springframework.test.context.transaction.TransactionalTestExecutionListener@8fd3eee, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@d9ff1cd, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@2c64ee53, org.springframework.test.context.event.EventPublishingTestExecutionListener@77c7d3f4, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@162c89ac, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@644f033d, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6f526f91, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@26c349fc, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@54d0d561, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@489a722d, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@3448a248]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.11)
+
+2023-05-04 12:01:35.246  INFO 95819 --- [    Test worker] s.m.r.controller.UserControllerTest      : Starting UserControllerTest using Java 11.0.16 on jihoonui-MacBookAir.local with PID 95819 (started by jihoon in /Users/jihoon/Library/CloudStorage/OneDrive-gc.gachon.ac.kr/2022 fastcampus/fast_lab/MiniProject_BE2)
+2023-05-04 12:01:35.246 DEBUG 95819 --- [    Test worker] s.m.r.controller.UserControllerTest      : Running with Spring Boot v2.7.11, Spring v5.3.27
+2023-05-04 12:01:35.246  INFO 95819 --- [    Test worker] s.m.r.controller.UserControllerTest      : The following 1 profile is active: "test"
+2023-05-04 12:01:35.316  INFO 95819 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-04 12:01:35.333  INFO 95819 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 5 JPA repository interfaces.
+2023-05-04 12:01:35.402  INFO 95819 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@16c5b50a
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration boolean -> org.hibernate.type.BooleanType@16c5b50a
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Boolean -> org.hibernate.type.BooleanType@16c5b50a
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration numeric_boolean -> org.hibernate.type.NumericBooleanType@1d4cc7
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration true_false -> org.hibernate.type.TrueFalseType@2a7bc16b
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration yes_no -> org.hibernate.type.YesNoType@20820df0
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@7114e780
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte -> org.hibernate.type.ByteType@7114e780
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Byte -> org.hibernate.type.ByteType@7114e780
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration character -> org.hibernate.type.CharacterType@4492b393
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration char -> org.hibernate.type.CharacterType@4492b393
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Character -> org.hibernate.type.CharacterType@4492b393
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@32b46831
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration short -> org.hibernate.type.ShortType@32b46831
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Short -> org.hibernate.type.ShortType@32b46831
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration integer -> org.hibernate.type.IntegerType@4b691611
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration int -> org.hibernate.type.IntegerType@4b691611
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Integer -> org.hibernate.type.IntegerType@4b691611
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@542c65d9
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration long -> org.hibernate.type.LongType@542c65d9
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Long -> org.hibernate.type.LongType@542c65d9
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@6003220a
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration float -> org.hibernate.type.FloatType@6003220a
+2023-05-04 12:01:35.404 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Float -> org.hibernate.type.FloatType@6003220a
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@2b395581
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration double -> org.hibernate.type.DoubleType@2b395581
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Double -> org.hibernate.type.DoubleType@2b395581
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_decimal -> org.hibernate.type.BigDecimalType@2c6927f0
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigDecimal -> org.hibernate.type.BigDecimalType@2c6927f0
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration big_integer -> org.hibernate.type.BigIntegerType@5b4954b2
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.math.BigInteger -> org.hibernate.type.BigIntegerType@5b4954b2
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration string -> org.hibernate.type.StringType@5c8ab9de
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.String -> org.hibernate.type.StringType@5c8ab9de
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration nstring -> org.hibernate.type.StringNVarcharType@74d22ddd
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration ncharacter -> org.hibernate.type.CharacterNCharType@3a88f6fb
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration url -> org.hibernate.type.UrlType@33ebe4f0
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.net.URL -> org.hibernate.type.UrlType@33ebe4f0
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration Duration -> org.hibernate.type.DurationType@21e484b
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Duration -> org.hibernate.type.DurationType@21e484b
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration Instant -> org.hibernate.type.InstantType@ce655b9
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.Instant -> org.hibernate.type.InstantType@ce655b9
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDateTime -> org.hibernate.type.LocalDateTimeType@1a345298
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDateTime -> org.hibernate.type.LocalDateTimeType@1a345298
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalDate -> org.hibernate.type.LocalDateType@3c488b34
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalDate -> org.hibernate.type.LocalDateType@3c488b34
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration LocalTime -> org.hibernate.type.LocalTimeType@eded048
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.LocalTime -> org.hibernate.type.LocalTimeType@eded048
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@23f5008a
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetDateTime -> org.hibernate.type.OffsetDateTimeType@23f5008a
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration OffsetTime -> org.hibernate.type.OffsetTimeType@78128dd0
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.OffsetTime -> org.hibernate.type.OffsetTimeType@78128dd0
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@144a5e6e
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.time.ZonedDateTime -> org.hibernate.type.ZonedDateTimeType@144a5e6e
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration date -> org.hibernate.type.DateType@1214d23c
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Date -> org.hibernate.type.DateType@1214d23c
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration time -> org.hibernate.type.TimeType@696174d3
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Time -> org.hibernate.type.TimeType@696174d3
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration timestamp -> org.hibernate.type.TimestampType@3c09a350
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Timestamp -> org.hibernate.type.TimestampType@3c09a350
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Date -> org.hibernate.type.TimestampType@3c09a350
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration dbtimestamp -> org.hibernate.type.DbTimestampType@30c01c37
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar -> org.hibernate.type.CalendarType@3005623b
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Calendar -> org.hibernate.type.CalendarType@3005623b
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.GregorianCalendar -> org.hibernate.type.CalendarType@3005623b
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_date -> org.hibernate.type.CalendarDateType@41143873
+2023-05-04 12:01:35.405 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration calendar_time -> org.hibernate.type.CalendarTimeType@43786627
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration locale -> org.hibernate.type.LocaleType@7956f93a
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Locale -> org.hibernate.type.LocaleType@7956f93a
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration currency -> org.hibernate.type.CurrencyType@21b744ec
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.Currency -> org.hibernate.type.CurrencyType@21b744ec
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration timezone -> org.hibernate.type.TimeZoneType@7f6b57f2
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.TimeZone -> org.hibernate.type.TimeZoneType@7f6b57f2
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration class -> org.hibernate.type.ClassType@4c65d8e3
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Class -> org.hibernate.type.ClassType@4c65d8e3
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-binary -> org.hibernate.type.UUIDBinaryType@52909a97
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.util.UUID -> org.hibernate.type.UUIDBinaryType@52909a97
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration uuid-char -> org.hibernate.type.UUIDCharType@7bbdb220
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration binary -> org.hibernate.type.BinaryType@7afb9c93
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration byte[] -> org.hibernate.type.BinaryType@7afb9c93
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration [B -> org.hibernate.type.BinaryType@7afb9c93
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-binary -> org.hibernate.type.WrapperBinaryType@5a0f87e5
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration Byte[] -> org.hibernate.type.WrapperBinaryType@5a0f87e5
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Byte; -> org.hibernate.type.WrapperBinaryType@5a0f87e5
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration row_version -> org.hibernate.type.RowVersionType@165d1d54
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration image -> org.hibernate.type.ImageType@63553e9f
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration characters -> org.hibernate.type.CharArrayType@5c839677
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration char[] -> org.hibernate.type.CharArrayType@5c839677
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration [C -> org.hibernate.type.CharArrayType@5c839677
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration wrapper-characters -> org.hibernate.type.CharacterArrayType@6e73974
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration [Ljava.lang.Character; -> org.hibernate.type.CharacterArrayType@6e73974
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration Character[] -> org.hibernate.type.CharacterArrayType@6e73974
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration text -> org.hibernate.type.TextType@e07b4db
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration ntext -> org.hibernate.type.NTextType@49c83262
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration blob -> org.hibernate.type.BlobType@6dcf7b6a
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Blob -> org.hibernate.type.BlobType@6dcf7b6a
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_blob -> org.hibernate.type.MaterializedBlobType@4eb63dc8
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration clob -> org.hibernate.type.ClobType@5d221b20
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.Clob -> org.hibernate.type.ClobType@5d221b20
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration nclob -> org.hibernate.type.NClobType@2dd3d39d
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.sql.NClob -> org.hibernate.type.NClobType@2dd3d39d
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_clob -> org.hibernate.type.MaterializedClobType@42cc420b
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration materialized_nclob -> org.hibernate.type.MaterializedNClobType@7eae55
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration serializable -> org.hibernate.type.SerializableType@2bfa17b0
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration object -> org.hibernate.type.ObjectType@13908f9c
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration java.lang.Object -> org.hibernate.type.ObjectType@13908f9c
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_date -> org.hibernate.type.AdaptedImmutableType@6c65c6f0
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_time -> org.hibernate.type.AdaptedImmutableType@1e0bae92
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_timestamp -> org.hibernate.type.AdaptedImmutableType@123fd460
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_dbtimestamp -> org.hibernate.type.AdaptedImmutableType@5037f491
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar -> org.hibernate.type.AdaptedImmutableType@1227ea21
+2023-05-04 12:01:35.406 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_calendar_date -> org.hibernate.type.AdaptedImmutableType@511ba9c9
+2023-05-04 12:01:35.407 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_binary -> org.hibernate.type.AdaptedImmutableType@3debeb5e
+2023-05-04 12:01:35.407 DEBUG 95819 --- [    Test worker] org.hibernate.type.BasicTypeRegistry     : Adding type registration imm_serializable -> org.hibernate.type.AdaptedImmutableType@5297030e
+2023-05-04 12:01:35.408  INFO 95819 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2023-05-04 12:01:35.408  INFO 95819 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2023-05-04 12:01:35.408  INFO 95819 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2023-05-04 12:01:35.409 DEBUG 95819 --- [    Test worker] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@6018a6a2] to MetadataBuildingContext [org.hibernate.boot.internal.MetadataBuildingContextRootImpl@3ae5cbb9]
+2023-05-04 12:01:35.423 DEBUG 95819 --- [    Test worker] org.hibernate.type.EnumType              : Using ORDINAL-based conversion for Enum shop.mtcoding.restend.model.order.OrderState
+2023-05-04 12:01:35.423 DEBUG 95819 --- [    Test worker] org.hibernate.type.EnumType              : Using ORDINAL-based conversion for Enum shop.mtcoding.restend.model.event.EventType
+2023-05-04 12:01:35.423 DEBUG 95819 --- [    Test worker] o.h.type.spi.TypeConfiguration$Scope     : Scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration@6018a6a2] to SessionFactoryImpl [org.hibernate.internal.SessionFactoryImpl@615f61ec]
+Hibernate: 
+    
+    drop table if exists annual_tb CASCADE 
+Hibernate: 
+    
+    drop table if exists duty_tb CASCADE 
+Hibernate: 
+    
+    drop table if exists event_tb CASCADE 
+Hibernate: 
+    
+    drop table if exists order_tb CASCADE 
+Hibernate: 
+    
+    drop table if exists user_tb CASCADE 
+Hibernate: 
+    
+    create table annual_tb (
+       id bigint generated by default as identity,
+        end_date date not null,
+        start_date date not null,
+        primary key (id)
+    )
+Hibernate: 
+    
+    create table duty_tb (
+       id bigint generated by default as identity,
+        date date not null,
+        primary key (id)
+    )
+Hibernate: 
+    
+    create table event_tb (
+       id bigint generated by default as identity,
+        created_at timestamp not null,
+        event_type integer not null,
+        updated_at timestamp,
+        annual_id bigint,
+        duty_id bigint,
+        user_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    
+    create table order_tb (
+       id bigint generated by default as identity,
+        created_at timestamp not null,
+        order_state integer,
+        user_id bigint,
+        event_id bigint,
+        primary key (id)
+    )
+Hibernate: 
+    
+    create table user_tb (
+       id bigint generated by default as identity,
+        created_at timestamp not null,
+        email varchar(20) not null,
+        image varchar(255),
+        password varchar(60) not null,
+        role varchar(255),
+        status boolean,
+        updated_at timestamp,
+        username varchar(20) not null,
+        primary key (id)
+    )
+Hibernate: 
+    
+    alter table user_tb 
+       add constraint UK_2dlfg6wvnxboknkp9d1h75icb unique (email)
+Hibernate: 
+    
+    alter table event_tb 
+       add constraint FKsm4f7ln48qcydnsmr2ihynjfn 
+       foreign key (annual_id) 
+       references annual_tb
+Hibernate: 
+    
+    alter table event_tb 
+       add constraint FK9kavkxc7qfe23ik88wb7yp3cp 
+       foreign key (duty_id) 
+       references duty_tb
+Hibernate: 
+    
+    alter table event_tb 
+       add constraint FK1dbl1c4nurwq7w5w3o04st4y6 
+       foreign key (user_id) 
+       references user_tb
+Hibernate: 
+    
+    alter table order_tb 
+       add constraint FK9wkv8x8yfgaaquhn4vquq4aps 
+       foreign key (user_id) 
+       references user_tb
+Hibernate: 
+    
+    alter table order_tb 
+       add constraint FK9ahb515t4krdytukumuqg386o 
+       foreign key (event_id) 
+       references event_tb
+2023-05-04 12:01:35.449  INFO 95819 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-04 12:01:35.449 TRACE 95819 --- [    Test worker] o.h.type.spi.TypeConfiguration$Scope     : Handling #sessionFactoryCreated from [org.hibernate.internal.SessionFactoryImpl@615f61ec] for TypeConfiguration
+2023-05-04 12:01:35.449  INFO 95819 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-04 12:01:35.572  INFO 95819 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@18f919ce, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4dea763c, org.springframework.security.web.context.SecurityContextPersistenceFilter@3d41881, org.springframework.security.web.header.HeaderWriterFilter@494c452b, org.springframework.web.filter.CorsFilter@26f50a28, org.springframework.security.web.authentication.logout.LogoutFilter@1201c2f6, shop.mtcoding.restend.core.auth.jwt.MyJwtAuthorizationFilter@111ae918, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3f04349b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@14ca4b4d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@41fdb59c, org.springframework.security.web.session.SessionManagementFilter@7e9b68c5, org.springframework.security.web.access.ExceptionTranslationFilter@72e9c0a0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@266b7d1]
+2023-05-04 12:01:35.802  INFO 95819 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-04 12:01:35.803  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-04 12:01:35.803  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2023-05-04 12:01:35.808  INFO 95819 --- [    Test worker] s.m.r.controller.UserControllerTest      : Started UserControllerTest in 0.574 seconds (JVM running for 3.884)
+2023-05-04 12:01:35.829  INFO 95819 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-04 12:01:35.829  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-04 12:01:35.829  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:35.905 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:35.904935]
+2023-05-04 12:01:35.905 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:35.905 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:35.905 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$j5JpTtGiyjvi70DBdbA0Mu30Nf5vRHx7qDUDR9k7qmUZ3XitKzhNm]
+2023-05-04 12:01:35.905 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:35.905 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:35.905 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:35.905 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [사르]
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:35.981 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:35.981142]
+2023-05-04 12:01:35.981 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [cos@nate.com]
+2023-05-04 12:01:35.981 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:35.981 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$M.VKPfND0Mrdw.vv76cuKebyeClyE7emiKieMOIQezZJ7LTgv9e8m]
+2023-05-04 12:01:35.981 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:35.981 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:35.981 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:35.981 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [코스]
+Hibernate: 
+    select
+        user0_.id as id1_4_,
+        user0_.created_at as created_2_4_,
+        user0_.email as email3_4_,
+        user0_.image as image4_4_,
+        user0_.password as password5_4_,
+        user0_.role as role6_4_,
+        user0_.status as status7_4_,
+        user0_.updated_at as updated_8_4_,
+        user0_.username as username9_4_ 
+    from
+        user_tb user0_ 
+    where
+        user0_.email=?
+2023-05-04 12:01:35.998 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:35.999 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_4_] : [BIGINT]) - [1]
+2023-05-04 12:01:36.000 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([created_2_4_] : [TIMESTAMP]) - [2023-05-04T12:01:35.904935]
+2023-05-04 12:01:36.001 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email3_4_] : [VARCHAR]) - [ssar@nate.com]
+2023-05-04 12:01:36.001 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([image4_4_] : [VARCHAR]) - [null]
+2023-05-04 12:01:36.001 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password5_4_] : [VARCHAR]) - [$2a$10$j5JpTtGiyjvi70DBdbA0Mu30Nf5vRHx7qDUDR9k7qmUZ3XitKzhNm]
+2023-05-04 12:01:36.001 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([role6_4_] : [VARCHAR]) - [USER]
+2023-05-04 12:01:36.001 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_4_] : [BOOLEAN]) - [true]
+2023-05-04 12:01:36.001 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([updated_8_4_] : [TIMESTAMP]) - [null]
+2023-05-04 12:01:36.001 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([username9_4_] : [VARCHAR]) - [사르]
+2023-05-04 12:01:36.018 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+Hibernate: 
+    select
+        user0_.id as id1_4_0_,
+        user0_.created_at as created_2_4_0_,
+        user0_.email as email3_4_0_,
+        user0_.image as image4_4_0_,
+        user0_.password as password5_4_0_,
+        user0_.role as role6_4_0_,
+        user0_.status as status7_4_0_,
+        user0_.updated_at as updated_8_4_0_,
+        user0_.username as username9_4_0_ 
+    from
+        user_tb user0_ 
+    where
+        user0_.id=?
+2023-05-04 12:01:36.040 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [1]
+2023-05-04 12:01:36.041 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([created_2_4_0_] : [TIMESTAMP]) - [2023-05-04T12:01:35.904935]
+2023-05-04 12:01:36.041 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email3_4_0_] : [VARCHAR]) - [ssar@nate.com]
+2023-05-04 12:01:36.041 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([image4_4_0_] : [VARCHAR]) - [null]
+2023-05-04 12:01:36.041 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password5_4_0_] : [VARCHAR]) - [$2a$10$j5JpTtGiyjvi70DBdbA0Mu30Nf5vRHx7qDUDR9k7qmUZ3XitKzhNm]
+2023-05-04 12:01:36.041 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([role6_4_0_] : [VARCHAR]) - [USER]
+2023-05-04 12:01:36.041 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_4_0_] : [BOOLEAN]) - [true]
+2023-05-04 12:01:36.041 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([updated_8_4_0_] : [TIMESTAMP]) - [null]
+2023-05-04 12:01:36.041 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([username9_4_0_] : [VARCHAR]) - [사르]
+2023-05-04 12:01:36.043 DEBUG 95819 --- [    Test worker] s.m.restend.core.advice.MyLogAdvice      : 디버그 : 회원상세보기 성공
+테스트 : {"status":200,"msg":"성공","data":{"id":1,"username":"사르","email":"ssar@nate.com","role":"USER"}}
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/user/1
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = shop.mtcoding.restend.controller.UserController
+           Method = shop.mtcoding.restend.controller.UserController#detail(Long, MyUserDetails)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Content-Type:"application/json;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0"]
+     Content type = application/json;charset=UTF-8
+             Body = {"status":200,"msg":"성공","data":{"id":1,"username":"사르","email":"ssar@nate.com","role":"USER"}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2023-05-04 12:01:36.110  INFO 95819 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-04 12:01:36.110  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-04 12:01:36.111  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:36.186 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:36.186482]
+2023-05-04 12:01:36.186 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:36.187 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:36.187 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$Jexog9utUC8uV19yaEXG4.5XGrezBNMnrv8MxWKHNoVlLm0PDUPe6]
+2023-05-04 12:01:36.187 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:36.187 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:36.187 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:36.187 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [사르]
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:36.260 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:36.260559]
+2023-05-04 12:01:36.261 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [cos@nate.com]
+2023-05-04 12:01:36.261 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:36.261 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$LpnbSW/FLXCN5BGnu3LhZe5IAkbOV.hPx00cwm7VD2Gb857qBnrxq]
+2023-05-04 12:01:36.261 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:36.261 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:36.261 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:36.261 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [코스]
+2023-05-04 12:01:36.265 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+Hibernate: 
+    select
+        user0_.id as id1_4_,
+        user0_.created_at as created_2_4_,
+        user0_.email as email3_4_,
+        user0_.image as image4_4_,
+        user0_.password as password5_4_,
+        user0_.role as role6_4_,
+        user0_.status as status7_4_,
+        user0_.updated_at as updated_8_4_,
+        user0_.username as username9_4_ 
+    from
+        user_tb user0_ 
+    where
+        user0_.email=?
+2023-05-04 12:01:36.353 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:36.353 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_4_] : [BIGINT]) - [1]
+2023-05-04 12:01:36.353 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([created_2_4_] : [TIMESTAMP]) - [2023-05-04T12:01:36.186482]
+2023-05-04 12:01:36.353 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email3_4_] : [VARCHAR]) - [ssar@nate.com]
+2023-05-04 12:01:36.353 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([image4_4_] : [VARCHAR]) - [null]
+2023-05-04 12:01:36.353 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password5_4_] : [VARCHAR]) - [$2a$10$Jexog9utUC8uV19yaEXG4.5XGrezBNMnrv8MxWKHNoVlLm0PDUPe6]
+2023-05-04 12:01:36.353 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([role6_4_] : [VARCHAR]) - [USER]
+2023-05-04 12:01:36.353 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_4_] : [BOOLEAN]) - [true]
+2023-05-04 12:01:36.353 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([updated_8_4_] : [TIMESTAMP]) - [null]
+2023-05-04 12:01:36.353 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([username9_4_] : [VARCHAR]) - [사르]
+2023-05-04 12:01:36.452 DEBUG 95819 --- [    Test worker] s.m.restend.core.advice.MyLogAdvice      : 디버그 : 로그인 성공
+테스트 : {"status":200,"msg":"성공","data":null}
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/login
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"43"]
+             Body = {"email":"ssar@nate.com","password":"1234"}
+    Session Attrs = {}
+
+Handler:
+             Type = shop.mtcoding.restend.controller.UserController
+           Method = shop.mtcoding.restend.controller.UserController#login(LoginInDTO)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Authorization:"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3RzdHVkeSIsInJvbGUiOiJVU0VSIiwiaWQiOjEsImV4cCI6MTY4MzI1NTY5Nn0.bvIcgZ_D8SGjZfLiZoyzvVklzeadz8VdAWsTgXxGAVAniletIefCVYQE5mUc6p4zHLiPIRYk-z_WPI_mbiV2Rg", Content-Type:"application/json;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0"]
+     Content type = application/json;charset=UTF-8
+             Body = {"status":200,"msg":"성공","data":null}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2023-05-04 12:01:36.502  INFO 95819 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-04 12:01:36.503  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-04 12:01:36.503  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:36.578 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:36.577858]
+2023-05-04 12:01:36.578 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:36.578 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:36.578 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$lEz37actvtuezhTkMYjIdu.NPo/mebW31lm7Vxad9sDJHbH2VKN5S]
+2023-05-04 12:01:36.578 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:36.578 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:36.578 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:36.578 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [사르]
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:36.653 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:36.653389]
+2023-05-04 12:01:36.653 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [cos@nate.com]
+2023-05-04 12:01:36.653 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:36.653 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$De6ljspXP9XBfKPg8fpUTOHREGBzZuxAzQHl8CSzCgJABRAmapcSm]
+2023-05-04 12:01:36.654 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:36.654 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:36.654 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:36.654 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [코스]
+2023-05-04 12:01:36.655 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+Hibernate: 
+    select
+        user0_.id as id1_4_,
+        user0_.created_at as created_2_4_,
+        user0_.email as email3_4_,
+        user0_.image as image4_4_,
+        user0_.password as password5_4_,
+        user0_.role as role6_4_,
+        user0_.status as status7_4_,
+        user0_.updated_at as updated_8_4_,
+        user0_.username as username9_4_ 
+    from
+        user_tb user0_ 
+    where
+        user0_.email=?
+2023-05-04 12:01:36.656 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:36.656 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_4_] : [BIGINT]) - [1]
+2023-05-04 12:01:36.656 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([created_2_4_] : [TIMESTAMP]) - [2023-05-04T12:01:36.577858]
+2023-05-04 12:01:36.656 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email3_4_] : [VARCHAR]) - [ssar@nate.com]
+2023-05-04 12:01:36.656 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([image4_4_] : [VARCHAR]) - [null]
+2023-05-04 12:01:36.656 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password5_4_] : [VARCHAR]) - [$2a$10$lEz37actvtuezhTkMYjIdu.NPo/mebW31lm7Vxad9sDJHbH2VKN5S]
+2023-05-04 12:01:36.656 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([role6_4_] : [VARCHAR]) - [USER]
+2023-05-04 12:01:36.656 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_4_] : [BOOLEAN]) - [true]
+2023-05-04 12:01:36.656 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([updated_8_4_] : [TIMESTAMP]) - [null]
+2023-05-04 12:01:36.656 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([username9_4_] : [VARCHAR]) - [사르]
+2023-05-04 12:01:36.735 ERROR 95819 --- [    Test worker] s.m.restend.core.advice.MyLogAdvice      : 에러 : 인증되지 않았습니다
+테스트 : {"status":401,"msg":"unAuthorized","data":"인증되지 않았습니다"}
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/login
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"44"]
+             Body = {"email":"ssar@nate.com","password":"12345"}
+    Session Attrs = {}
+
+Handler:
+             Type = shop.mtcoding.restend.controller.UserController
+           Method = shop.mtcoding.restend.controller.UserController#login(LoginInDTO)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = shop.mtcoding.restend.core.exception.Exception401
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 401
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Content-Type:"application/json;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0"]
+     Content type = application/json;charset=UTF-8
+             Body = {"status":401,"msg":"unAuthorized","data":"인증되지 않았습니다"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2023-05-04 12:01:36.744  INFO 95819 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-04 12:01:36.744  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-04 12:01:36.744  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:36.819 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:36.818912]
+2023-05-04 12:01:36.819 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:36.819 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:36.819 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$b9gI6vFPMRahq/WnXdlx8urPjvEI00FVrT399Ha6Y/eJM6XcKrvTS]
+2023-05-04 12:01:36.819 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:36.819 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:36.819 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:36.819 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [사르]
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:36.894 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:36.894470]
+2023-05-04 12:01:36.894 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [cos@nate.com]
+2023-05-04 12:01:36.894 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:36.894 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$qIROyk.65jNt/tPPKuuI9eAWLYtU6.RqcuryG81rs4uT..zHgpSNm]
+2023-05-04 12:01:36.894 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:36.895 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:36.895 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:36.895 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [코스]
+2023-05-04 12:01:36.896  WARN 95819 --- [    Test worker] s.m.r.core.config.MySecurityConfig       : 인증되지 않은 사용자가 자원에 접근하려 합니다 : Full authentication is required to access this resource
+테스트 : {"status":401,"msg":"unAuthorized","data":"인증되지 않았습니다"}
+
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/user/1
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = null
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 401
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Content-Type:"application/json; charset=utf-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0"]
+     Content type = application/json; charset=utf-8
+             Body = {"status":401,"msg":"unAuthorized","data":"인증되지 않았습니다"}
+
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2023-05-04 12:01:36.904  INFO 95819 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-04 12:01:36.904  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-04 12:01:36.904  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:36.979 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:36.978751]
+2023-05-04 12:01:36.979 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:36.980 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:36.980 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$qAWNBQInBrr5dIRgjZUsZO2bZ8hDVIIErq9MASSxcrQKo975K0Ehy]
+2023-05-04 12:01:36.980 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:36.980 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:36.980 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:36.980 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [사르]
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:37.057 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:37.057172]
+2023-05-04 12:01:37.057 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [cos@nate.com]
+2023-05-04 12:01:37.057 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:37.057 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$7ey95ju/FLt8b5E7gCWBW.TH6XrEVaYSFYk011Ogqpn7WNVmb.eSa]
+2023-05-04 12:01:37.057 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:37.057 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:37.057 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:37.057 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [코스]
+2023-05-04 12:01:37.059 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+Hibernate: 
+    select
+        user0_.id as id1_4_,
+        user0_.created_at as created_2_4_,
+        user0_.email as email3_4_,
+        user0_.image as image4_4_,
+        user0_.password as password5_4_,
+        user0_.role as role6_4_,
+        user0_.status as status7_4_,
+        user0_.updated_at as updated_8_4_,
+        user0_.username as username9_4_ 
+    from
+        user_tb user0_ 
+    where
+        user0_.email=?
+2023-05-04 12:01:37.082 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:37.083 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_4_] : [BIGINT]) - [1]
+2023-05-04 12:01:37.083 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([created_2_4_] : [TIMESTAMP]) - [2023-05-04T12:01:36.978751]
+2023-05-04 12:01:37.083 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email3_4_] : [VARCHAR]) - [ssar@nate.com]
+2023-05-04 12:01:37.083 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([image4_4_] : [VARCHAR]) - [null]
+2023-05-04 12:01:37.083 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password5_4_] : [VARCHAR]) - [$2a$10$qAWNBQInBrr5dIRgjZUsZO2bZ8hDVIIErq9MASSxcrQKo975K0Ehy]
+2023-05-04 12:01:37.083 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([role6_4_] : [VARCHAR]) - [USER]
+2023-05-04 12:01:37.083 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_4_] : [BOOLEAN]) - [true]
+2023-05-04 12:01:37.083 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([updated_8_4_] : [TIMESTAMP]) - [null]
+2023-05-04 12:01:37.083 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([username9_4_] : [VARCHAR]) - [사르]
+2023-05-04 12:01:37.083 ERROR 95819 --- [    Test worker] s.m.restend.core.advice.MyLogAdvice      : 에러 : 이메일이 존재합니다
+테스트 : {"status":400,"msg":"badRequest","data":{"key":"email","value":"이메일이 존재합니다"}}
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/signup
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"63"]
+             Body = {"username":"사르","password":"1234","email":"ssar@nate.com"}
+    Session Attrs = {}
+
+Handler:
+             Type = shop.mtcoding.restend.controller.UserController
+           Method = shop.mtcoding.restend.controller.UserController#join(JoinInDTO, Errors)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = shop.mtcoding.restend.core.exception.Exception400
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 400
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Content-Type:"application/json;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0"]
+     Content type = application/json;charset=UTF-8
+             Body = {"status":400,"msg":"badRequest","data":{"key":"email","value":"이메일이 존재합니다"}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2023-05-04 12:01:37.091  INFO 95819 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-04 12:01:37.091  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-04 12:01:37.092  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:37.166 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:37.166215]
+2023-05-04 12:01:37.166 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:37.166 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:37.166 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$LsfZu2Z33G2i0RnxgAu62.Wm6BZcaNrLoQ8GWfqQib0XmbV8L5uGe]
+2023-05-04 12:01:37.166 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:37.166 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:37.166 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:37.166 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [사르]
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:37.242 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:37.242273]
+2023-05-04 12:01:37.242 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [cos@nate.com]
+2023-05-04 12:01:37.242 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:37.242 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$cO3soH7gS.iulefnMsMIMO9Kf4EXdGIafnpOjA0z3toO04OZph4Ra]
+2023-05-04 12:01:37.242 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:37.242 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:37.242 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:37.242 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [코스]
+2023-05-04 12:01:37.244 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+2023-05-04 12:01:37.248 ERROR 95819 --- [    Test worker] s.m.restend.core.advice.MyLogAdvice      : 에러 : 올바른 이름 형식으로 작성해주세요.
+테스트 : {"status":400,"msg":"badRequest","data":{"key":"username","value":"올바른 이름 형식으로 작성해주세요."}}
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/signup
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"60"]
+             Body = {"username":"사","password":"1234","email":"ssar@nate.com"}
+    Session Attrs = {}
+
+Handler:
+             Type = shop.mtcoding.restend.controller.UserController
+           Method = shop.mtcoding.restend.controller.UserController#join(JoinInDTO, Errors)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = shop.mtcoding.restend.core.exception.Exception400
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 400
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Content-Type:"application/json;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0"]
+     Content type = application/json;charset=UTF-8
+             Body = {"status":400,"msg":"badRequest","data":{"key":"username","value":"올바른 이름 형식으로 작성해주세요."}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2023-05-04 12:01:37.256  INFO 95819 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-04 12:01:37.256  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-04 12:01:37.256  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:37.331 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:37.330805]
+2023-05-04 12:01:37.331 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:37.331 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:37.331 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$Q5iGMdDyWqoTlYMZF0ybEOyY6P7v2O0oVYiRzs1/LyMYLPSY.sIye]
+2023-05-04 12:01:37.331 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:37.331 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:37.331 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:37.331 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [사르]
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:37.406 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:37.406573]
+2023-05-04 12:01:37.407 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [cos@nate.com]
+2023-05-04 12:01:37.407 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:37.407 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$InuimyWUikbPTV8z/yPJLeL3GrkCyjeLe7ErsrQsCuOZxwcoZitTW]
+2023-05-04 12:01:37.407 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:37.407 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:37.407 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:37.407 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [코스]
+Hibernate: 
+    select
+        user0_.id as id1_4_,
+        user0_.created_at as created_2_4_,
+        user0_.email as email3_4_,
+        user0_.image as image4_4_,
+        user0_.password as password5_4_,
+        user0_.role as role6_4_,
+        user0_.status as status7_4_,
+        user0_.updated_at as updated_8_4_,
+        user0_.username as username9_4_ 
+    from
+        user_tb user0_ 
+    where
+        user0_.email=?
+2023-05-04 12:01:37.408 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [cos@nate.com]
+2023-05-04 12:01:37.408 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([id1_4_] : [BIGINT]) - [2]
+2023-05-04 12:01:37.408 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([created_2_4_] : [TIMESTAMP]) - [2023-05-04T12:01:37.406573]
+2023-05-04 12:01:37.408 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([email3_4_] : [VARCHAR]) - [cos@nate.com]
+2023-05-04 12:01:37.408 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([image4_4_] : [VARCHAR]) - [null]
+2023-05-04 12:01:37.408 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([password5_4_] : [VARCHAR]) - [$2a$10$InuimyWUikbPTV8z/yPJLeL3GrkCyjeLe7ErsrQsCuOZxwcoZitTW]
+2023-05-04 12:01:37.408 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([role6_4_] : [VARCHAR]) - [USER]
+2023-05-04 12:01:37.408 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([status7_4_] : [BOOLEAN]) - [true]
+2023-05-04 12:01:37.408 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([updated_8_4_] : [TIMESTAMP]) - [null]
+2023-05-04 12:01:37.408 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicExtractor   : extracted value ([username9_4_] : [VARCHAR]) - [코스]
+2023-05-04 12:01:37.409 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+2023-05-04 12:01:37.409 ERROR 95819 --- [    Test worker] s.m.restend.core.advice.MyLogAdvice      : 에러 : 권한이 없습니다
+테스트 : {"status":403,"msg":"forbidden","data":"권한이 없습니다"}
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/user/1
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = shop.mtcoding.restend.controller.UserController
+           Method = shop.mtcoding.restend.controller.UserController#detail(Long, MyUserDetails)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = shop.mtcoding.restend.core.exception.Exception403
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 403
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Content-Type:"application/json;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0"]
+     Content type = application/json;charset=UTF-8
+             Body = {"status":403,"msg":"forbidden","data":"권한이 없습니다"}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2023-05-04 12:01:37.416  INFO 95819 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-04 12:01:37.416  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-04 12:01:37.417  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:37.490 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:37.490323]
+2023-05-04 12:01:37.490 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [ssar@nate.com]
+2023-05-04 12:01:37.490 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:37.490 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$viFO08fK41/6RXUsktH5Z.8v5r2tIvaQBEU2VvlIIjnWBdZNb7bqy]
+2023-05-04 12:01:37.490 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:37.490 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:37.490 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:37.490 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [사르]
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:37.564 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:37.564382]
+2023-05-04 12:01:37.564 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [cos@nate.com]
+2023-05-04 12:01:37.564 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:37.564 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$s0ia8I9Aer818dau0jHBf.9.NE3lfSEI1rlASSvUFhLV3kmczym/O]
+2023-05-04 12:01:37.564 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:37.564 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:37.564 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:37.564 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [코스]
+2023-05-04 12:01:37.566 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+Hibernate: 
+    select
+        user0_.id as id1_4_,
+        user0_.created_at as created_2_4_,
+        user0_.email as email3_4_,
+        user0_.image as image4_4_,
+        user0_.password as password5_4_,
+        user0_.role as role6_4_,
+        user0_.status as status7_4_,
+        user0_.updated_at as updated_8_4_,
+        user0_.username as username9_4_ 
+    from
+        user_tb user0_ 
+    where
+        user0_.email=?
+2023-05-04 12:01:37.567 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [VARCHAR] - [love@nate.com]
+encPassword : $2a$10$CQpFDRokzN1nDH5cgZGpcepVsfGJP3zNyuN/MSHrsWHLtMJBrnig6
+Hibernate: 
+    insert 
+    into
+        user_tb
+        (id, created_at, email, image, password, role, status, updated_at, username) 
+    values
+        (default, ?, ?, ?, ?, ?, ?, ?, ?)
+2023-05-04 12:01:37.641 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [TIMESTAMP] - [2023-05-04T12:01:37.641326]
+2023-05-04 12:01:37.641 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [2] as [VARCHAR] - [love@nate.com]
+2023-05-04 12:01:37.641 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [3] as [VARCHAR] - [null]
+2023-05-04 12:01:37.641 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [4] as [VARCHAR] - [$2a$10$CQpFDRokzN1nDH5cgZGpcepVsfGJP3zNyuN/MSHrsWHLtMJBrnig6]
+2023-05-04 12:01:37.641 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [5] as [VARCHAR] - [USER]
+2023-05-04 12:01:37.641 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [6] as [BOOLEAN] - [true]
+2023-05-04 12:01:37.641 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [7] as [TIMESTAMP] - [null]
+2023-05-04 12:01:37.641 TRACE 95819 --- [    Test worker] o.h.type.descriptor.sql.BasicBinder      : binding parameter [8] as [VARCHAR] - [러브]
+2023-05-04 12:01:37.642 DEBUG 95819 --- [    Test worker] s.m.restend.core.advice.MyLogAdvice      : 디버그 : 회원가입 성공
+2023-05-04 12:01:37.642 DEBUG 95819 --- [    Test worker] s.m.restend.core.advice.MyLogAdvice      : 디버그 : join 성공
+테스트 : {"status":200,"msg":"성공","data":{"id":3,"username":"러브","email":"love@nate.com"}}
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/signup
+       Parameters = {}
+          Headers = [Content-Type:"application/json;charset=UTF-8", Content-Length:"63"]
+             Body = {"username":"러브","password":"1234","email":"love@nate.com"}
+    Session Attrs = {}
+
+Handler:
+             Type = shop.mtcoding.restend.controller.UserController
+           Method = shop.mtcoding.restend.controller.UserController#join(JoinInDTO, Errors)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Content-Type:"application/json;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0"]
+     Content type = application/json;charset=UTF-8
+             Body = {"status":200,"msg":"성공","data":{"id":3,"username":"러브","email":"love@nate.com"}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

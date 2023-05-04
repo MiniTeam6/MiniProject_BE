@@ -12,13 +12,17 @@ import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.core.exception.Exception400;
 import shop.mtcoding.restend.core.exception.Exception401;
+import shop.mtcoding.restend.core.exception.Exception404;
 import shop.mtcoding.restend.core.exception.Exception500;
+import shop.mtcoding.restend.dto.ResponseDTO;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.model.user.UserRepository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -31,10 +35,10 @@ public class UserService {
     @MyLog
     @Transactional
     public UserResponse.JoinOutDTO 회원가입(UserRequest.JoinInDTO joinInDTO){
-        Optional<User> userOP =userRepository.findByUsername(joinInDTO.getUsername());
+        Optional<User> userOP =userRepository.findByEmail(joinInDTO.getEmail());
         if(userOP.isPresent()){
             // 이 부분이 try catch 안에 있으면 Exception500에게 제어권을 뺏긴다.
-            throw new Exception400("username", "유저네임이 존재합니다");
+            throw new Exception400("email", "이메일이 존재합니다");
         }
         String encPassword = passwordEncoder.encode(joinInDTO.getPassword()); // 60Byte
         joinInDTO.setPassword(encPassword);
@@ -53,7 +57,7 @@ public class UserService {
     public String 로그인(UserRequest.LoginInDTO loginInDTO) {
         try {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
-                    = new UsernamePasswordAuthenticationToken(loginInDTO.getUsername(), loginInDTO.getPassword());
+                    = new UsernamePasswordAuthenticationToken(loginInDTO.getEmail(), loginInDTO.getPassword());
             Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
             MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
             return MyJwtProvider.create(myUserDetails.getUser());
@@ -70,4 +74,48 @@ public class UserService {
         );
         return new UserResponse.DetailOutDTO(userPS);
     }
+
+
+    public List<UserResponse.UserListOutDTO> 회원리스트검색(UserRequest.SearchInDTO searchInDTO){
+        if(searchInDTO.getSearchType().equals("name")){
+            List<User> users = userRepository.findByUsernameContaining(searchInDTO.getKeyword());
+            List<UserResponse.UserListOutDTO> userDTOs = users.stream()
+                    .map(UserResponse.UserListOutDTO::new)
+                    .collect(Collectors.toList());
+
+            return userDTOs;
+        }else{
+            List<User> users = userRepository.findByEmailContaining(searchInDTO.getKeyword());
+            List<UserResponse.UserListOutDTO> userDTOs = users.stream()
+                    .map(UserResponse.UserListOutDTO::new)
+                    .collect(Collectors.toList());
+            return userDTOs;
+        }
+    }
+
+    public List<UserResponse.UserListOutDTO> 회원전체리스트(){
+        List<User> users=userRepository.findAll();
+        List<UserResponse.UserListOutDTO> userDTOs = users.stream()
+                .map(UserResponse.UserListOutDTO::new)
+                .collect(Collectors.toList());
+        return userDTOs;
+    }
+
+    public UserResponse.DetailOutDTO 권한업데이트(UserRequest.RoleUpdateInDTO roleUpdateInDTO){
+        Optional<User> user = userRepository.findByEmail(roleUpdateInDTO.getEmail());
+        if(user.isEmpty()){
+            throw new Exception404(roleUpdateInDTO.getEmail()+"User를 찾을 수 없습니다. ");
+        }
+        user.get().setRole(roleUpdateInDTO.getRole());
+        try{
+            User userPS=userRepository.save(user.get());
+            return new UserResponse.DetailOutDTO(userPS);
+        }catch (Exception e){
+            throw new Exception500(e+roleUpdateInDTO.getEmail()+"유저권한 업데이트 실패");
+        }
+    }
+
+
+
+
 }

@@ -30,8 +30,8 @@ public class UserRepositoryTest extends DummyEntity {
     @BeforeEach
     public void setUp() {
         em.createNativeQuery("ALTER TABLE user_tb ALTER COLUMN `id` RESTART WITH 1").executeUpdate();
-        userRepository.save(newUser("ssar", "쌀"));
-        userRepository.save(newUser("cos", "코스"));
+        userRepository.save(newUser("사르"));
+        userRepository.save(newUser("코스"));
         em.clear();
     }
 
@@ -49,12 +49,11 @@ public class UserRepositoryTest extends DummyEntity {
 
         // then
         Assertions.assertThat(userPS.getId()).isEqualTo(1L);
-        Assertions.assertThat(userPS.getUsername()).isEqualTo("ssar");
+        Assertions.assertThat(userPS.getUsername()).isEqualTo("사르");
         Assertions.assertThat(
                 passwordEncoder.matches("1234", userPS.getPassword())
         ).isEqualTo(true);
         Assertions.assertThat(userPS.getEmail()).isEqualTo("ssar@nate.com");
-        Assertions.assertThat(userPS.getFullName()).isEqualTo("쌀");
         Assertions.assertThat(userPS.getRole()).isEqualTo("USER");
         Assertions.assertThat(userPS.getStatus()).isEqualTo(true);
         Assertions.assertThat(userPS.getCreatedAt().toLocalDate()).isEqualTo(LocalDate.now());
@@ -64,7 +63,7 @@ public class UserRepositoryTest extends DummyEntity {
     @Test
     public void findByUsername() {
         // given
-        String username = "ssar";
+        String username = "사르";
 
         // when
         Optional<User> userOP = userRepository.findByUsername(username);
@@ -75,12 +74,11 @@ public class UserRepositoryTest extends DummyEntity {
 
         // then
         Assertions.assertThat(userPS.getId()).isEqualTo(1L);
-        Assertions.assertThat(userPS.getUsername()).isEqualTo("ssar");
+        Assertions.assertThat(userPS.getUsername()).isEqualTo("사르");
         Assertions.assertThat(
                 passwordEncoder.matches("1234", userPS.getPassword())
         ).isEqualTo(true);
         Assertions.assertThat(userPS.getEmail()).isEqualTo("ssar@nate.com");
-        Assertions.assertThat(userPS.getFullName()).isEqualTo("쌀");
         Assertions.assertThat(userPS.getRole()).isEqualTo("USER");
         Assertions.assertThat(userPS.getStatus()).isEqualTo(true);
         Assertions.assertThat(userPS.getCreatedAt().toLocalDate()).isEqualTo(LocalDate.now());
@@ -90,19 +88,18 @@ public class UserRepositoryTest extends DummyEntity {
     @Test
     public void save() {
         // given
-        User love = newUser("love", "러브");
+        User love = newUser( "러브");
 
         // when
         User userPS = userRepository.save(love);
 
         // then (beforeEach에서 2건이 insert 되어 있음)
         Assertions.assertThat(userPS.getId()).isEqualTo(3L);
-        Assertions.assertThat(userPS.getUsername()).isEqualTo("love");
+        Assertions.assertThat(userPS.getUsername()).isEqualTo("러브");
         Assertions.assertThat(
                 passwordEncoder.matches("1234", userPS.getPassword())
         ).isEqualTo(true);
         Assertions.assertThat(userPS.getEmail()).isEqualTo("love@nate.com");
-        Assertions.assertThat(userPS.getFullName()).isEqualTo("러브");
         Assertions.assertThat(userPS.getRole()).isEqualTo("USER");
         Assertions.assertThat(userPS.getStatus()).isEqualTo(true);
         Assertions.assertThat(userPS.getCreatedAt().toLocalDate()).isEqualTo(LocalDate.now());

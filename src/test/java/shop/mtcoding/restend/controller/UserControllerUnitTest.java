@@ -25,6 +25,8 @@ import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.core.MyWithMockUser;
 import shop.mtcoding.restend.model.user.User;
+import shop.mtcoding.restend.service.AnnualService;
+import shop.mtcoding.restend.service.EventService;
 import shop.mtcoding.restend.service.UserService;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -57,31 +59,36 @@ public class UserControllerUnitTest extends DummyEntity {
     @MockBean
     private UserService userService;
 
+    @MockBean
+    private EventService eventService;
+
+    @MockBean
+    private AnnualService annualService;
+
     @Test
     public void join_test() throws Exception {
         // 준비
         UserRequest.JoinInDTO joinInDTO = new UserRequest.JoinInDTO();
-        joinInDTO.setUsername("cos");
+        joinInDTO.setUsername("코스");
         joinInDTO.setPassword("1234");
         joinInDTO.setEmail("cos@nate.com");
-        joinInDTO.setFullName("코스");
         String requestBody = om.writeValueAsString(joinInDTO);
 
         // 가정해볼께
-        User cos = newMockUser(1L,"cos", "코스");
+        User cos = newMockUser(1L,"코스");
         UserResponse.JoinOutDTO joinOutDTO = new UserResponse.JoinOutDTO(cos);
         Mockito.when(userService.회원가입(any())).thenReturn(joinOutDTO);
 
         // 테스트진행
         ResultActions resultActions = mvc
-                .perform(post("/join").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+                .perform(post("/api/signup").content(requestBody).contentType(MediaType.APPLICATION_JSON));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
         // 검증해볼께
         resultActions.andExpect(jsonPath("$.data.id").value(1L));
-        resultActions.andExpect(jsonPath("$.data.username").value("cos"));
-        resultActions.andExpect(jsonPath("$.data.fullName").value("코스"));
+        resultActions.andExpect(jsonPath("$.data.username").value("코스"));
+        resultActions.andExpect(jsonPath("$.data.email").value("cos@nate.com"));
         resultActions.andExpect(status().isOk());
     }
 
@@ -89,7 +96,7 @@ public class UserControllerUnitTest extends DummyEntity {
     public void login_test() throws Exception {
         // given
         UserRequest.LoginInDTO loginInDTO = new UserRequest.LoginInDTO();
-        loginInDTO.setUsername("cos");
+        loginInDTO.setEmail("cos@nate.com");
         loginInDTO.setPassword("1234");
         String requestBody = om.writeValueAsString(loginInDTO);
 
@@ -98,7 +105,7 @@ public class UserControllerUnitTest extends DummyEntity {
 
         // when
         ResultActions resultActions = mvc
-                .perform(post("/login").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+                .perform(post("/api/login").content(requestBody).contentType(MediaType.APPLICATION_JSON));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
@@ -108,7 +115,7 @@ public class UserControllerUnitTest extends DummyEntity {
         resultActions.andExpect(status().isOk());
     }
 
-    @MyWithMockUser(id = 1L, username = "cos", role = "USER", fullName = "코스")
+    @MyWithMockUser(id = 1L, username = "코스", role = "USER", email = "cos@nate.com")
     //@WithMockUser(value = "ssar", password = "1234", roles = "USER")
     @Test
     public void detail_test() throws Exception {
@@ -116,21 +123,20 @@ public class UserControllerUnitTest extends DummyEntity {
         Long id = 1L;
 
         // stub
-        User cos = newMockUser(1L,"cos", "코스");
+        User cos = newMockUser(1L,"코스");
         UserResponse.DetailOutDTO detailOutDTO = new UserResponse.DetailOutDTO(cos);
         Mockito.when(userService.회원상세보기(any())).thenReturn(detailOutDTO);
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/s/user/"+id));
+                .perform(get("/api/user/"+id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
         // then
         resultActions.andExpect(jsonPath("$.data.id").value(1L));
-        resultActions.andExpect(jsonPath("$.data.username").value("cos"));
+        resultActions.andExpect(jsonPath("$.data.username").value("코스"));
         resultActions.andExpect(jsonPath("$.data.email").value("cos@nate.com"));
-        resultActions.andExpect(jsonPath("$.data.fullName").value("코스"));
         resultActions.andExpect(jsonPath("$.data.role").value("USER"));
         resultActions.andExpect(status().isOk());
     }

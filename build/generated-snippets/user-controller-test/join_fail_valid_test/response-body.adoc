@@ -1,0 +1,11 @@
+[source,options="nowrap"]
+----
+{
+  "status" : 400,
+  "msg" : "badRequest",
+  "data" : {
+    "key" : "username",
+    "value" : "올바른 이름 형식으로 작성해주세요."
+  }
+}
+----

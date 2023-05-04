@@ -14,5 +14,5 @@ public @interface MyWithMockUser {
     long id() default 1L;
     String username() default "cos";
     String role() default "USER";
-    String fullName() default "코스";
+    String email() default "cos@nate.com";
 }

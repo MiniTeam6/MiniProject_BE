@@ -5,8 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "user_tb")
@@ -17,16 +15,16 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false, length = 20)
+    @Column(nullable = false, length = 20)
     private String username;
 
     @Column(nullable = false, length = 60) // 패스워드 인코딩(BCrypt)
     private String password;
 
-    @Column(nullable = false, length = 20)
+    @Column(unique = true, nullable = false, length = 20)
     private String email;
-    @Column(nullable = false, length = 20)
-    private String fullName;
+
+    private String image; //이미지 경로
 
     private String role;
 
@@ -50,4 +48,16 @@ public class User {
         this.role = role;
     }
 
+    @Builder
+    public User(Long id, String username, String password, String email, String image, String role, Boolean status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.image = image;
+        this.role = role;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 }

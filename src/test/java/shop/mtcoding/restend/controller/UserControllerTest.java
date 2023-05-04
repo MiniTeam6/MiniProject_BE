@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import shop.mtcoding.restend.core.MyRestDoc;
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
+import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.core.dummy.DummyEntity;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.model.user.UserRepository;
@@ -51,8 +52,8 @@ public class UserControllerTest extends MyRestDoc {
 
     @BeforeEach
     public void setUp() {
-        userRepository.save(dummy.newUser("ssar", "쌀"));
-        userRepository.save(dummy.newUser("cos", "코스"));
+        userRepository.save(dummy.newUser("사르"));
+        userRepository.save(dummy.newUser("코스"));
         em.clear();
     }
 
@@ -61,22 +62,21 @@ public class UserControllerTest extends MyRestDoc {
     public void join_test() throws Exception {
         // given
         UserRequest.JoinInDTO joinInDTO = new UserRequest.JoinInDTO();
-        joinInDTO.setUsername("love");
+        joinInDTO.setUsername("러브");
         joinInDTO.setPassword("1234");
         joinInDTO.setEmail("love@nate.com");
-        joinInDTO.setFullName("러브");
         String requestBody = om.writeValueAsString(joinInDTO);
 
         // when
         ResultActions resultActions = mvc
-                .perform(post("/join").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+                .perform(post("/api/signup").content(requestBody).contentType(MediaType.APPLICATION_JSON));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
         // then
         resultActions.andExpect(jsonPath("$.data.id").value(3L));
-        resultActions.andExpect(jsonPath("$.data.username").value("love"));
-        resultActions.andExpect(jsonPath("$.data.fullName").value("러브"));
+        resultActions.andExpect(jsonPath("$.data.username").value("러브"));
+        resultActions.andExpect(jsonPath("$.data.email").value("love@nate.com"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -86,23 +86,22 @@ public class UserControllerTest extends MyRestDoc {
     public void join_fail_bad_request_test() throws Exception {
         // given
         UserRequest.JoinInDTO joinInDTO = new UserRequest.JoinInDTO();
-        joinInDTO.setUsername("ssar");
+        joinInDTO.setUsername("사르");
         joinInDTO.setPassword("1234");
         joinInDTO.setEmail("ssar@nate.com");
-        joinInDTO.setFullName("쌀");
         String requestBody = om.writeValueAsString(joinInDTO);
 
         // when
         ResultActions resultActions = mvc
-                .perform(post("/join").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+                .perform(post("/api/signup").content(requestBody).contentType(MediaType.APPLICATION_JSON));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
         // then
         resultActions.andExpect(jsonPath("$.status").value(400));
         resultActions.andExpect(jsonPath("$.msg").value("badRequest"));
-        resultActions.andExpect(jsonPath("$.data.key").value("username"));
-        resultActions.andExpect(jsonPath("$.data.value").value("유저네임이 존재합니다"));
+        resultActions.andExpect(jsonPath("$.data.key").value("email"));
+        resultActions.andExpect(jsonPath("$.data.value").value("이메일이 존재합니다"));
         resultActions.andExpect(status().isBadRequest());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -112,15 +111,14 @@ public class UserControllerTest extends MyRestDoc {
     public void join_fail_valid_test() throws Exception {
         // given
         UserRequest.JoinInDTO joinInDTO = new UserRequest.JoinInDTO();
-        joinInDTO.setUsername("s");
+        joinInDTO.setUsername("사");
         joinInDTO.setPassword("1234");
         joinInDTO.setEmail("ssar@nate.com");
-        joinInDTO.setFullName("쌀");
         String requestBody = om.writeValueAsString(joinInDTO);
 
         // when
         ResultActions resultActions = mvc
-                .perform(post("/join").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+                .perform(post("/api/signup").content(requestBody).contentType(MediaType.APPLICATION_JSON));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
@@ -128,7 +126,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(400));
         resultActions.andExpect(jsonPath("$.msg").value("badRequest"));
         resultActions.andExpect(jsonPath("$.data.key").value("username"));
-        resultActions.andExpect(jsonPath("$.data.value").value("영문/숫자 2~20자 이내로 작성해주세요"));
+        resultActions.andExpect(jsonPath("$.data.value").value("올바른 이름 형식으로 작성해주세요."));
         resultActions.andExpect(status().isBadRequest());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
@@ -138,13 +136,13 @@ public class UserControllerTest extends MyRestDoc {
     public void login_test() throws Exception {
         // given
         UserRequest.LoginInDTO loginInDTO = new UserRequest.LoginInDTO();
-        loginInDTO.setUsername("ssar");
+        loginInDTO.setEmail("ssar@nate.com");
         loginInDTO.setPassword("1234");
         String requestBody = om.writeValueAsString(loginInDTO);
 
         // when
         ResultActions resultActions = mvc
-                .perform(post("/login").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+                .perform(post("/api/login").content(requestBody).contentType(MediaType.APPLICATION_JSON));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
@@ -160,13 +158,13 @@ public class UserControllerTest extends MyRestDoc {
     public void login_fail_un_authorized_test() throws Exception {
         // given
         UserRequest.LoginInDTO loginInDTO = new UserRequest.LoginInDTO();
-        loginInDTO.setUsername("ssar");
+        loginInDTO.setEmail("ssar@nate.com");
         loginInDTO.setPassword("12345");
         String requestBody = om.writeValueAsString(loginInDTO);
 
         // when
         ResultActions resultActions = mvc
-                .perform(post("/login").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+                .perform(post("/api/login").content(requestBody).contentType(MediaType.APPLICATION_JSON));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
@@ -185,7 +183,7 @@ public class UserControllerTest extends MyRestDoc {
     // authenticationManager.authenticate() 실행해서 MyUserDetailsService를 호출하고
     // usrename=ssar을 찾아서 세션에 담아주는 어노테이션
     @DisplayName("회원상세보기 성공")
-    @WithUserDetails(value = "ssar", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @WithUserDetails(value = "ssar@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
     public void detail_test() throws Exception {
         // given
@@ -193,15 +191,14 @@ public class UserControllerTest extends MyRestDoc {
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/s/user/"+id));
+                .perform(get("/api/user/"+id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
         // then
         resultActions.andExpect(jsonPath("$.data.id").value(1L));
-        resultActions.andExpect(jsonPath("$.data.username").value("ssar"));
+        resultActions.andExpect(jsonPath("$.data.username").value("사르"));
         resultActions.andExpect(jsonPath("$.data.email").value("ssar@nate.com"));
-        resultActions.andExpect(jsonPath("$.data.fullName").value("쌀"));
         resultActions.andExpect(jsonPath("$.data.role").value("USER"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
@@ -215,7 +212,7 @@ public class UserControllerTest extends MyRestDoc {
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/s/user/"+id));
+                .perform(get("/api/user/"+id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
@@ -228,7 +225,7 @@ public class UserControllerTest extends MyRestDoc {
     }
 
     @DisplayName("회원상세보기 권한 실패")
-    @WithUserDetails(value = "cos", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
     public void detail_fail_forbidden_test() throws Exception {
         // given
@@ -236,7 +233,7 @@ public class UserControllerTest extends MyRestDoc {
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/s/user/"+id));
+                .perform(get("/api/user/"+id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
