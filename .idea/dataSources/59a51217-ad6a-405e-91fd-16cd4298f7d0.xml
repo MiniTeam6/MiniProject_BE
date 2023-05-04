@@ -170,5 +170,8 @@
     <schema id="163" parent="2" name="PUBLIC">
       <Current>1</Current>
     </schema>
+    <user id="164" parent="2" name="SA">
+      <Admin>1</Admin>
+    </user>
   </database-model>
 </dataSource>

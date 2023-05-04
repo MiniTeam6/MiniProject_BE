@@ -470,16 +470,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h5 id="_request_example">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /join HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/signup HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 107
+Content-Length: 79
 Host: localhost:8080
 
 {
-  "username" : "love",
+  "username" : "러브",
   "password" : "1234",
-  "email" : "love@nate.com",
-  "fullName" : "러브"
+  "email" : "love@nate.com"
 }</code></pre>
 </div>
 </div>
@@ -498,15 +497,15 @@ X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 131
+Content-Length: 129
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
     "id" : 3,
-    "username" : "love",
-    "fullName" : "러브"
+    "username" : "러브",
+    "email" : "love@nate.com"
   }
 }</code></pre>
 </div>
@@ -516,13 +515,12 @@ Content-Length: 131
 <h5 id="_curl">Curl</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/join' -i -X POST \
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/api/signup' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -d '{
-  "username" : "love",
+  "username" : "러브",
   "password" : "1234",
-  "email" : "love@nate.com",
-  "fullName" : "러브"
+  "email" : "love@nate.com"
 }'</code></pre>
 </div>
 </div>
@@ -534,16 +532,15 @@ Content-Length: 131
 <h5 id="_request_example_2">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /join HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/signup HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 104
+Content-Length: 79
 Host: localhost:8080
 
 {
-  "username" : "ssar",
+  "username" : "사르",
   "password" : "1234",
-  "email" : "ssar@nate.com",
-  "fullName" : "쌀"
+  "email" : "ssar@nate.com"
 }</code></pre>
 </div>
 </div>
@@ -562,14 +559,14 @@ X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 141
+Content-Length: 128
 
 {
   "status" : 400,
   "msg" : "badRequest",
   "data" : {
-    "key" : "username",
-    "value" : "유저네임이 존재합니다"
+    "key" : "email",
+    "value" : "이메일이 존재합니다"
   }
 }</code></pre>
 </div>
@@ -579,13 +576,12 @@ Content-Length: 141
 <h5 id="_curl_2">Curl</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/join' -i -X POST \
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/api/signup' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -d '{
-  "username" : "ssar",
+  "username" : "사르",
   "password" : "1234",
-  "email" : "ssar@nate.com",
-  "fullName" : "쌀"
+  "email" : "ssar@nate.com"
 }'</code></pre>
 </div>
 </div>
@@ -597,16 +593,15 @@ Content-Length: 141
 <h5 id="_request_example_3">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /join HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/signup HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 101
+Content-Length: 76
 Host: localhost:8080
 
 {
-  "username" : "s",
+  "username" : "사",
   "password" : "1234",
-  "email" : "ssar@nate.com",
-  "fullName" : "쌀"
+  "email" : "ssar@nate.com"
 }</code></pre>
 </div>
 </div>
@@ -625,14 +620,14 @@ X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 160
+Content-Length: 152
 
 {
   "status" : 400,
   "msg" : "badRequest",
   "data" : {
     "key" : "username",
-    "value" : "영문/숫자 2~20자 이내로 작성해주세요"
+    "value" : "올바른 이름 형식으로 작성해주세요."
   }
 }</code></pre>
 </div>
@@ -642,13 +637,12 @@ Content-Length: 160
 <h5 id="_curl_3">Curl</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/join' -i -X POST \
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/api/signup' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -d '{
-  "username" : "s",
+  "username" : "사",
   "password" : "1234",
-  "email" : "ssar@nate.com",
-  "fullName" : "쌀"
+  "email" : "ssar@nate.com"
 }'</code></pre>
 </div>
 </div>
@@ -660,13 +654,13 @@ Content-Length: 160
 <h5 id="_request_example_4">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /login HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/login HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 51
+Content-Length: 54
 Host: localhost:8080
 
 {
-  "username" : "ssar",
+  "email" : "ssar@nate.com",
   "password" : "1234"
 }</code></pre>
 </div>
@@ -680,14 +674,14 @@ Host: localhost:8080
 Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3RzdHVkeSIsInJvbGUiOiJVU0VSIiwiaWQiOjEsImV4cCI6MTY4MjU5NDYyNX0.oh4abq1e7w5c4GVXkS1JbEx-K7-rSJwCYyBOJRG5G810ZvcM2jTreCnKGydIqcdbSoR_TgYctKig7VUErixN6g
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqd3RzdHVkeSIsInJvbGUiOiJVU0VSIiwiaWQiOjEsImV4cCI6MTY4MzI1NTY5Nn0.bvIcgZ_D8SGjZfLiZoyzvVklzeadz8VdAWsTgXxGAVAniletIefCVYQE5mUc6p4zHLiPIRYk-z_WPI_mbiV2Rg
 Content-Type: application/json;charset=UTF-8
 X-Content-Type-Options: nosniff
 X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 61
+Content-Length: 57
 
 {
   "status" : 200,
@@ -701,10 +695,10 @@ Content-Length: 61
 <h5 id="_curl_4">Curl</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/login' -i -X POST \
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/api/login' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -d '{
-  "username" : "ssar",
+  "email" : "ssar@nate.com",
   "password" : "1234"
 }'</code></pre>
 </div>
@@ -717,13 +711,13 @@ Content-Length: 61
 <h5 id="_request_example_5">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /login HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/login HTTP/1.1
 Content-Type: application/json;charset=UTF-8
-Content-Length: 52
+Content-Length: 55
 Host: localhost:8080
 
 {
-  "username" : "ssar",
+  "email" : "ssar@nate.com",
   "password" : "12345"
 }</code></pre>
 </div>
@@ -743,7 +737,7 @@ X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 93
+Content-Length: 89
 
 {
   "status" : 401,
@@ -757,10 +751,10 @@ Content-Length: 93
 <h5 id="_curl_5">Curl</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/login' -i -X POST \
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/api/login' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -d '{
-  "username" : "ssar",
+  "email" : "ssar@nate.com",
   "password" : "12345"
 }'</code></pre>
 </div>
@@ -773,7 +767,7 @@ Content-Length: 93
 <h5 id="_request_example_6">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/user/1 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/user/1 HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -792,16 +786,15 @@ X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 182
+Content-Length: 150
 
 {
   "status" : 200,
   "msg" : "성공",
   "data" : {
     "id" : 1,
-    "username" : "ssar",
+    "username" : "사르",
     "email" : "ssar@nate.com",
-    "fullName" : "쌀",
     "role" : "USER"
   }
 }</code></pre>
@@ -812,7 +805,7 @@ Content-Length: 182
 <h5 id="_curl_6">Curl</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/s/user/1' -i -X GET</code></pre>
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/api/user/1' -i -X GET</code></pre>
 </div>
 </div>
 </div>
@@ -823,7 +816,7 @@ Content-Length: 182
 <h5 id="_request_example_7">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/user/1 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/user/1 HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -842,7 +835,7 @@ X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 93
+Content-Length: 89
 
 {
   "status" : 401,
@@ -856,7 +849,7 @@ Content-Length: 93
 <h5 id="_curl_7">Curl</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/s/user/1' -i -X GET</code></pre>
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/api/user/1' -i -X GET</code></pre>
 </div>
 </div>
 </div>
@@ -867,7 +860,7 @@ Content-Length: 93
 <h5 id="_request_example_8">Request Example</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /s/user/1 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/user/1 HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -886,7 +879,7 @@ X-XSS-Protection: 1; mode=block
 Cache-Control: no-cache, no-store, max-age=0, must-revalidate
 Pragma: no-cache
 Expires: 0
-Content-Length: 84
+Content-Length: 80
 
 {
   "status" : 403,
@@ -900,7 +893,7 @@ Content-Length: 84
 <h5 id="_curl_8">Curl</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/s/user/1' -i -X GET</code></pre>
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://localhost:8080/api/user/1' -i -X GET</code></pre>
 </div>
 </div>
 </div>
@@ -911,7 +904,7 @@ Content-Length: 84
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-04-26 20:23:04 +0900
+Last updated 2023-05-04 11:00:31 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">

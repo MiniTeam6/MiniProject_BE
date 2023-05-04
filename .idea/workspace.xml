@@ -12,92 +12,11 @@
       <change beforePath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/core/auth/session/MyUserDetails.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/core/auth/session/MyUserDetails.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/core/config/MySecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/core/config/MySecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/core/dummy/DummyEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/core/dummy/DummyEntity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/dto/event/EventRequest$EventAddDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/dto/event/EventRequest$EventAddDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/dto/event/EventResponse$EventListDto.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/dto/event/EventResponse$EventListDto.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/dto/user/UserRequest$JoinInDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/dto/user/UserRequest$JoinInDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/dto/user/UserResponse$JoinOutDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/dto/user/UserResponse$JoinOutDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/dto/user/UserResponse$UserListOutDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/dto/user/UserResponse$UserListOutDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Annual/Annual$AnnualBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Annual/Annual$AnnualBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Annual/Annual.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Annual/Annual.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Annual/AnnualRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Annual/AnnualRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Duty/Duty$DutyBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Duty/Duty$DutyBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Duty/Duty.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Duty/Duty.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Duty/DutyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Duty/DutyRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Event/Event$EventBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Event/Event$EventBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Event/Event.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Event/Event.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Event/EventRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Event/EventRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Event/EventType.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Event/EventType.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Order/Order$OrderBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Order/Order$OrderBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Order/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Order/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Order/OrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Order/OrderRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Order/OrderState.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/model/Order/OrderState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/service/AnnualService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/service/AnnualService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/service/EventService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/service/EventService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/service/OrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/service/OrderService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/shop/mtcoding/restend/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/shop/mtcoding/restend/controller/UserControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/shop/mtcoding/restend/controller/UserControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/shop/mtcoding/restend/controller/UserControllerUnitTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/shop/mtcoding/restend/controller/UserControllerUnitTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/shop/mtcoding/restend/model/user/UserRepositoryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/shop/mtcoding/restend/model/user/UserRepositoryTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/test/shop/mtcoding/restend/service/UserServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/test/shop/mtcoding/restend/service/UserServiceTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/generated-snippets/user-controller-test/detail_fail_un_authorized__test/curl-request.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/build/generated-snippets/user-controller-test/detail_fail_un_authorized__test/curl-request.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/generated-snippets/user-controller-test/detail_fail_un_authorized__test/http-request.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/build/generated-snippets/user-controller-test/detail_fail_un_authorized__test/http-request.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/generated-snippets/user-controller-test/detail_fail_un_authorized__test/httpie-request.adoc" beforeDir="false" afterPath="$PROJECT_DIR$/build/generated-snippets/user-controller-test/detail_fail_un_authorized__test/httpie-request.adoc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/shop.mtcoding.restend.RestendApplicationTests.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/shop.mtcoding.restend.RestendApplicationTests.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/shop.mtcoding.restend.controller.UserControllerTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/shop.mtcoding.restend.controller.UserControllerTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/shop.mtcoding.restend.controller.UserControllerUnitTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/shop.mtcoding.restend.controller.UserControllerUnitTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/shop.mtcoding.restend.model.user.UserRepositoryTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/shop.mtcoding.restend.model.user.UserRepositoryTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/classes/shop.mtcoding.restend.service.UserServiceTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/classes/shop.mtcoding.restend.service.UserServiceTest.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/shop.mtcoding.restend.controller.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/shop.mtcoding.restend.controller.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/shop.mtcoding.restend.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/shop.mtcoding.restend.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/shop.mtcoding.restend.model.user.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/shop.mtcoding.restend.model.user.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/packages/shop.mtcoding.restend.service.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/packages/shop.mtcoding.restend.service.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/resources/main/db/teardown.sql" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/db/teardown.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-shop.mtcoding.restend.RestendApplicationTests.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-shop.mtcoding.restend.RestendApplicationTests.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-shop.mtcoding.restend.controller.UserControllerTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-shop.mtcoding.restend.controller.UserControllerTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-shop.mtcoding.restend.controller.UserControllerUnitTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-shop.mtcoding.restend.controller.UserControllerUnitTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-shop.mtcoding.restend.model.user.UserRepositoryTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-shop.mtcoding.restend.model.user.UserRepositoryTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/TEST-shop.mtcoding.restend.service.UserServiceTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/TEST-shop.mtcoding.restend.service.UserServiceTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/output.bin.idx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/test-results/test/binary/results.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/DataInit.class.uniqueId0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/DummyEntity.class.uniqueId1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/UserControllerTest.class.uniqueId1" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/UserControllerTest.class.uniqueId1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/UserControllerUnitTest.class.uniqueId0" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/UserControllerUnitTest.class.uniqueId0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/UserRepositoryTest.class.uniqueId3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/static/docs/api-docs.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/static/docs/api-docs.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/UserControllerTest.class.uniqueId1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/UserControllerUnitTest.class.uniqueId0" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/compileTransaction/stash-dir/UserServiceTest.class.uniqueId2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileTestJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/core/auth/session/MyUserDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/core/auth/session/MyUserDetails.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/core/config/MySecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/core/config/MySecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/core/dummy/DummyEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/core/dummy/DummyEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/event/EventRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/event/EventRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/event/EventResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/event/EventResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/user/UserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/user/UserRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/user/UserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/user/UserResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/Annual/Annual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/annual/Annual.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/Annual/AnnualRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/annual/AnnualRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/Duty/Duty.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/duty/Duty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/Duty/DutyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/duty/DutyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/Event/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/event/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/Event/EventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/event/EventRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/Event/EventType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/event/EventType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/Order/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/order/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/Order/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/order/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/Order/OrderState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/order/OrderState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/AnnualService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/AnnualService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/EventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/EventService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/db/teardown.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/teardown.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/shop/mtcoding/restend/controller/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/shop/mtcoding/restend/controller/UserControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/shop/mtcoding/restend/controller/UserControllerUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/shop/mtcoding/restend/controller/UserControllerUnitTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/shop/mtcoding/restend/model/user/UserRepositoryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/shop/mtcoding/restend/model/user/UserRepositoryTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/shop/mtcoding/restend/service/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/shop/mtcoding/restend/service/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/docs/api-docs.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/docs/api-docs.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,6 +27,37 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="restend" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="restend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="restend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -138,7 +88,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.MiniProject_BE2 [bootJar]">
+  <component name="RunManager" selected="Gradle.Tests in 'restend.test'">
     <configuration name="MiniProject_BE2 [bootJar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -236,8 +186,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.MiniProject_BE2 [bootJar]" />
         <item itemvalue="Gradle.Tests in 'restend.test'" />
+        <item itemvalue="Gradle.MiniProject_BE2 [bootJar]" />
         <item itemvalue="Gradle.UserControllerTest.detail_test" />
         <item itemvalue="Gradle.UserServiceTest.회원가입_test" />
       </list>
@@ -251,7 +201,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1683165632113</updated>
-      <workItem from="1683165633357" duration="3623000" />
+      <workItem from="1683165633357" duration="4156000" />
     </task>
     <servers />
   </component>
