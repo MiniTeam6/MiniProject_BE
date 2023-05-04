@@ -93,9 +93,9 @@ public class UserService {
     }
 
     public List<UserResponse.UserListOutDTO> 회원전체리스트(){
-        List<User> users=userRepository.findAll();
+        List<User>users=userRepository.findUsersByStatus(true);
         List<UserResponse.UserListOutDTO> userDTOs = users.stream()
-                .map(UserResponse.UserListOutDTO::new)
+                .map(user->new UserResponse.UserListOutDTO(user))
                 .collect(Collectors.toList());
         return userDTOs;
     }
@@ -130,7 +130,7 @@ public class UserService {
     }
 
     public List<UserResponse.UserListOutDTO> 회원가입요청목록(){
-        List<User>users=userRepository.findUsersByStatus();
+        List<User>users=userRepository.findUsersByStatus(false);
         List<UserResponse.UserListOutDTO> userDTOs = users.stream()
                 .map(user->new UserResponse.UserListOutDTO(user))
                 .collect(Collectors.toList());

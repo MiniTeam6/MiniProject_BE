@@ -49,6 +49,13 @@ public class AdminController {
 		return ResponseEntity.ok(responseDTO);
 	}
 
+	@GetMapping("/role/list")
+	public ResponseEntity<?>roleList(){
+		List<UserResponse.UserListOutDTO>userListOutDTOS=userService.회원전체리스트();
+		ResponseDTO<?>responseDTO=new ResponseDTO<>(userListOutDTOS);
+		return ResponseEntity.ok(responseDTO);
+	}
+
 
 
 
