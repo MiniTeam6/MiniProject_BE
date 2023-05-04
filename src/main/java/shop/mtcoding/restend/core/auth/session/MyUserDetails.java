@@ -20,9 +20,9 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collector = new ArrayList<>();
-        collector.add(() -> user.getRole());
-        return collector;
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(() -> "ROLE_" + user.getRole());
+        return authorities;
     }
 
     @Override
