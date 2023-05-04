@@ -48,4 +48,9 @@ public class UserRequest {
                     .build();
         }
     }
+    @Setter @Getter
+    public static class SearchInDTO{
+        private String searchType;
+        private String keyword;
+    }
 }

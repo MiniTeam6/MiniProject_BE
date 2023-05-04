@@ -13,6 +13,7 @@ import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.core.exception.Exception400;
 import shop.mtcoding.restend.core.exception.Exception401;
 import shop.mtcoding.restend.core.exception.Exception500;
+import shop.mtcoding.restend.dto.ResponseDTO;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.model.user.User;
@@ -74,15 +75,16 @@ public class UserService {
     }
 
 
-    public List<UserResponse.UserListOutDTO> 회원리스트검색(String searchType ,String keyword){
-        if(searchType.equals("username")){
-            List<User> users = userRepository.findByUsernameContaining(keyword);
+    public List<UserResponse.UserListOutDTO> 회원리스트검색(UserRequest.SearchInDTO searchInDTO){
+        if(searchInDTO.getSearchType().equals("name")){
+            List<User> users = userRepository.findByUsernameContaining(searchInDTO.getKeyword());
             List<UserResponse.UserListOutDTO> userDTOs = users.stream()
                     .map(UserResponse.UserListOutDTO::new)
                     .collect(Collectors.toList());
+
             return userDTOs;
         }else{
-            List<User> users = userRepository.findByEmailContaining(keyword);
+            List<User> users = userRepository.findByEmailContaining(searchInDTO.getKeyword());
             List<UserResponse.UserListOutDTO> userDTOs = users.stream()
                     .map(UserResponse.UserListOutDTO::new)
                     .collect(Collectors.toList());

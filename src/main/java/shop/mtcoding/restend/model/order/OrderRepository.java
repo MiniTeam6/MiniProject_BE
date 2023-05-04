@@ -3,10 +3,11 @@ package shop.mtcoding.restend.model.order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import shop.mtcoding.restend.model.event.EventType;
 
 import java.util.List;
-
+@Repository
 public interface OrderRepository extends JpaRepository<Order,Long> {
 	@Query("SELECT o FROM Order o WHERE o.orderState = :orderState AND o.event.eventType = :eventType")
 	List<Order> findByOrderStateAndEventType(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType);
