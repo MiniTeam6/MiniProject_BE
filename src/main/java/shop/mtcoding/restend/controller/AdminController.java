@@ -3,13 +3,18 @@ package shop.mtcoding.restend.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.dto.ResponseDTO;
+import shop.mtcoding.restend.dto.order.OrderRequest;
+import shop.mtcoding.restend.dto.order.OrderResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.model.event.EventRepository;
 import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.service.EventService;
+import shop.mtcoding.restend.service.OrderService;
 import shop.mtcoding.restend.service.UserService;
 
 import javax.validation.Valid;
@@ -23,6 +28,7 @@ public class AdminController {
 
 	private final UserService userService;
 	private final EventService eventService;
+	private final OrderService orderService;
 	@PostMapping("/search")
 	public ResponseEntity<?> userSearch(@RequestBody @Valid UserRequest.SearchInDTO searchInDTO){
 		List<UserResponse.UserListOutDTO> userListOutDTO = userService.회원리스트검색(searchInDTO);
@@ -55,6 +61,25 @@ public class AdminController {
 		ResponseDTO<?>responseDTO=new ResponseDTO<>(userListOutDTOS);
 		return ResponseEntity.ok(responseDTO);
 	}
+
+	@PostMapping("/annual/order")
+	public ResponseEntity<?>annualOrder(@RequestBody OrderRequest.ApprovalInDTO approvalInDTO, @AuthenticationPrincipal MyUserDetails myUserDetails){
+		OrderResponse.AnnualApprovalOutDTO annualApprovalOutDTO=orderService.연차승인(myUserDetails.getUser().getId(), approvalInDTO);
+		ResponseDTO<?> responseDTO = new ResponseDTO<>(annualApprovalOutDTO);
+		return ResponseEntity.ok(responseDTO);
+	}
+
+	@PostMapping("/duty/order")
+	public ResponseEntity<?>dutyOrder(@RequestBody OrderRequest.ApprovalInDTO approvalInDTO, @AuthenticationPrincipal MyUserDetails myUserDetails){
+		OrderResponse.DutyApprovalOutDTO dutyApprovalOutDTO=orderService.당직승인(myUserDetails.getUser().getId(), approvalInDTO);
+		ResponseDTO<?> responseDTO = new ResponseDTO<>(dutyApprovalOutDTO);
+		return ResponseEntity.ok(responseDTO);
+	}
+
+
+
+
+
 
 
 
