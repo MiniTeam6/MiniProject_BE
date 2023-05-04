@@ -1,7 +1,9 @@
 package shop.mtcoding.restend.dto.user;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import shop.mtcoding.restend.model.user.User;
 
 public class UserResponse {
@@ -35,6 +37,9 @@ public class UserResponse {
         }
     }
 
+    @JsonSerialize
+    @Getter
+    @Setter
     public static class UserListOutDTO{
         private String image;
         private String username;

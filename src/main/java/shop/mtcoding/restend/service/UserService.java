@@ -80,9 +80,8 @@ public class UserService {
         if(searchInDTO.getSearchType().equals("name")){
             List<User> users = userRepository.findByUsernameContaining(searchInDTO.getKeyword());
             List<UserResponse.UserListOutDTO> userDTOs = users.stream()
-                    .map(UserResponse.UserListOutDTO::new)
+                    .map(user->new UserResponse.UserListOutDTO(user))
                     .collect(Collectors.toList());
-
             return userDTOs;
         }else{
             List<User> users = userRepository.findByEmailContaining(searchInDTO.getKeyword());

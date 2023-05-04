@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name = "user_tb")
 @Entity
+@Builder
+@ToString
 public class User {
 
     @Id

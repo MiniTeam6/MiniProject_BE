@@ -8,6 +8,7 @@ import shop.mtcoding.restend.dto.ResponseDTO;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.model.event.EventRepository;
+import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.service.EventService;
 import shop.mtcoding.restend.service.UserService;
 
@@ -33,6 +34,7 @@ public class AdminController {
 	public ResponseEntity<?> roleUpdate(@RequestBody @Valid UserRequest.RoleUpdateInDTO roleUpdateInDTO){
 		UserResponse.DetailOutDTO detailOutDTO= userService.권한업데이트(roleUpdateInDTO);
 		ResponseDTO<?>responseDTO = new ResponseDTO<>(detailOutDTO);
+		System.out.println(ResponseEntity.ok(responseDTO));
 		return ResponseEntity.ok(responseDTO);
 	}
 

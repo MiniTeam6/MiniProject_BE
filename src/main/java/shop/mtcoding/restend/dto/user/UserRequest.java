@@ -44,7 +44,7 @@ public class UserRequest {
                     .password(password)
                     .email(email)
                     .role("USER")
-                    .status(true)
+                    .status(false)
                     .build();
         }
     }
