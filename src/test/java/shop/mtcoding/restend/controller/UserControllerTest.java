@@ -51,8 +51,8 @@ public class UserControllerTest extends MyRestDoc {
 
     @BeforeEach
     public void setUp() {
-        userRepository.save(dummy.newUser("ssar", "쌀"));
-        userRepository.save(dummy.newUser("cos", "코스"));
+        userRepository.save(dummy.newUser("사르"));
+        userRepository.save(dummy.newUser("코스"));
         em.clear();
     }
 
@@ -64,7 +64,6 @@ public class UserControllerTest extends MyRestDoc {
         joinInDTO.setUsername("love");
         joinInDTO.setPassword("1234");
         joinInDTO.setEmail("love@nate.com");
-        joinInDTO.setFullName("러브");
         String requestBody = om.writeValueAsString(joinInDTO);
 
         // when
@@ -89,7 +88,6 @@ public class UserControllerTest extends MyRestDoc {
         joinInDTO.setUsername("ssar");
         joinInDTO.setPassword("1234");
         joinInDTO.setEmail("ssar@nate.com");
-        joinInDTO.setFullName("쌀");
         String requestBody = om.writeValueAsString(joinInDTO);
 
         // when
@@ -115,7 +113,6 @@ public class UserControllerTest extends MyRestDoc {
         joinInDTO.setUsername("s");
         joinInDTO.setPassword("1234");
         joinInDTO.setEmail("ssar@nate.com");
-        joinInDTO.setFullName("쌀");
         String requestBody = om.writeValueAsString(joinInDTO);
 
         // when
@@ -138,7 +135,7 @@ public class UserControllerTest extends MyRestDoc {
     public void login_test() throws Exception {
         // given
         UserRequest.LoginInDTO loginInDTO = new UserRequest.LoginInDTO();
-        loginInDTO.setUsername("ssar");
+        loginInDTO.setEmail("ssar@nate.com");
         loginInDTO.setPassword("1234");
         String requestBody = om.writeValueAsString(loginInDTO);
 
@@ -160,7 +157,7 @@ public class UserControllerTest extends MyRestDoc {
     public void login_fail_un_authorized_test() throws Exception {
         // given
         UserRequest.LoginInDTO loginInDTO = new UserRequest.LoginInDTO();
-        loginInDTO.setUsername("ssar");
+        loginInDTO.setEmail("ssar@nate.com");
         loginInDTO.setPassword("12345");
         String requestBody = om.writeValueAsString(loginInDTO);
 
@@ -185,7 +182,7 @@ public class UserControllerTest extends MyRestDoc {
     // authenticationManager.authenticate() 실행해서 MyUserDetailsService를 호출하고
     // usrename=ssar을 찾아서 세션에 담아주는 어노테이션
     @DisplayName("회원상세보기 성공")
-    @WithUserDetails(value = "ssar", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @WithUserDetails(value = "ssar@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
     public void detail_test() throws Exception {
         // given
@@ -193,7 +190,7 @@ public class UserControllerTest extends MyRestDoc {
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/s/user/"+id));
+                .perform(get("/api/user/"+id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
@@ -215,7 +212,7 @@ public class UserControllerTest extends MyRestDoc {
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/s/user/"+id));
+                .perform(get("/api/user/"+id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
@@ -228,7 +225,7 @@ public class UserControllerTest extends MyRestDoc {
     }
 
     @DisplayName("회원상세보기 권한 실패")
-    @WithUserDetails(value = "cos", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
     public void detail_fail_forbidden_test() throws Exception {
         // given
@@ -236,7 +233,7 @@ public class UserControllerTest extends MyRestDoc {
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/s/user/"+id));
+                .perform(get("/api/user/"+id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 

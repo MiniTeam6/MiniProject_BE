@@ -6,25 +6,23 @@ import shop.mtcoding.restend.model.user.User;
 import java.time.LocalDateTime;
 
 public class DummyEntity {
-    public User newUser(String username, String fullName){
+    public User newUser(String username){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return User.builder()
                 .username(username)
                 .password(passwordEncoder.encode("1234"))
-                .fullName(fullName)
                 .email(username+"@nate.com")
                 .role("USER")
                 .status(true)
                 .build();
     }
 
-    public User newMockUser(Long id, String username, String fullName){
+    public User newMockUser(Long id, String username){
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return User.builder()
                 .id(id)
                 .username(username)
                 .password(passwordEncoder.encode("1234"))
-                .fullName(fullName)
                 .email(username+"@nate.com")
                 .role("USER")
                 .status(true)
