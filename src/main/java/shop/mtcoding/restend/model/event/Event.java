@@ -19,6 +19,7 @@ public class Event {
 	@JoinColumn(name = "user_id")
 	private User user;
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private EventType eventType;
 	@OneToOne
 	@JoinColumn(name="annual_id")

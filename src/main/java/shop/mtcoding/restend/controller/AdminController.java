@@ -8,6 +8,7 @@ import shop.mtcoding.restend.dto.ResponseDTO;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.model.event.EventRepository;
+import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.service.EventService;
 import shop.mtcoding.restend.service.UserService;
 
@@ -35,6 +36,27 @@ public class AdminController {
 		ResponseDTO<?>responseDTO = new ResponseDTO<>(detailOutDTO);
 		return ResponseEntity.ok(responseDTO);
 	}
+	@PostMapping("/status")
+	public ResponseEntity<?> statusUpdate(@RequestBody @Valid UserRequest.StatusUpdateInDTO statusUpdateInDTO){
+		UserResponse.StatusUpdateOutDTO statusUpdateOutDTO = userService.회원가입승인(statusUpdateInDTO);
+		ResponseDTO<?>responseDTO = new ResponseDTO<>(statusUpdateOutDTO);
+		return ResponseEntity.ok(responseDTO);
+	}
+	@GetMapping("/signup/list")
+	public ResponseEntity<?>signupList (){
+		List<UserResponse.UserListOutDTO>userListOutDTOS=userService.회원가입요청목록();
+		ResponseDTO<?>responseDTO=new ResponseDTO<>(userListOutDTOS);
+		return ResponseEntity.ok(responseDTO);
+	}
+
+	@GetMapping("/role/list")
+	public ResponseEntity<?>roleList(){
+		List<UserResponse.UserListOutDTO>userListOutDTOS=userService.회원전체리스트();
+		ResponseDTO<?>responseDTO=new ResponseDTO<>(userListOutDTOS);
+		return ResponseEntity.ok(responseDTO);
+	}
+
+
 
 
 

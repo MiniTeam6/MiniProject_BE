@@ -1,10 +1,12 @@
 package shop.mtcoding.restend.dto;
 
 import lombok.Getter;
+import lombok.ToString;
 import org.springframework.http.HttpStatus;
 import shop.mtcoding.restend.dto.user.UserResponse;
 
 @Getter
+@ToString
 public class ResponseDTO<T> {
     private Integer status; // 에러시에 의미 있음.
     private String msg; // 에러시에 의미 있음. ex) badRequest
@@ -18,6 +20,11 @@ public class ResponseDTO<T> {
     public ResponseDTO(T data){
         this.status = HttpStatus.OK.value();
         this.msg = "성공";
+        this.data = data; // 응답할 데이터 바디
+    }
+    public ResponseDTO(String msg,T data){
+        this.status = HttpStatus.OK.value();
+        this.msg = msg;
         this.data = data; // 응답할 데이터 바디
     }
 
