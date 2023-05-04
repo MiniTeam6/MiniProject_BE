@@ -20,6 +20,7 @@ import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.model.user.UserRepository;
+import shop.mtcoding.restend.model.user.UserRole;
 
 import java.util.List;
 import java.util.Optional;
@@ -117,7 +118,8 @@ public class UserService {
         if(user.isEmpty()){
             throw new Exception404(roleUpdateInDTO.getEmail()+"  User를 찾을 수 없습니다. ");
         }
-        user.get().setRole(roleUpdateInDTO.getRole());
+
+        user.get().setRole(UserRole.valueOf(roleUpdateInDTO.getRole()));
         try{
             User userPS=userRepository.save(user.get());
             return new UserResponse.DetailOutDTO(userPS);

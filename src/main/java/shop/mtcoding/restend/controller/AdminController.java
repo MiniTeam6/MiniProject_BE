@@ -17,7 +17,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/admin")
 @RequiredArgsConstructor
 public class AdminController {
 

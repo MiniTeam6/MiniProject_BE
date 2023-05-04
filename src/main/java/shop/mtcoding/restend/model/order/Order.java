@@ -17,6 +17,8 @@ public class Order {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "event_id")
 	private Event event;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
 	private OrderState orderState;
 
 	@ManyToOne(fetch = FetchType.LAZY)

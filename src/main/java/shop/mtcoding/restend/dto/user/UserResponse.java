@@ -40,7 +40,7 @@ public class UserResponse {
             this.id = user.getId();
             this.username=user.getUsername();
             this.email = user.getEmail();
-            this.role = user.getRole();
+            this.role = user.getRole().toString();
         }
     }
 
@@ -80,7 +80,7 @@ public class UserResponse {
             this.imageUri = user.getImageUri();
             this.username = user.getUsername();
             this.email=user.getEmail();
-            this.role=user.getRole();
+            this.role=user.getRole().toString();
         }
     }
     @Getter @Setter
@@ -95,7 +95,7 @@ public class UserResponse {
             this.id= user.getId();
             this.username=user.getUsername();
             this.email=user.getEmail();
-            this.role=user.getRole();
+            this.role=user.getRole().toString();
             this.status=user.getStatus();
         }
     }
