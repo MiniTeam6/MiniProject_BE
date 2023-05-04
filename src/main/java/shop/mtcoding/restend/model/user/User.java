@@ -1,6 +1,7 @@
 package shop.mtcoding.restend.model.user;
 
 import lombok.*;
+import shop.mtcoding.restend.core.exception.Exception404;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,7 +10,6 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name = "user_tb")
 @Entity
-@Builder
 @ToString
 public class User {
 
@@ -28,7 +28,9 @@ public class User {
 
     private String image; //이미지 경로
 
-    private String role;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRole role;
 
     private Boolean status; // true, false
 
@@ -46,10 +48,20 @@ public class User {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
-    public void setRole(String role) {
-        this.role = role;
+    public void setRole(UserRole role) {
+        if(this.role.equals(role)){
+            //checkpoint : throw 동일한 권한으로 변경할 수 없습니다.
+            throw new Exception404("동일한 권한으로 변경할 수 없습니다.");
+        }
+        this.role=role;
     }
-    public void setStatus(Boolean status){this.status=status;}
+    public void setStatus(Boolean status){
+        if(this.status.equals(status)){
+        //checkpoint : throw 동일한 상태로 변경할 수 없습니다.
+        throw new Exception404("이미 동일한 상태입니다.");
+    }
+        this.status=status;
+    }
 
     @Builder
     public User(Long id, String username, String password, String email, String image, String role, Boolean status, LocalDateTime createdAt, LocalDateTime updatedAt) {
@@ -58,7 +70,7 @@ public class User {
         this.password = password;
         this.email = email;
         this.image = image;
-        this.role = role;
+        this.role = UserRole.valueOf(role);
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
