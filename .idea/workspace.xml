@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a945f38-a5fa-4e04-bda1-a8c86aeef6e1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/59a51217-ad6a-405e-91fd-16cd4298f7d0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/59a51217-ad6a-405e-91fd-16cd4298f7d0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/ResponseDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/user/UserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/user/UserRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/order/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/order/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/AnnualService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/AnnualService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/UserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,6 +66,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "spring.configuration.checksum": "4ee8267413f14215e4daf25454f0217e",
     "vue.rearranger.settings.migration": "true"
   }
@@ -83,7 +79,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1683178203925</updated>
-      <workItem from="1683178206219" duration="1428000" />
+      <workItem from="1683178206219" duration="2914000" />
     </task>
     <servers />
   </component>

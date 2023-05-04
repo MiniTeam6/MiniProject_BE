@@ -3,10 +3,7 @@ package shop.mtcoding.restend.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.restend.dto.ResponseDTO;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
@@ -29,6 +26,13 @@ public class AdminController {
 	public ResponseEntity<?> userSearch(@RequestBody @Valid UserRequest.SearchInDTO searchInDTO){
 		List<UserResponse.UserListOutDTO> userListOutDTO = userService.회원리스트검색(searchInDTO);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(userListOutDTO);
+		return ResponseEntity.ok(responseDTO);
+	}
+
+	@PostMapping("/role/update")
+	public ResponseEntity<?> roleUpdate(@RequestBody @Valid UserRequest.RoleUpdateInDTO roleUpdateInDTO){
+		UserResponse.DetailOutDTO detailOutDTO= userService.권한업데이트(roleUpdateInDTO);
+		ResponseDTO<?>responseDTO = new ResponseDTO<>(detailOutDTO);
 		return ResponseEntity.ok(responseDTO);
 	}
 

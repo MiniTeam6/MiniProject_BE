@@ -12,6 +12,7 @@ import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.core.exception.Exception400;
 import shop.mtcoding.restend.core.exception.Exception401;
+import shop.mtcoding.restend.core.exception.Exception404;
 import shop.mtcoding.restend.core.exception.Exception500;
 import shop.mtcoding.restend.dto.ResponseDTO;
 import shop.mtcoding.restend.dto.user.UserRequest;
@@ -98,6 +99,20 @@ public class UserService {
                 .map(UserResponse.UserListOutDTO::new)
                 .collect(Collectors.toList());
         return userDTOs;
+    }
+
+    public UserResponse.DetailOutDTO 권한업데이트(UserRequest.RoleUpdateInDTO roleUpdateInDTO){
+        Optional<User> user = userRepository.findByEmail(roleUpdateInDTO.getEmail());
+        if(user.isEmpty()){
+            throw new Exception404(roleUpdateInDTO.getEmail()+"User를 찾을 수 없습니다. ");
+        }
+        user.get().setRole(roleUpdateInDTO.getRole());
+        try{
+            User userPS=userRepository.save(user.get());
+            return new UserResponse.DetailOutDTO(userPS);
+        }catch (Exception e){
+            throw new Exception500(e+roleUpdateInDTO.getEmail()+"유저권한 업데이트 실패");
+        }
     }
 
 
