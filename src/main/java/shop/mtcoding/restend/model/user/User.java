@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name = "user_tb")
 @Entity
+@Builder
+@ToString
 public class User {
 
     @Id
@@ -52,6 +54,7 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+    public void setStatus(Boolean status){this.status=status;}
 
     @Builder
     public User(Long id, String username, String password, String email, String phone, String imageUri, String thumbnailUri, String role, Boolean status, LocalDateTime createdAt, LocalDateTime updatedAt) {

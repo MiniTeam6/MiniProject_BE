@@ -1,15 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="shop.mtcoding.restend.controller.UserControllerUnitTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-05-04T03:01:37" hostname="jihoonui-MacBookAir.local" time="0.174">
+<testsuite name="shop.mtcoding.restend.controller.UserControllerUnitTest" tests="3" skipped="0" failures="1" errors="0" timestamp="2023-05-04T06:27:07" hostname="yerim-ui-MacBookAir.local" time="0.615">
   <properties/>
-  <testcase name="detail_test()" classname="shop.mtcoding.restend.controller.UserControllerUnitTest" time="0.088"/>
-  <testcase name="login_test()" classname="shop.mtcoding.restend.controller.UserControllerUnitTest" time="0.003"/>
-  <testcase name="join_test()" classname="shop.mtcoding.restend.controller.UserControllerUnitTest" time="0.082"/>
-  <system-out><![CDATA[2023-05-04 12:01:37.650  INFO 95819 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [shop.mtcoding.restend.controller.UserControllerUnitTest], using SpringBootContextLoader
-2023-05-04 12:01:37.650  INFO 95819 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [shop.mtcoding.restend.controller.UserControllerUnitTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2023-05-04 12:01:37.650  INFO 95819 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.mtcoding.restend.controller.UserControllerUnitTest]: UserControllerUnitTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2023-05-04 12:01:37.654  INFO 95819 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.mtcoding.restend.RestendApplication for test class shop.mtcoding.restend.controller.UserControllerUnitTest
-2023-05-04 12:01:37.654  INFO 95819 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2023-05-04 12:01:37.655  INFO 95819 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4d2dc60, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@43f670f3, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@6311640d, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3a42610, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1107cbd8, org.springframework.test.context.support.DirtiesContextTestExecutionListener@610640e3, org.springframework.test.context.transaction.TransactionalTestExecutionListener@95f61c2, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@2be9425f, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@41f05f1, org.springframework.test.context.event.EventPublishingTestExecutionListener@57cd5cc9, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@25ee6683, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@44f433db, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@38388639, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5aeaee3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@53a20aab, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@362d91ef, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@4a58d05d]
+  <testcase name="detail_test()" classname="shop.mtcoding.restend.controller.UserControllerUnitTest" time="0.305">
+    <failure message="java.lang.AssertionError: JSON path &quot;$.data.role&quot; expected:&lt;USER&gt; but was:&lt;ADMIN&gt;" type="java.lang.AssertionError">java.lang.AssertionError: JSON path &quot;$.data.role&quot; expected:&lt;USER&gt; but was:&lt;ADMIN&gt;
+	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:59)
+	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:122)
+	at org.springframework.test.util.JsonPathExpectationsHelper.assertValue(JsonPathExpectationsHelper.java:125)
+	at org.springframework.test.web.servlet.result.JsonPathResultMatchers.lambda$value$2(JsonPathResultMatchers.java:111)
+	at org.springframework.test.web.servlet.MockMvc$1.andExpect(MockMvc.java:214)
+	at shop.mtcoding.restend.controller.UserControllerUnitTest.detail_test(UserControllerUnitTest.java:140)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:725)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:149)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:140)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:84)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(ExecutableInvoker.java:115)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.lambda$invoke$0(ExecutableInvoker.java:105)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:104)
+	at org.junit.jupiter.engine.execution.ExecutableInvoker.invoke(ExecutableInvoker.java:98)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:214)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:210)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:135)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:66)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1541)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.junit.platform.launcher.core.SessionPerRequestLauncher.execute(SessionPerRequestLauncher.java:53)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:99)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:79)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:75)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at com.sun.proxy.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <testcase name="login_test()" classname="shop.mtcoding.restend.controller.UserControllerUnitTest" time="0.096"/>
+  <testcase name="join_test()" classname="shop.mtcoding.restend.controller.UserControllerUnitTest" time="0.21"/>
+  <system-out><![CDATA[15:27:04.497 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+15:27:04.507 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+15:27:04.536 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [shop.mtcoding.restend.controller.UserControllerUnitTest] from class [org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper]
+15:27:04.543 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [shop.mtcoding.restend.controller.UserControllerUnitTest], using SpringBootContextLoader
+15:27:04.547 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [shop.mtcoding.restend.controller.UserControllerUnitTest]: class path resource [shop/mtcoding/restend/controller/UserControllerUnitTest-context.xml] does not exist
+15:27:04.547 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [shop.mtcoding.restend.controller.UserControllerUnitTest]: class path resource [shop/mtcoding/restend/controller/UserControllerUnitTestContext.groovy] does not exist
+15:27:04.547 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [shop.mtcoding.restend.controller.UserControllerUnitTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+15:27:04.548 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [shop.mtcoding.restend.controller.UserControllerUnitTest]: UserControllerUnitTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:27:04.668 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/yerim/Desktop/Project/MiniProject_BE/build/classes/java/main/shop/mtcoding/restend/RestendApplication.class]
+15:27:04.669 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration shop.mtcoding.restend.RestendApplication for test class shop.mtcoding.restend.controller.UserControllerUnitTest
+15:27:04.673 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - @TestExecutionListeners is not present for class [shop.mtcoding.restend.controller.UserControllerUnitTest]: using defaults.
+15:27:04.674 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+15:27:04.689 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3dddbe65, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@49a64d82, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@344561e0, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@66d23e4a, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@36ac8a63, org.springframework.test.context.support.DirtiesContextTestExecutionListener@4d9d1b69, org.springframework.test.context.transaction.TransactionalTestExecutionListener@52c8295b, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@251f7d26, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@77b21474, org.springframework.test.context.event.EventPublishingTestExecutionListener@52d10fb8, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@41c07648, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@1fe8d51b, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@781e7326, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@22680f52, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@60d84f61, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@39c11e6c, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@324dcd31]
+15:27:04.695 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@547e29a4 testClass = UserControllerUnitTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@1c807b1d testClass = UserControllerUnitTest, locations = '{}', classes = '{class shop.mtcoding.restend.RestendApplication}', contextInitializerClasses = '[]', activeProfiles = '{test}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@63648ee9, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@6d366c9b, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@a7606595, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@39300a8c, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@4602c2a9, [ImportsContextCustomizer@238b521e key = [@org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureWebMvc(), @org.springframework.context.annotation.Import(value={org.springframework.boot.autoconfigure.ImportAutoConfigurationImportSelector.class}), @org.springframework.boot.test.autoconfigure.core.AutoConfigureCache(cacheProvider=NONE), @org.springframework.context.annotation.EnableAspectJAutoProxy(exposeProxy=false, proxyTargetClass=false), @org.springframework.boot.test.autoconfigure.properties.PropertyMapping(value="spring.test.mockmvc", skip=NO), @org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc(webDriverEnabled=true, print=DEFAULT, webClientEnabled=true, printOnlyOnFailure=true, addFilters=true), @org.springframework.boot.autoconfigure.ImportAutoConfiguration(value={}, exclude={}, classes={}), @org.springframework.boot.test.autoconfigure.filter.TypeExcludeFilters(value={org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTypeExcludeFilter.class}), @org.springframework.context.annotation.Import(value={org.springframework.context.annotation.AspectJAutoProxyRegistrar.class}), @org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest(excludeFilters={}, useDefaultFilters=true, controllers={shop.mtcoding.restend.controller.UserController.class}, excludeAutoConfiguration={}, value={}, includeFilters={}, properties={}), @org.springframework.test.context.BootstrapWith(value=org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper.class), @org.springframework.boot.test.autoconfigure.OverrideAutoConfiguration(enabled=false), @org.springframework.context.annotation.Import(value={shop.mtcoding.restend.core.advice.MyValidAdvice.class, shop.mtcoding.restend.core.advice.MyLogAdvice.class, shop.mtcoding.restend.core.config.MySecurityConfig.class, shop.mtcoding.restend.core.config.MyFilterRegisterConfig.class}), @org.springframework.test.context.ActiveProfiles(profiles={}, resolver=org.springframework.test.context.ActiveProfilesResolver.class, value={"test"}, inheritProfiles=true)]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@403132fc, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@2f7a7219, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@4dd243c6, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map[[empty]]], class annotated with @DirtiesContext [false] with mode [null].
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -19,20 +121,57 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::               (v2.7.11)
 
-2023-05-04 12:01:37.666  INFO 95819 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : Starting UserControllerUnitTest using Java 11.0.16 on jihoonui-MacBookAir.local with PID 95819 (started by jihoon in /Users/jihoon/Library/CloudStorage/OneDrive-gc.gachon.ac.kr/2022 fastcampus/fast_lab/MiniProject_BE2)
-2023-05-04 12:01:37.666 DEBUG 95819 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : Running with Spring Boot v2.7.11, Spring v5.3.27
-2023-05-04 12:01:37.666  INFO 95819 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : The following 1 profile is active: "test"
-2023-05-04 12:01:37.819  INFO 95819 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3ac60eeb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1c38d025, org.springframework.security.web.context.SecurityContextPersistenceFilter@2b8502e7, org.springframework.security.web.header.HeaderWriterFilter@2d260f2a, org.springframework.web.filter.CorsFilter@48b85dc5, org.springframework.security.web.authentication.logout.LogoutFilter@48531d5, shop.mtcoding.restend.core.auth.jwt.MyJwtAuthorizationFilter@350a3df3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@37669c4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1e3469df, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3f31ccef, org.springframework.security.web.session.SessionManagementFilter@79ac02a9, org.springframework.security.web.access.ExceptionTranslationFilter@2cf09576, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5bf1e07]
-2023-05-04 12:01:37.972  INFO 95819 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2023-05-04 12:01:37.972  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2023-05-04 12:01:37.972  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
-2023-05-04 12:01:37.978  INFO 95819 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : Started UserControllerUnitTest in 0.323 seconds (JVM running for 6.058)
-2023-05-04 12:01:38.063 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
-테스트 : {"status":200,"msg":"성공","data":{"id":1,"username":"코스","email":"cos@nate.com","role":"USER"}}
-2023-05-04 12:01:38.071 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+2023-05-04 15:27:05.126  INFO 4540 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : Starting UserControllerUnitTest using Java 11.0.17 on yerim-ui-MacBookAir.local with PID 4540 (started by yerim in /Users/yerim/Desktop/Project/MiniProject_BE)
+2023-05-04 15:27:05.127 DEBUG 4540 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : Running with Spring Boot v2.7.11, Spring v5.3.27
+2023-05-04 15:27:05.128  INFO 4540 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : The following 1 profile is active: "test"
+2023-05-04 15:27:06.860  INFO 4540 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@5ba184fc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4cfc0c48, org.springframework.security.web.context.SecurityContextPersistenceFilter@20dd5870, org.springframework.security.web.header.HeaderWriterFilter@399af6dc, org.springframework.web.filter.CorsFilter@59d5c537, org.springframework.security.web.authentication.logout.LogoutFilter@27502e5c, shop.mtcoding.restend.core.auth.jwt.MyJwtAuthorizationFilter@5464b97c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6e948f1c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@24405466, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3355168, org.springframework.security.web.session.SessionManagementFilter@7d088813, org.springframework.security.web.access.ExceptionTranslationFilter@260d48f5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@24a8e40d]
+2023-05-04 15:27:07.511  INFO 4540 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-04 15:27:07.512  INFO 4540 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-04 15:27:07.513  INFO 4540 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2023-05-04 15:27:07.537  INFO 4540 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : Started UserControllerUnitTest in 2.8 seconds (JVM running for 3.907)
+2023-05-04 15:27:07.734 DEBUG 4540 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+테스트 : {"status":200,"msg":"성공","data":{"id":1,"username":"코스","email":"cos@nate.com","role":"ADMIN"}}
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/user/1
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = shop.mtcoding.restend.controller.UserController
+           Method = shop.mtcoding.restend.controller.UserController#detail(Long, MyUserDetails)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:"Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", Content-Type:"application/json;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"1; mode=block", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0"]
+     Content type = application/json;charset=UTF-8
+             Body = {"status":200,"msg":"성공","data":{"id":1,"username":"코스","email":"cos@nate.com","role":"ADMIN"}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2023-05-04 15:27:07.865 DEBUG 4540 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
 테스트 : {"status":200,"msg":"성공","data":null}
-2023-05-04 12:01:38.147 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
-2023-05-04 12:01:38.152 DEBUG 95819 --- [    Test worker] s.m.restend.core.advice.MyLogAdvice      : 디버그 : join 성공
+2023-05-04 15:27:08.095 DEBUG 4540 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+2023-05-04 15:27:08.156 DEBUG 4540 --- [    Test worker] s.m.restend.core.advice.MyLogAdvice      : 디버그 : join 성공
 테스트 : {"status":200,"msg":"성공","data":{"id":1,"username":"코스","email":"cos@nate.com"}}
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

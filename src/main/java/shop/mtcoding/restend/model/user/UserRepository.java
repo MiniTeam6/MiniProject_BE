@@ -43,8 +43,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * 회원가입 요청 리스트 조회(status : false)
      * @return
      */
-    @Query("SELECT u FROM User u WHERE u.status = false")
-    List<User> findUsersByStatus();
+    @Query("SELECT u FROM User u WHERE u.status = :status")
+    List<User> findUsersByStatus(@Param("status")Boolean status);
 
 
 

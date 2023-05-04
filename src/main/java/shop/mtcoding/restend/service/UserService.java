@@ -13,7 +13,9 @@ import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.core.exception.Exception400;
 import shop.mtcoding.restend.core.exception.Exception401;
+import shop.mtcoding.restend.core.exception.Exception404;
 import shop.mtcoding.restend.core.exception.Exception500;
+import shop.mtcoding.restend.dto.ResponseDTO;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.model.user.User;
@@ -86,15 +88,15 @@ public class UserService {
     }
 
 
-    public List<UserResponse.UserListOutDTO> 회원리스트검색(String searchType ,String keyword){
-        if(searchType.equals("username")){
-            List<User> users = userRepository.findByUsernameContaining(keyword);
+    public List<UserResponse.UserListOutDTO> 회원리스트검색(UserRequest.SearchInDTO searchInDTO){
+        if(searchInDTO.getSearchType().equals("name")){
+            List<User> users = userRepository.findByUsernameContaining(searchInDTO.getKeyword());
             List<UserResponse.UserListOutDTO> userDTOs = users.stream()
-                    .map(UserResponse.UserListOutDTO::new)
+                    .map(user->new UserResponse.UserListOutDTO(user))
                     .collect(Collectors.toList());
             return userDTOs;
         }else{
-            List<User> users = userRepository.findByEmailContaining(keyword);
+            List<User> users = userRepository.findByEmailContaining(searchInDTO.getKeyword());
             List<UserResponse.UserListOutDTO> userDTOs = users.stream()
                     .map(UserResponse.UserListOutDTO::new)
                     .collect(Collectors.toList());
@@ -103,9 +105,46 @@ public class UserService {
     }
 
     public List<UserResponse.UserListOutDTO> 회원전체리스트(){
-        List<User> users=userRepository.findAll();
+        List<User>users=userRepository.findUsersByStatus(true);
         List<UserResponse.UserListOutDTO> userDTOs = users.stream()
-                .map(UserResponse.UserListOutDTO::new)
+                .map(user->new UserResponse.UserListOutDTO(user))
+                .collect(Collectors.toList());
+        return userDTOs;
+    }
+    @Transactional
+    public UserResponse.DetailOutDTO 권한업데이트(UserRequest.RoleUpdateInDTO roleUpdateInDTO){
+        Optional<User> user = userRepository.findByEmail(roleUpdateInDTO.getEmail());
+        if(user.isEmpty()){
+            throw new Exception404(roleUpdateInDTO.getEmail()+"  User를 찾을 수 없습니다. ");
+        }
+        user.get().setRole(roleUpdateInDTO.getRole());
+        try{
+            User userPS=userRepository.save(user.get());
+            return new UserResponse.DetailOutDTO(userPS);
+        }catch (Exception e){
+            throw new Exception500(e+roleUpdateInDTO.getEmail()+"유저권한 업데이트 실패");
+        }
+    }
+
+    @Transactional
+    public UserResponse.StatusUpdateOutDTO 회원가입승인(UserRequest.StatusUpdateInDTO statusUpdateInDTO){
+        Optional<User> user = userRepository.findByEmail(statusUpdateInDTO.getEmail());
+        if(user.isEmpty()){
+            throw new Exception404(statusUpdateInDTO.getEmail()+"  User를 찾을 수 없습니다. ");
+        }
+        user.get().setStatus(true);
+        try{
+            User userPS=userRepository.save(user.get());
+            return new UserResponse.StatusUpdateOutDTO(userPS);
+        }catch (Exception e){
+            throw new Exception500(e+statusUpdateInDTO.getEmail()+"유저권한 업데이트 실패");
+        }
+    }
+
+    public List<UserResponse.UserListOutDTO> 회원가입요청목록(){
+        List<User>users=userRepository.findUsersByStatus(false);
+        List<UserResponse.UserListOutDTO> userDTOs = users.stream()
+                .map(user->new UserResponse.UserListOutDTO(user))
                 .collect(Collectors.toList());
         return userDTOs;
     }

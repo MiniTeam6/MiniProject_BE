@@ -24,7 +24,7 @@ public class DummyEntity {
                 .thumbnailUri("https://test")
                 .phone("010-1234-1234")
                 .role("USER")
-                .status(true)
+                .status(false)
                 .build();
     }
 
@@ -35,8 +35,11 @@ public class DummyEntity {
             email="ssar";
         }else if(username.equals("러브")){
             email="love";
-        }else if(username.equals("코스"))
-            email="cos";
+        }else if(username.equals("코스")) {
+            email = "cos";
+        }else if(username.equals("코코")){
+            email ="coco";
+        }
         return User.builder()
                 .id(id)
                 .username(username)
@@ -45,7 +48,7 @@ public class DummyEntity {
                 .imageUri("https://test")
                 .thumbnailUri("https://test")
                 .phone("010-1234-1234")
-                .role("USER")
+                .role("ADMIN")
                 .status(true)
                 .createdAt(LocalDateTime.now())
                 .build();
