@@ -49,6 +49,7 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+    public void setStatus(Boolean status){this.status=status;}
 
     @Builder
     public User(Long id, String username, String password, String email, String image, String role, Boolean status, LocalDateTime createdAt, LocalDateTime updatedAt) {

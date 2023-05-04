@@ -99,11 +99,11 @@ public class UserService {
                 .collect(Collectors.toList());
         return userDTOs;
     }
-
+    @Transactional
     public UserResponse.DetailOutDTO 권한업데이트(UserRequest.RoleUpdateInDTO roleUpdateInDTO){
         Optional<User> user = userRepository.findByEmail(roleUpdateInDTO.getEmail());
         if(user.isEmpty()){
-            throw new Exception404(roleUpdateInDTO.getEmail()+"User를 찾을 수 없습니다. ");
+            throw new Exception404(roleUpdateInDTO.getEmail()+"  User를 찾을 수 없습니다. ");
         }
         user.get().setRole(roleUpdateInDTO.getRole());
         try{
@@ -112,6 +112,22 @@ public class UserService {
         }catch (Exception e){
             throw new Exception500(e+roleUpdateInDTO.getEmail()+"유저권한 업데이트 실패");
         }
+    }
+
+    @Transactional
+    public UserResponse.StatusUpdateOutDTO 회원가입승인(UserRequest.StatusUpdateInDTO statusUpdateInDTO){
+        Optional<User> user = userRepository.findByEmail(statusUpdateInDTO.getEmail());
+        if(user.isEmpty()){
+            throw new Exception404(statusUpdateInDTO.getEmail()+"  User를 찾을 수 없습니다. ");
+        }
+        user.get().setStatus(true);
+        try{
+            User userPS=userRepository.save(user.get());
+            return new UserResponse.StatusUpdateOutDTO(userPS);
+        }catch (Exception e){
+            throw new Exception500(e+statusUpdateInDTO.getEmail()+"유저권한 업데이트 실패");
+        }
+
     }
 
 

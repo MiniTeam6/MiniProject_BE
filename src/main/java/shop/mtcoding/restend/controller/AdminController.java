@@ -17,7 +17,7 @@ import java.util.List;
 
 @Log4j2
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class AdminController {
 
@@ -34,9 +34,16 @@ public class AdminController {
 	public ResponseEntity<?> roleUpdate(@RequestBody @Valid UserRequest.RoleUpdateInDTO roleUpdateInDTO){
 		UserResponse.DetailOutDTO detailOutDTO= userService.권한업데이트(roleUpdateInDTO);
 		ResponseDTO<?>responseDTO = new ResponseDTO<>(detailOutDTO);
-		System.out.println(ResponseEntity.ok(responseDTO));
 		return ResponseEntity.ok(responseDTO);
 	}
+	@PostMapping("/status")
+	public ResponseEntity<?> statusUpdate(@RequestBody @Valid UserRequest.StatusUpdateInDTO statusUpdateInDTO){
+		UserResponse.StatusUpdateOutDTO statusUpdateOutDTO = userService.회원가입승인(statusUpdateInDTO);
+		ResponseDTO<?>responseDTO = new ResponseDTO<>(statusUpdateOutDTO);
+		return ResponseEntity.ok(responseDTO);
+	}
+
+
 
 
 
