@@ -2,6 +2,7 @@ package shop.mtcoding.restend.dto.user;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.PathVariable;
 import shop.mtcoding.restend.model.user.User;
 
 import javax.validation.constraints.NotEmpty;
@@ -15,8 +16,10 @@ public class UserRequest {
         @Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
         @NotEmpty
         private String email;
+
         @NotEmpty
-        @Size(min = 4, max = 20)
+        @Size(min = 8, max = 20)
+        @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$", message = "영문/숫자/특수문자를 조합하여 8~20자 이내로 작성해주세요")
         private String password;
     }
 
@@ -30,19 +33,27 @@ public class UserRequest {
         private String username;
 
         @NotEmpty
-        @Size(min = 4, max = 20)
+        @Size(min = 8, max = 20)
+        @Pattern(regexp = "^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,20}$", message = "영문/숫자/특수문자를 조합하여 8~20자 이내로 작성해주세요")
         private String password;
 
         @NotEmpty
         @Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
         private String email;
 
+        @NotEmpty
+        @Pattern(regexp = "^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", message = "올바른 휴대폰 번호 형식으로 작성해주세요")
+        private String phone;
 
-        public User toEntity() {
+
+        public User toEntity(String imageUri, String thumbnailUri) {
             return User.builder()
                     .username(username)
                     .password(password)
                     .email(email)
+                    .phone(phone)
+                    .imageUri(imageUri)
+                    .thumbnailUri(thumbnailUri)
                     .role("USER")
                     .status(true)
                     .build();

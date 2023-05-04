@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import shop.mtcoding.restend.core.annotation.MyErrorLog;
 import shop.mtcoding.restend.core.annotation.MyLog;
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
@@ -36,8 +37,8 @@ public class UserController {
     @MyErrorLog
     @MyLog
     @PostMapping("/signup")
-    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinInDTO joinInDTO, Errors errors) {
-        UserResponse.JoinOutDTO joinOutDTO = userService.회원가입(joinInDTO);
+    public ResponseEntity<?> join(@RequestPart @Valid UserRequest.JoinInDTO joinInDTO, @RequestPart MultipartFile image, Errors errors) {
+        UserResponse.JoinOutDTO joinOutDTO = userService.회원가입(joinInDTO, image);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(joinOutDTO);
         return ResponseEntity.ok(responseDTO);
     }

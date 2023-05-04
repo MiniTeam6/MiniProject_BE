@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import shop.mtcoding.restend.core.annotation.MyLog;
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
@@ -32,7 +33,13 @@ public class UserService {
 
     @MyLog
     @Transactional
-    public UserResponse.JoinOutDTO 회원가입(UserRequest.JoinInDTO joinInDTO){
+    public UserResponse.JoinOutDTO 회원가입(UserRequest.JoinInDTO joinInDTO, MultipartFile image){
+
+        // 이미지 S3 에 저장
+        // 썸네일 생성
+        String imageUri = "imageUri";
+        String thumbnailUri = "thumbnailUri";
+
         Optional<User> userOP =userRepository.findByEmail(joinInDTO.getEmail());
         if(userOP.isPresent()){
             // 이 부분이 try catch 안에 있으면 Exception500에게 제어권을 뺏긴다.
@@ -44,7 +51,7 @@ public class UserService {
 
         // 디비 save 되는 쪽만 try catch로 처리하자.
         try {
-            User userPS = userRepository.save(joinInDTO.toEntity());
+            User userPS = userRepository.save(joinInDTO.toEntity(imageUri, thumbnailUri));
             return new UserResponse.JoinOutDTO(userPS);
         }catch (Exception e){
             throw new Exception500("회원가입 실패 : "+e.getMessage());

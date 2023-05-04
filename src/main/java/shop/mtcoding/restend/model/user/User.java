@@ -24,7 +24,12 @@ public class User {
     @Column(unique = true, nullable = false, length = 20)
     private String email;
 
-    private String image; //이미지 경로
+    @Column(nullable = false, length = 13)
+    private String phone;
+
+    private String imageUri; //이미지 경로
+
+    private String thumbnailUri; //썸네일 경로
 
     private String role;
 
@@ -49,12 +54,14 @@ public class User {
     }
 
     @Builder
-    public User(Long id, String username, String password, String email, String image, String role, Boolean status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(Long id, String username, String password, String email, String phone, String imageUri, String thumbnailUri, String role, Boolean status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.image = image;
+        this.phone = phone;
+        this.imageUri = imageUri;
+        this.thumbnailUri = thumbnailUri;
         this.role = role;
         this.status = status;
         this.createdAt = createdAt;
