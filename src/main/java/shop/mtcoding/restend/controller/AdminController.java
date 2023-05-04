@@ -42,6 +42,12 @@ public class AdminController {
 		ResponseDTO<?>responseDTO = new ResponseDTO<>(statusUpdateOutDTO);
 		return ResponseEntity.ok(responseDTO);
 	}
+	@GetMapping("/signup/list")
+	public ResponseEntity<?>signupList (){
+		List<UserResponse.UserListOutDTO>userListOutDTOS=userService.회원가입요청목록();
+		ResponseDTO<?>responseDTO=new ResponseDTO<>(userListOutDTOS);
+		return ResponseEntity.ok(responseDTO);
+	}
 
 
 

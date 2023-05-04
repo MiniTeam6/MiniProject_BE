@@ -127,7 +127,14 @@ public class UserService {
         }catch (Exception e){
             throw new Exception500(e+statusUpdateInDTO.getEmail()+"유저권한 업데이트 실패");
         }
+    }
 
+    public List<UserResponse.UserListOutDTO> 회원가입요청목록(){
+        List<User>users=userRepository.findUsersByStatus();
+        List<UserResponse.UserListOutDTO> userDTOs = users.stream()
+                .map(user->new UserResponse.UserListOutDTO(user))
+                .collect(Collectors.toList());
+        return userDTOs;
     }
 
 
