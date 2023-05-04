@@ -33,26 +33,26 @@ public class UserService {
 
     @MyLog
     @Transactional
-    public UserResponse.JoinOutDTO 회원가입(UserRequest.JoinInDTO joinInDTO, MultipartFile image){
+    public UserResponse.SignupResponseDTO 회원가입(UserRequest.SignupRequestDTO signupRequestDTO, MultipartFile image){
 
         // 이미지 S3 에 저장
         // 썸네일 생성
         String imageUri = "imageUri";
         String thumbnailUri = "thumbnailUri";
 
-        Optional<User> userOP =userRepository.findByEmail(joinInDTO.getEmail());
+        Optional<User> userOP =userRepository.findByEmail(signupRequestDTO.getEmail());
         if(userOP.isPresent()){
             // 이 부분이 try catch 안에 있으면 Exception500에게 제어권을 뺏긴다.
             throw new Exception400("email", "이메일이 존재합니다");
         }
-        String encPassword = passwordEncoder.encode(joinInDTO.getPassword()); // 60Byte
-        joinInDTO.setPassword(encPassword);
+        String encPassword = passwordEncoder.encode(signupRequestDTO.getPassword()); // 60Byte
+        signupRequestDTO.setPassword(encPassword);
         System.out.println("encPassword : "+encPassword);
 
         // 디비 save 되는 쪽만 try catch로 처리하자.
         try {
-            User userPS = userRepository.save(joinInDTO.toEntity(imageUri, thumbnailUri));
-            return new UserResponse.JoinOutDTO(userPS);
+            User userPS = userRepository.save(signupRequestDTO.toEntity(imageUri, thumbnailUri));
+            return new UserResponse.SignupResponseDTO(userPS);
         }catch (Exception e){
             throw new Exception500("회원가입 실패 : "+e.getMessage());
         }

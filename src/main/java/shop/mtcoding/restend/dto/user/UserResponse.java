@@ -23,7 +23,7 @@ public class UserResponse {
 
     @Setter
     @Getter
-    public static class JoinOutDTO {
+    public static class SignupResponseDTO {
         private Long id;
         private String username;
         private String email;
@@ -31,7 +31,7 @@ public class UserResponse {
         private String imageUri;
         private String thumbnailUri;
 
-        public JoinOutDTO(User user) {
+        public SignupResponseDTO(User user) {
             this.id = user.getId();
             this.username = user.getUsername();
             this.email = user.getEmail();

@@ -37,9 +37,9 @@ public class UserController {
     @MyErrorLog
     @MyLog
     @PostMapping("/signup")
-    public ResponseEntity<?> join(@RequestPart @Valid UserRequest.JoinInDTO joinInDTO, @RequestPart MultipartFile image, Errors errors) {
-        UserResponse.JoinOutDTO joinOutDTO = userService.회원가입(joinInDTO, image);
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(joinOutDTO);
+    public ResponseEntity<?> signup(@RequestPart @Valid UserRequest.SignupRequestDTO signupRequestDTO, @RequestPart MultipartFile image, Errors errors) {
+        UserResponse.SignupResponseDTO signupResponseDTO = userService.회원가입(signupRequestDTO, image);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(signupResponseDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
