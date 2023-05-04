@@ -33,10 +33,10 @@ public class UserService {
     @MyLog
     @Transactional
     public UserResponse.JoinOutDTO 회원가입(UserRequest.JoinInDTO joinInDTO){
-        Optional<User> userOP =userRepository.findByEmail(joinInDTO.getUsername());
+        Optional<User> userOP =userRepository.findByEmail(joinInDTO.getEmail());
         if(userOP.isPresent()){
             // 이 부분이 try catch 안에 있으면 Exception500에게 제어권을 뺏긴다.
-            throw new Exception400("username", "유저네임이 존재합니다");
+            throw new Exception400("email", "이메일이 존재합니다");
         }
         String encPassword = passwordEncoder.encode(joinInDTO.getPassword()); // 60Byte
         joinInDTO.setPassword(encPassword);

@@ -1,0 +1,10 @@
+[source,bash]
+----
+$ curl 'http://localhost:8080/api/signup' -i -X POST \
+    -H 'Content-Type: application/json;charset=UTF-8' \
+    -d '{
+  "username" : "사르",
+  "password" : "1234",
+  "email" : "ssar@nate.com"
+}'
+----

@@ -26,10 +26,12 @@ public class UserResponse {
     public static class JoinOutDTO {
         private Long id;
         private String username;
+        private String email;
 
         public JoinOutDTO(User user) {
             this.id = user.getId();
             this.username = user.getUsername();
+            this.email = user.getEmail();
         }
     }
 

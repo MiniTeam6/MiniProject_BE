@@ -56,16 +56,15 @@ public class UserServiceTest extends DummyEntity {
 
         // given
         UserRequest.JoinInDTO joinInDTO = new UserRequest.JoinInDTO();
-        joinInDTO.setUsername("cos");
+        joinInDTO.setUsername("코스");
         joinInDTO.setPassword("1234");
         joinInDTO.setEmail("cos@nate.com");
-        joinInDTO.setFullName("코스");
 
         // stub 1
-        Mockito.when(userRepository.findByUsername(any())).thenReturn(Optional.empty());
+//        Mockito.when(userRepository.findByUsername(any())).thenReturn(Optional.empty());
 
         // stub 2
-        User cos = newMockUser(1L, "cos", "코스");
+        User cos = newMockUser(1L, "코스");
         Mockito.when(userRepository.save(any())).thenReturn(cos);
 
         // when
@@ -73,19 +72,18 @@ public class UserServiceTest extends DummyEntity {
 
         // then
         Assertions.assertThat(joinOutDTO.getId()).isEqualTo(1L);
-        Assertions.assertThat(joinOutDTO.getUsername()).isEqualTo("cos");
-        Assertions.assertThat(joinOutDTO.getFullName()).isEqualTo("코스");
+        Assertions.assertThat(joinOutDTO.getUsername()).isEqualTo("코스");
     }
 
     @Test
     public void 로그인_test() throws Exception{
         // given
         UserRequest.LoginInDTO loginInDTO = new UserRequest.LoginInDTO();
-        loginInDTO.setUsername("cos");
+        loginInDTO.setEmail("cos@nate.com");
         loginInDTO.setPassword("1234");
 
         // stub
-        User cos = newMockUser(1L, "cos", "코스");
+        User cos = newMockUser(1L,  "코스");
         MyUserDetails myUserDetails = new MyUserDetails(cos);
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 myUserDetails, myUserDetails.getPassword(), myUserDetails.getAuthorities()
@@ -106,7 +104,7 @@ public class UserServiceTest extends DummyEntity {
         Long id = 1L;
 
         // stub
-        User cos = newMockUser(1L, "cos", "코스");
+        User cos = newMockUser(1L, "코스");
         Mockito.when(userRepository.findById(any())).thenReturn(Optional.of(cos));
 
         // when
@@ -114,9 +112,8 @@ public class UserServiceTest extends DummyEntity {
 
         // then
         Assertions.assertThat(detailOutDTO.getId()).isEqualTo(1L);
-        Assertions.assertThat(detailOutDTO.getUsername()).isEqualTo("cos");
+        Assertions.assertThat(detailOutDTO.getUsername()).isEqualTo("코스");
         Assertions.assertThat(detailOutDTO.getEmail()).isEqualTo("cos@nate.com");
-        Assertions.assertThat(detailOutDTO.getFullName()).isEqualTo("코스");
         Assertions.assertThat(detailOutDTO.getRole()).isEqualTo("USER");
     }
 }

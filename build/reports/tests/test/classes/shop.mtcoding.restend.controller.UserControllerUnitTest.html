@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - UserControllerUnitTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>UserControllerUnitTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/shop.mtcoding.restend.controller.html">shop.mtcoding.restend.controller</a> &gt; UserControllerUnitTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">3</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.173s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">detail_test()</td>
+<td class="success">0.088s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">join_test()</td>
+<td class="success">0.082s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">login_test()</td>
+<td class="success">0.003s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2023-05-04 12:01:37.650  INFO 95819 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [shop.mtcoding.restend.controller.UserControllerUnitTest], using SpringBootContextLoader
+2023-05-04 12:01:37.650  INFO 95819 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [shop.mtcoding.restend.controller.UserControllerUnitTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-05-04 12:01:37.650  INFO 95819 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [shop.mtcoding.restend.controller.UserControllerUnitTest]: UserControllerUnitTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-05-04 12:01:37.654  INFO 95819 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration shop.mtcoding.restend.RestendApplication for test class shop.mtcoding.restend.controller.UserControllerUnitTest
+2023-05-04 12:01:37.654  INFO 95819 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-05-04 12:01:37.655  INFO 95819 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4d2dc60, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@43f670f3, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@6311640d, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3a42610, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1107cbd8, org.springframework.test.context.support.DirtiesContextTestExecutionListener@610640e3, org.springframework.test.context.transaction.TransactionalTestExecutionListener@95f61c2, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@2be9425f, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@41f05f1, org.springframework.test.context.event.EventPublishingTestExecutionListener@57cd5cc9, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@25ee6683, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@44f433db, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@38388639, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5aeaee3, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@53a20aab, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@362d91ef, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@4a58d05d]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.11)
+
+2023-05-04 12:01:37.666  INFO 95819 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : Starting UserControllerUnitTest using Java 11.0.16 on jihoonui-MacBookAir.local with PID 95819 (started by jihoon in /Users/jihoon/Library/CloudStorage/OneDrive-gc.gachon.ac.kr/2022 fastcampus/fast_lab/MiniProject_BE2)
+2023-05-04 12:01:37.666 DEBUG 95819 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : Running with Spring Boot v2.7.11, Spring v5.3.27
+2023-05-04 12:01:37.666  INFO 95819 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : The following 1 profile is active: &quot;test&quot;
+2023-05-04 12:01:37.819  INFO 95819 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3ac60eeb, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1c38d025, org.springframework.security.web.context.SecurityContextPersistenceFilter@2b8502e7, org.springframework.security.web.header.HeaderWriterFilter@2d260f2a, org.springframework.web.filter.CorsFilter@48b85dc5, org.springframework.security.web.authentication.logout.LogoutFilter@48531d5, shop.mtcoding.restend.core.auth.jwt.MyJwtAuthorizationFilter@350a3df3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@37669c4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1e3469df, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3f31ccef, org.springframework.security.web.session.SessionManagementFilter@79ac02a9, org.springframework.security.web.access.ExceptionTranslationFilter@2cf09576, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5bf1e07]
+2023-05-04 12:01:37.972  INFO 95819 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-04 12:01:37.972  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-04 12:01:37.972  INFO 95819 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2023-05-04 12:01:37.978  INFO 95819 --- [    Test worker] s.m.r.controller.UserControllerUnitTest  : Started UserControllerUnitTest in 0.323 seconds (JVM running for 6.058)
+2023-05-04 12:01:38.063 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+테스트 : {&quot;status&quot;:200,&quot;msg&quot;:&quot;성공&quot;,&quot;data&quot;:{&quot;id&quot;:1,&quot;username&quot;:&quot;코스&quot;,&quot;email&quot;:&quot;cos@nate.com&quot;,&quot;role&quot;:&quot;USER&quot;}}
+2023-05-04 12:01:38.071 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+테스트 : {&quot;status&quot;:200,&quot;msg&quot;:&quot;성공&quot;,&quot;data&quot;:null}
+2023-05-04 12:01:38.147 DEBUG 95819 --- [    Test worker] s.m.restend.core.filter.MyTempFilter     : 디버그 : MyTempFilter 동작
+2023-05-04 12:01:38.152 DEBUG 95819 --- [    Test worker] s.m.restend.core.advice.MyLogAdvice      : 디버그 : join 성공
+테스트 : {&quot;status&quot;:200,&quot;msg&quot;:&quot;성공&quot;,&quot;data&quot;:{&quot;id&quot;:1,&quot;username&quot;:&quot;코스&quot;,&quot;email&quot;:&quot;cos@nate.com&quot;}}
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.6.1</a> at 2023. 5. 4. 오후 12:01:39</p>
+</div>
+</div>
+</body>
+</html>
