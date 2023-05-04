@@ -2,7 +2,6 @@ package shop.mtcoding.restend.dto.user;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.PathVariable;
 import shop.mtcoding.restend.model.user.User;
 
 import javax.validation.constraints.NotEmpty;
@@ -12,7 +11,7 @@ import javax.validation.constraints.Size;
 public class UserRequest {
     @Setter
     @Getter
-    public static class LoginInDTO {
+    public static class LoginRequestDTO {
         @Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
         @NotEmpty
         private String email;
@@ -42,7 +41,7 @@ public class UserRequest {
         private String email;
 
         @NotEmpty
-        @Pattern(regexp = "^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$", message = "올바른 휴대폰 번호 형식으로 작성해주세요")
+        @Pattern(regexp = "^(010|011|016|017|018|019)-\\d{3,4}-\\d{4}$", message = "올바른 휴대폰 번호 형식으로 작성해주세요")
         private String phone;
 
 

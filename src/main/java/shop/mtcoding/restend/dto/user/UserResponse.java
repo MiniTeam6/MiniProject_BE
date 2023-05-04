@@ -5,6 +5,26 @@ import lombok.Setter;
 import shop.mtcoding.restend.model.user.User;
 
 public class UserResponse {
+
+    @Getter
+    public static class loginResponseDTO {
+        private Long id;
+        private String username;
+        private String email;
+        private String phone;
+        private String role;
+        private Boolean status;
+
+        public loginResponseDTO(User user) {
+            this.id = user.getId();
+            this.username = user.getUsername();
+            this.email = user.getEmail();
+            this.phone = user.getPhone();
+            this.role = user.getRole();
+            this.status = user.getStatus();
+        }
+    }
+
     @Getter @Setter
     public static class DetailOutDTO{
         private Long id;

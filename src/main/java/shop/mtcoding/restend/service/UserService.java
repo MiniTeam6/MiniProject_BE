@@ -59,13 +59,18 @@ public class UserService {
     }
 
     @MyLog
-    public String 로그인(UserRequest.LoginInDTO loginInDTO) {
+    public Object[] 로그인(UserRequest.LoginRequestDTO loginRequestDTO) {
         try {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
-                    = new UsernamePasswordAuthenticationToken(loginInDTO.getEmail(), loginInDTO.getPassword());
+                    = new UsernamePasswordAuthenticationToken(loginRequestDTO.getEmail(), loginRequestDTO.getPassword());
             Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
             MyUserDetails myUserDetails = (MyUserDetails) authentication.getPrincipal();
-            return MyJwtProvider.create(myUserDetails.getUser());
+
+            Object[] result = new Object[2];
+            result[0] = new UserResponse.loginResponseDTO(myUserDetails.getUser());
+            result[1] = MyJwtProvider.create(myUserDetails.getUser());
+            return result;
+
         }catch (Exception e){
             throw new Exception401("인증되지 않았습니다");
         }
