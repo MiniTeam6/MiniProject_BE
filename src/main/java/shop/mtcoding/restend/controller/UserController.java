@@ -45,9 +45,9 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginInDTO loginInDTO){
-        String jwt = userService.로그인(loginInDTO);
-        ResponseDTO<?> responseDTO = new ResponseDTO<>();
-        return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(responseDTO);
+        Object[] result = userService.로그인(loginInDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(result[0]);
+        return ResponseEntity.ok().header(MyJwtProvider.HEADER, (String) result[1]).body(responseDTO);
     }
 
     @GetMapping("/user/{id}")
