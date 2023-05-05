@@ -4,10 +4,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import shop.mtcoding.restend.model.event.Event;
+import shop.mtcoding.restend.model.event.EventRepository;
+import shop.mtcoding.restend.model.event.EventType;
 import shop.mtcoding.restend.model.user.UserRepository;
 
 @Component
 public class DataInit extends DummyEntity{
+    private final EventRepository eventRepository;
+
+    public DataInit(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
     @Profile("dev")
     @Bean
@@ -17,7 +25,7 @@ public class DataInit extends DummyEntity{
             userRepository.save(newUser("코스"));
             userRepository.save(newUser("러브"));
             userRepository.save(newMockUser(2L,"코스"));
-            userRepository.save(newMockUser(3L,"코코"));
+
         };
     }
 }
