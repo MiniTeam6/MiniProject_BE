@@ -33,6 +33,8 @@ public class Event {
 
 	private LocalDateTime updatedAt;
 
+
+
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = LocalDateTime.now();
@@ -44,8 +46,8 @@ public class Event {
 	}
 
 	@Builder
-	public Event(Long id, User user, EventType eventType, Annual annual, Duty duty, LocalDateTime createdAt, LocalDateTime updatedAt) {
-		this.id = id;
+	public Event(User user, EventType eventType, Annual annual, Duty duty, LocalDateTime createdAt, LocalDateTime updatedAt) {
+
 		this.user = user;
 		this.eventType = eventType;
 		this.annual = annual;

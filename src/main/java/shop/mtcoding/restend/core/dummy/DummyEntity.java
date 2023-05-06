@@ -1,8 +1,13 @@
 package shop.mtcoding.restend.core.dummy;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import shop.mtcoding.restend.model.annual.Annual;
+import shop.mtcoding.restend.model.duty.Duty;
+import shop.mtcoding.restend.model.event.Event;
+import shop.mtcoding.restend.model.event.EventType;
 import shop.mtcoding.restend.model.user.User;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -53,4 +58,9 @@ public class DummyEntity {
                 .createdAt(LocalDateTime.now())
                 .build();
     }
+
+
+
+
+
 }
