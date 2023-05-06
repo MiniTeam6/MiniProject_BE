@@ -2,6 +2,7 @@ package shop.mtcoding.restend.dto.event;
 
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import shop.mtcoding.restend.model.annual.Annual;
 import shop.mtcoding.restend.model.duty.Duty;
 import shop.mtcoding.restend.model.event.Event;
@@ -12,6 +13,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import java.time.LocalDate;
+
 
 public class EventRequest {
 
@@ -49,6 +53,24 @@ public class EventRequest {
         public Duty dutyToEntity(){
             return Duty.builder().date(date).build();
         }
+
+    }
+
+    @Getter
+    public static class EventCancelInDto {
+        private Long id;
+        private String eventType;
+    }
+
+    @Getter
+    public static class EventModifyInDto {
+        private Long id;
+        private String eventType;
+
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private LocalDate startDate;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private LocalDate endDate;
 
     }
 }

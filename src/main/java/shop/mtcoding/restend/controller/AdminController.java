@@ -49,8 +49,8 @@ public class AdminController {
 	 */
 	@PostMapping("/role/update")
 	public ResponseEntity<?> roleUpdate(@RequestBody @Valid UserRequest.RoleUpdateInDTO roleUpdateInDTO){
-		UserResponse.DetailOutDTO detailOutDTO= userService.권한업데이트(roleUpdateInDTO);
-		ResponseDTO<?>responseDTO = new ResponseDTO<>(detailOutDTO);
+		UserResponse.UserDetailOutDTO userDetailOutDTO= userService.권한업데이트(roleUpdateInDTO);
+		ResponseDTO<?>responseDTO = new ResponseDTO<>(userDetailOutDTO);
 		return ResponseEntity.ok(responseDTO);
 	}
 

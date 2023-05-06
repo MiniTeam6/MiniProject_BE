@@ -3,6 +3,9 @@ package shop.mtcoding.restend.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
@@ -17,11 +20,13 @@ import shop.mtcoding.restend.dto.event.EventRequest;
 import shop.mtcoding.restend.dto.event.EventResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
+import shop.mtcoding.restend.model.event.EventType;
 import shop.mtcoding.restend.service.AnnualService;
 import shop.mtcoding.restend.service.EventService;
 import shop.mtcoding.restend.service.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -32,37 +37,42 @@ public class UserController {
     private final EventService eventService;
 
 
+
+
+    // 회원가입
+
     @PostMapping("/signup")
-    public ResponseEntity<?> join(@RequestBody @Valid UserRequest.JoinInDTO joinInDTO, Errors errors) {
-        UserResponse.JoinOutDTO joinOutDTO = userService.회원가입(joinInDTO);
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(joinOutDTO);
+    public ResponseEntity<?> signup(@RequestPart @Valid UserRequest.SignupInDTO signupInDTO, @RequestPart MultipartFile image, Errors errors) {
+        UserResponse.SignupOutDTO signupOutDTO = userService.회원가입(signupInDTO, image);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(signupOutDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
+    // 로그인
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginInDTO loginInDTO){
-        String jwt = userService.로그인(loginInDTO);
-        ResponseDTO<?> responseDTO = new ResponseDTO<>();
-        return ResponseEntity.ok().header(MyJwtProvider.HEADER, jwt).body(responseDTO);
+        Object[] result = userService.로그인(loginInDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(result[0]);
+        return ResponseEntity.ok().header(MyJwtProvider.HEADER, (String) result[1]).body(responseDTO);
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<?> detail(@PathVariable Long id, @AuthenticationPrincipal MyUserDetails myUserDetails) throws JsonProcessingException {
-        if(id.longValue() != myUserDetails.getUser().getId()){
-            throw new Exception403("권한이 없습니다");
-        }
-        UserResponse.DetailOutDTO detailOutDTO = userService.회원상세보기(id);
-        //System.out.println(new ObjectMapper().writeValueAsString(detailOutDTO));
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(detailOutDTO);
+    // 모든 유저 리스트
+    @GetMapping("/user/users")
+    public ResponseEntity<?> findAllUser() {
+        List<UserResponse.UserListOutDTO> userListOutDTO = userService.회원전체리스트();
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(userListOutDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
-    // 모든 연차 당직 리스트
-    @GetMapping("/user/list")
-    public ResponseEntity<?> list() throws JsonProcessingException {
-        EventResponse.EventListDto eventListDto = (EventResponse.EventListDto) eventService.findAll();
-        return ResponseEntity.ok(eventListDto);
+    // 유저 상세 정보
+    @GetMapping("/user/users/{id}")
+    public ResponseEntity<?> userDetail(@PathVariable Long id) {
+        UserResponse.UserDetailOutDTO userDetailOutDTO = userService.회원상세보기(id);
+        //System.out.println(new ObjectMapper().writeValueAsString(detailOutDTO));
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(userDetailOutDTO);
+        return ResponseEntity.ok(responseDTO);
     }
+
 
     // 마이페이지
     @GetMapping("/user/mypage")
@@ -85,5 +95,32 @@ public class UserController {
         return null;
     }
 
+
+    // 내 정보 보기
+    @GetMapping("/user/myinfo")
+    public ResponseEntity<?> getMyInfo(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        UserResponse.UserDetailOutDTO userDetailOutDTO = userService.회원상세보기(myUserDetails.getUser().getId());
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(userDetailOutDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    // 내 정보 수정
+    @PostMapping("/user/myinfo")
+    public ResponseEntity<?> updateMyInfo(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestPart @Valid UserRequest.SignupInDTO signupInDTO, @RequestPart MultipartFile image, Errors errors) {
+        UserResponse.UserDetailOutDTO userDetailOutDTO = userService.회원정보수정(myUserDetails.getUser().getId(), signupInDTO, image);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(userDetailOutDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    // 내 연차 리스트
+     // 무한스크롤 slice
+//    @GetMapping("/user/myannual")
+//    public ResponseEntity<?> getMyAnnual(@AuthenticationPrincipal MyUserDetails myUserDetails,
+//                                         @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
+//        List<EventResponse.EventListOutDTO> eventListOutDTO = userService.내연차리스트(myUserDetails, pageable);
+//        return ResponseEntity.ok(responseDTO);
+//    }
+
+    // 내 당직 리스트
 
 }

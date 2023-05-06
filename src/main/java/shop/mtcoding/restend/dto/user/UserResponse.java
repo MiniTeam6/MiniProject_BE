@@ -3,41 +3,79 @@ package shop.mtcoding.restend.dto.user;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import shop.mtcoding.restend.model.user.User;
+import shop.mtcoding.restend.model.user.UserRole;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class UserResponse {
-    @Getter @Setter
-    public static class DetailOutDTO{
-        private Long id;
-        private String username;
-        private String email;
 
-        private String role;
-
-        public DetailOutDTO(User user) {
-            this.id = user.getId();
-            this.username=user.getUsername();
-            this.email = user.getEmail();
-            this.role = user.getRole().toString();
-        }
-    }
-
-    @Setter
+    // 회원가입 응답 (정보 확인용)
     @Getter
-    public static class JoinOutDTO {
+    public static class SignupOutDTO {
         private Long id;
         private String username;
         private String email;
+        private String phone;
+        private String imageUri;
+        private String thumbnailUri;
 
-        public JoinOutDTO(User user) {
+        public SignupOutDTO(User user) {
             this.id = user.getId();
             this.username = user.getUsername();
             this.email = user.getEmail();
+            this.phone = user.getPhone();
+            this.imageUri = user.getImageUri();
+            this.thumbnailUri = user.getThumbnailUri();
         }
     }
+
+    // 로그인 응답
+    @Getter
+    public static class LoginOutDTO {
+        private Long id;
+        private String username;
+        private String email;
+        private String phone;
+        private UserRole role;
+        private Boolean status;
+        private LocalDate nextAnnual;
+        private LocalDate nextDuty;
+
+        public LoginOutDTO(User user, LocalDate nextAnnual, LocalDate nextDuty) {
+            this.id = user.getId();
+            this.username = user.getUsername();
+            this.email = user.getEmail();
+            this.phone = user.getPhone();
+            this.role = user.getRole();
+            this.status = user.getStatus();
+            this.nextAnnual = nextAnnual;
+            this.nextDuty = nextDuty;
+        }
+    }
+
+    @Getter @Setter
+    public static class UserDetailOutDTO{
+        private Long id;
+        private String username;
+        private String email;
+        private String phone;
+        private String imageUri;
+        private String thumbnailUri;
+        private UserRole role;
+
+        public UserDetailOutDTO(User user) {
+            this.id = user.getId();
+            this.username=user.getUsername();
+            this.email = user.getEmail();
+            this.phone = user.getPhone();
+            this.imageUri = user.getImageUri();
+            this.thumbnailUri = user.getThumbnailUri();
+            this.role = user.getRole();
+        }
+    }
+
 
     @JsonSerialize
     @Getter
@@ -45,14 +83,14 @@ public class UserResponse {
     public static class UserListOutDTO{
         private Long id;
         private LocalDateTime createAt;
-        private String image;
+        private String imageUri;
         private String username;
         private String email;
         private String role;
         public UserListOutDTO(User user){
             this.id=user.getId();
             this.createAt=user.getCreatedAt();
-            this.image = user.getImage();
+            this.imageUri = user.getImageUri();
             this.username = user.getUsername();
             this.email=user.getEmail();
             this.role=user.getRole().toString();
