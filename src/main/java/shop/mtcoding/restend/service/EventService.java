@@ -35,67 +35,64 @@ public class EventService {
     private final OrderRepository orderRepository;
 
     @Transactional
-    public void insertEvent(Long userid, EventRequest.EventAddDto eventAddDto){
+    public void insertEvent(Long userid, EventRequest.EventAddDto eventAddDto) {
         Optional<User> user = userRepository.findById(userid);
-        if(user.isEmpty()){
-            throw new Exception404( "해당 User를 찾을 수 없습니다. ");
+        if (user.isEmpty()) {
+            throw new Exception404("해당 User를 찾을 수 없습니다. ");
         }
         if (EventType.ANNUAL == EventType.valueOf(eventAddDto.getEventType())) {
             Annual annualToAdd = eventAddDto.annualToEntity();
-            List<Event> annualEvents = eventRepository.findAllByEventTypeAndUser(EventType.ANNUAL, user.get());
-            boolean isOverlap = annualEvents.stream()
-                    .anyMatch(annualEvent -> {
-                        LocalDate existingStartDate = annualEvent.getAnnual().getStartDate();
-                        LocalDate existingEndDate = annualEvent.getAnnual().getEndDate();
-                        LocalDate newStartDate = annualToAdd.getStartDate();
-                        LocalDate newEndDate = annualToAdd.getEndDate();
-                        return (newStartDate.isBefore(existingEndDate)) && (newEndDate.isAfter(existingStartDate)) ||
-                                (newStartDate.isEqual(existingStartDate)) || (newEndDate.isEqual(existingEndDate)) ||
-                                (newStartDate.isBefore(existingStartDate) && newEndDate.isAfter(existingEndDate));
-                    });
-            if (isOverlap) {
-                throw new Exception404("연차를 요청한 기간에 이미 연차신청 내역이 존재합니다. ");
-                }
-            else {
-                    Annual annual = annualRepository.save(annualToAdd);
-                    Event event = eventRepository.save(eventAddDto.annualToEventEntity(user.get(), annual));
-                    user.get().setAnnualCount(); //연차개수 마이너스
-                    userRepository.save(user.get());
-                    Order order = Order.builder()
-                            .event(event)
-                            .orderState(OrderState.WAITING)
-                            .approver(null)
-                            .build();
-                    orderRepository.save(order);
-                }
-            }
-        else{
+            checkAnnualOverlap(user.get(), annualToAdd); // 연차 중복 체크
+            Annual annual = annualRepository.save(annualToAdd);
+            Event event = eventRepository.save(eventAddDto.annualToEventEntity(user.get(), annual));
+            user.get().setAnnualCount(); // 연차개수 마이너스
+            userRepository.save(user.get());
+            Order order = Order.builder()
+                    .event(event)
+                    .orderState(OrderState.WAITING)
+                    .approver(null)
+                    .build();
+            orderRepository.save(order);
+        } else {
             Duty dutyToAdd = eventAddDto.dutyToEntity();
-            List<Event> dutyEvents = eventRepository.findAllByEventTypeAndUser(EventType.DUTY, user.get());
-            boolean isOverlap = dutyEvents.stream()
-                    .anyMatch(annualEvent -> {
-                        LocalDate existingDate = annualEvent.getDuty().getDate();
-                        LocalDate newDate = dutyToAdd.getDate();
-                        return existingDate.equals(newDate);
-                    });
-            if (isOverlap) {
-                throw new Exception404("당직을 요청한 날짜에 이미 당직신청 내역이 존재합니다. ");
-            }
-            else{
-                Duty duty= dutyRepository.save(eventAddDto.dutyToEntity());
-                Event event = eventRepository.save(eventAddDto.dutyToEventEntity(user.get(),duty));
-                Order order = Order.builder()
-                        .event(event)
-                        .orderState(OrderState.WAITING)
-                        .approver(null)
-                        .build();
-                orderRepository.save(order);
-            }
-
-
+            checkDutyOverlap(user.get(), dutyToAdd); // 당직 중복 체크
+            Duty duty = dutyRepository.save(eventAddDto.dutyToEntity());
+            Event event = eventRepository.save(eventAddDto.dutyToEventEntity(user.get(), duty));
+            Order order = Order.builder()
+                    .event(event)
+                    .orderState(OrderState.WAITING)
+                    .approver(null)
+                    .build();
+            orderRepository.save(order);
         }
-
     }
+
+    private void checkAnnualOverlap(User user, Annual annualToAdd) {
+        List<Event> annualEvents = eventRepository.findAllByEventTypeAndUser(EventType.ANNUAL, user);
+        boolean isOverlap = annualEvents.stream()
+                .anyMatch(annualEvent -> {
+                    LocalDate existingStartDate = annualEvent.getAnnual().getStartDate();
+                    LocalDate existingEndDate = annualEvent.getAnnual().getEndDate();
+                    LocalDate newStartDate = annualToAdd.getStartDate();
+                    LocalDate newEndDate = annualToAdd.getEndDate();
+                    return (newStartDate.isBefore(existingEndDate)) && (newEndDate.isAfter(existingStartDate)) ||
+                            (newStartDate.isEqual(existingStartDate)) || (newEndDate.isEqual(existingEndDate)) ||
+                            (newStartDate.isBefore(existingStartDate) && newEndDate.isAfter(existingEndDate));
+                });
+        if (isOverlap) {
+            throw new Exception404("연차를 요청한 기간에 이미 연차신청 내역이 존재합니다. ");
+        }
+    }
+
+    private void checkDutyOverlap(User user, Duty dutyToAdd) {
+        List<Event> dutyEvents = eventRepository.findAllByEventTypeAndUser(EventType.DUTY, user);
+        boolean isOverlap = dutyEvents.stream()
+                .anyMatch(dutyEvent -> dutyEvent.getDuty().getDate().equals(dutyToAdd.getDate()));
+        if (isOverlap) {
+            throw new Exception404("당직을 요청한 날짜에 이미 당직신청 내역이 존재합니다. ");
+        }
+    }
+
     public List<Event> findAll() {
         return eventRepository.findAll();
     }
