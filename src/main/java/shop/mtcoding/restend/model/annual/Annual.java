@@ -23,4 +23,9 @@ public class Annual {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+
+	public void update(LocalDate startDate, LocalDate endDate) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
 }

@@ -4,9 +4,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import shop.mtcoding.restend.model.event.Event;
 import shop.mtcoding.restend.model.event.EventType;
 
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public interface OrderRepository extends JpaRepository<Order,Long> {
 	@Query("SELECT o FROM Order o WHERE o.orderState = :orderState AND o.event.eventType = :eventType")
@@ -33,4 +36,5 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 	List<Order> findDutyOrdersByMonthAndOrderstate(@Param("orderState") OrderState orderstate, @Param("month") int month, @Param("year") int year);
 
 
+    Order findByEvent_Id(Long eventId);
 }

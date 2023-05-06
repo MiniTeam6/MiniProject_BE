@@ -82,4 +82,15 @@ public class User {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
+    public void update(User user){
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+        this.imageUri = user.getImageUri();
+        this.thumbnailUri = user.getThumbnailUri();
+        this.role = user.getRole();
+        this.status = user.getStatus();
+    }
 }

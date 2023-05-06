@@ -44,7 +44,6 @@ public class Event {
 	}
 
 	@Builder
-
 	public Event(Long id, User user, EventType eventType, Annual annual, Duty duty, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		this.id = id;
 		this.user = user;
