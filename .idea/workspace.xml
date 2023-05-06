@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a945f38-a5fa-4e04-bda1-a8c86aeef6e1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/order/OrderResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/dto/order/OrderResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/event/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/event/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/order/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/model/order/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shop/mtcoding/restend/service/OrderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/shop/mtcoding/restend/model/order/OrderRepositoryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +59,7 @@
       <list>
         <option value="Enum" />
         <option value="Class" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -88,6 +86,8 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -97,6 +97,14 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="shop.mtcoding.restend.model.order" />
+    </key>
+  </component>
   <component name="RunManager" selected="Spring Boot.RestendApplication">
     <configuration name="MiniProject_BE [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -173,6 +181,8 @@
       <workItem from="1683181527985" duration="8497000" />
       <workItem from="1683190194668" duration="254000" />
       <workItem from="1683190452571" duration="16941000" />
+      <workItem from="1683217227232" duration="2155000" />
+      <workItem from="1683264249880" duration="1532000" />
     </task>
     <servers />
   </component>

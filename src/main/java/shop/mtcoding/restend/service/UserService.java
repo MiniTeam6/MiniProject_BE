@@ -7,7 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.mtcoding.restend.core.annotation.MyLog;
+
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.core.exception.Exception400;
@@ -33,7 +33,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @MyLog
+
     @Transactional
     public UserResponse.JoinOutDTO 회원가입(UserRequest.JoinInDTO joinInDTO){
         Optional<User> userOP =userRepository.findByEmail(joinInDTO.getEmail());
@@ -54,7 +54,7 @@ public class UserService {
         }
     }
 
-    @MyLog
+
     public String 로그인(UserRequest.LoginInDTO loginInDTO) {
         try {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
@@ -67,7 +67,7 @@ public class UserService {
         }
     }
 
-    @MyLog
+
     public UserResponse.DetailOutDTO 회원상세보기(Long id) {
         User userPS = userRepository.findById(id).orElseThrow(
                 ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")

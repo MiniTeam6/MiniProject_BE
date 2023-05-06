@@ -39,6 +39,8 @@ public class User {
 
     private LocalDateTime updatedAt;
 
+    private Long annualCount;
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -63,6 +65,13 @@ public class User {
         this.status=status;
     }
 
+    public void setAnnualCount(){
+        if(this.annualCount<=0){
+            throw new Exception404("남은 연차개수가 없습니다.");
+        }
+        this.annualCount--;
+    }
+
     @Builder
     public User(Long id, String username, String password, String email, String image, String role, Boolean status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
@@ -74,5 +83,6 @@ public class User {
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.annualCount=15L;
     }
 }
