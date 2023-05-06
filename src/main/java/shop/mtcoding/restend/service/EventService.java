@@ -184,9 +184,10 @@ public class EventService {
     // 연차 리스트
     public List<EventResponse.EventListOutDTO> 연차리스트() {
         List<Event> eventList = eventRepository.findAll();
+        List<Event> annualList = eventList.stream().filter(event -> event.getEventType() == EventType.ANNUAL).collect(Collectors.toList());
 
         List<EventResponse.EventListOutDTO> results = new ArrayList<>();
-        for (Event event : eventList) {
+        for (Event event : annualList) {
             EventResponse.EventListOutDTO eventListOutDTO = EventResponse.EventListOutDTO.builder()
                     .eventId(event.getId())
                     .userId(event.getUser().getId())
@@ -205,9 +206,10 @@ public class EventService {
     // 당직 리스트
     public List<EventResponse.EventListOutDTO> 당직리스트() {
         List<Event> eventList = eventRepository.findAll();
+        List<Event> dutyList = eventList.stream().filter(event -> event.getEventType() == EventType.DUTY).collect(Collectors.toList());
 
         List<EventResponse.EventListOutDTO> results = new ArrayList<>();
-        for (Event event : eventList) {
+        for (Event event : dutyList) {
             EventResponse.EventListOutDTO eventListOutDTO = EventResponse.EventListOutDTO.builder()
                     .eventId(event.getId())
                     .userId(event.getUser().getId())
