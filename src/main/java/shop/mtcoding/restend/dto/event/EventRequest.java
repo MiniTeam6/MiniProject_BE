@@ -1,21 +1,36 @@
 package shop.mtcoding.restend.dto.event;
 
 import lombok.Getter;
-import shop.mtcoding.restend.model.event.EventType;
-import shop.mtcoding.restend.model.user.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class EventRequest {
 
     @Getter
-    public static class EventAddDto {
+    public static class EventAddInDto {
+        private String eventType;
+
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private LocalDate startDate;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private LocalDate endDate;
+    }
+
+    @Getter
+    public static class EventCancelInDto {
         private Long id;
-        private User user;
-        private EventType eventType;
+        private String eventType;
+    }
 
-        private LocalDateTime createdAt;
+    @Getter
+    public static class EventModifyInDto {
+        private Long id;
+        private String eventType;
 
-        private LocalDateTime updatedAt;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private LocalDate startDate;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private LocalDate endDate;
     }
 }
