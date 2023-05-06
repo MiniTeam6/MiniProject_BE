@@ -3,10 +3,7 @@ package shop.mtcoding.restend.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.dto.ResponseDTO;
 import shop.mtcoding.restend.dto.event.EventRequest;
@@ -40,6 +37,28 @@ public class EventController {
     @PostMapping("/user/event/modify")
     public ResponseEntity<?> modify(@RequestBody @Valid EventRequest.EventModifyInDto eventModifyInDTO, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.연차당직신청수정(eventModifyInDTO, myUserDetails.getUser()));
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    // 모든 이벤트 리스트
+    @GetMapping("user/event")
+    public ResponseEntity<?> list(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.이벤트리스트());
+        return ResponseEntity.ok(responseDTO);
+    }
+
+
+    // 모든 연차 리스트
+    @GetMapping("user/event/annual")
+    public ResponseEntity<?> annual(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.연차리스트());
+        return ResponseEntity.ok(responseDTO);
+    }
+
+    // 모든 당직 리스트
+    @GetMapping("user/event/duty")
+    public ResponseEntity<?> duty(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.당직리스트());
         return ResponseEntity.ok(responseDTO);
     }
 

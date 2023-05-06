@@ -1,7 +1,10 @@
 package shop.mtcoding.restend.service;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +20,7 @@ import shop.mtcoding.restend.core.exception.Exception400;
 import shop.mtcoding.restend.core.exception.Exception401;
 import shop.mtcoding.restend.core.exception.Exception404;
 import shop.mtcoding.restend.core.exception.Exception500;
+import shop.mtcoding.restend.dto.event.EventResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.model.annual.Annual;
@@ -92,16 +96,18 @@ public class UserService {
 
             LocalDate today = LocalDate.now();
 
-            LocalDate nextAnnualDate = annuals.stream()
-                    .filter(annual -> annual.getStartDate().isAfter(today) || annual.getStartDate().isEqual(today))
-                    .map(Annual::getStartDate)
-                    .min(LocalDate::compareTo)
-                    .orElse(null);
-            LocalDate nextDutyDate = duties.stream()
-                    .map(Duty::getDate)
-                    .filter(date -> date.isAfter(today))
-                    .min(LocalDate::compareTo)
-                    .orElse(null);
+//            LocalDate nextAnnualDate = annuals.stream()
+//                    .filter(annual -> annual.getStartDate().isAfter(today) || annual.getStartDate().isEqual(today))
+//                    .map(Annual::getStartDate)
+//                    .min(LocalDate::compareTo)
+//                    .orElse(null);
+//            LocalDate nextDutyDate = duties.stream()
+//                    .map(Duty::getDate)
+//                    .filter(date -> date.isAfter(today))
+//                    .min(LocalDate::compareTo)
+//                    .orElse(null);
+            LocalDate nextAnnualDate = null;
+            LocalDate nextDutyDate = null;
 
             Object[] result = new Object[2];
             result[0] = new UserResponse.LoginOutDTO(myUserDetails.getUser(), nextAnnualDate, nextDutyDate);
@@ -203,6 +209,27 @@ public class UserService {
     }
 
 
+//    public Slice<EventResponse.EventListOutDTO> 내연차리스트(MyUserDetails myUserDetails, Pageable pageable) throws Exception {
+//        User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
+//                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
+//        );
+//
+//        Sort sort = pageable.getSort().and(Sort.by("startDate").descending());
+//        Pageable page = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+//
+//        List<Event> events = eventRepository.findAllByUser(user);
+//
+//        List<Long> annualIds = events.stream()
+//                .filter(event -> event.getEventType().equals(EventType.ANNUAL))
+//                .map(Event::getId)
+//                .collect(Collectors.toList());
+//
+//        Slice<Annual> annuals = annualRepository.findAllByIdIn(annualIds, page);
+//
+//        Slice<EventResponse.EventListOutDTO> myAnnuals =
+//
+//        return myEventList;
+//    }
 
 
 }

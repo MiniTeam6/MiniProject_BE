@@ -87,6 +87,14 @@ public class UserController {
         return ResponseEntity.ok(responseDTO);
     }
 
-        return ResponseEntity.ok(responseDTO);
-    }
+    // 내 연차 리스트
+     // 무한스크롤 slice
+//    @GetMapping("/user/myannual")
+//    public ResponseEntity<?> getMyAnnual(@AuthenticationPrincipal MyUserDetails myUserDetails,
+//                                         @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
+//        List<EventResponse.EventListOutDTO> eventListOutDTO = userService.내연차리스트(myUserDetails, pageable);
+//        return ResponseEntity.ok(responseDTO);
+//    }
+
+    // 내 당직 리스트
 }

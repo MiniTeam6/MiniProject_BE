@@ -17,8 +17,10 @@ import shop.mtcoding.restend.model.order.OrderRepository;
 import shop.mtcoding.restend.model.order.OrderState;
 import shop.mtcoding.restend.model.user.User;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -157,10 +159,67 @@ public class EventService {
                 .build();
     }
 
+    // 이벤트 리스트
+    public List<EventResponse.EventListOutDTO> 이벤트리스트() {
+        List<Event> eventList = eventRepository.findAll();
 
-    public List<Event> findAll() {
-        return eventRepository.findAll();
+        List<EventResponse.EventListOutDTO> results = new ArrayList<>();
+        for (Event event : eventList) {
+            EventResponse.EventListOutDTO eventListOutDTO = EventResponse.EventListOutDTO.builder()
+                    .eventId(event.getId())
+                    .userId(event.getUser().getId())
+                    .eventType(event.getEventType())
+                    .id(event.getEventType() == EventType.ANNUAL ? event.getAnnual().getId() : event.getDuty().getId())
+                    .createdAt(event.getCreatedAt())
+                    .updatedAt(event.getUpdatedAt())
+                    .startDate(event.getEventType() == EventType.ANNUAL ? event.getAnnual().getStartDate() : event.getDuty().getDate())
+                    .endDate(event.getEventType() == EventType.ANNUAL ? event.getAnnual().getEndDate() : event.getDuty().getDate())
+                    .build();
+            results.add(eventListOutDTO);
+        }
+        return results;
     }
 
 
+    // 연차 리스트
+    public List<EventResponse.EventListOutDTO> 연차리스트() {
+        List<Event> eventList = eventRepository.findAll();
+
+        List<EventResponse.EventListOutDTO> results = new ArrayList<>();
+        for (Event event : eventList) {
+            EventResponse.EventListOutDTO eventListOutDTO = EventResponse.EventListOutDTO.builder()
+                    .eventId(event.getId())
+                    .userId(event.getUser().getId())
+                    .eventType(event.getEventType())
+                    .id(event.getAnnual().getId())
+                    .createdAt(event.getCreatedAt())
+                    .updatedAt(event.getUpdatedAt())
+                    .startDate(event.getAnnual().getStartDate())
+                    .endDate(event.getAnnual().getEndDate())
+                    .build();
+            results.add(eventListOutDTO);
+        }
+        return results;
+    }
+
+    // 당직 리스트
+    public List<EventResponse.EventListOutDTO> 당직리스트() {
+        List<Event> eventList = eventRepository.findAll();
+
+        List<EventResponse.EventListOutDTO> results = new ArrayList<>();
+        for (Event event : eventList) {
+            EventResponse.EventListOutDTO eventListOutDTO = EventResponse.EventListOutDTO.builder()
+                    .eventId(event.getId())
+                    .userId(event.getUser().getId())
+                    .eventType(event.getEventType())
+                    .id(event.getDuty().getId())
+                    .createdAt(event.getCreatedAt())
+                    .updatedAt(event.getUpdatedAt())
+                    .startDate(event.getDuty().getDate())
+                    .endDate(event.getDuty().getDate())
+                    .build();
+            results.add(eventListOutDTO);
+        }
+        return results;
+    }
 }
