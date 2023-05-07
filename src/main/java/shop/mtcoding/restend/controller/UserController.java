@@ -1,9 +1,8 @@
 package shop.mtcoding.restend.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -11,19 +10,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import shop.mtcoding.restend.core.annotation.MyErrorLog;
-import shop.mtcoding.restend.core.annotation.MyLog;
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
-import shop.mtcoding.restend.core.exception.Exception403;
 import shop.mtcoding.restend.dto.ResponseDTO;
-import shop.mtcoding.restend.dto.annual.AnnualRequest;
 import shop.mtcoding.restend.dto.event.EventResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
-import shop.mtcoding.restend.model.event.EventType;
-import shop.mtcoding.restend.service.AnnualService;
-import shop.mtcoding.restend.service.EventService;
 import shop.mtcoding.restend.service.UserService;
 
 import javax.validation.Valid;
@@ -37,8 +29,6 @@ public class UserController {
     private final UserService userService;
 
     // 회원가입
-    @MyErrorLog
-    @MyLog
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestPart @Valid UserRequest.SignupInDTO signupInDTO, @RequestPart MultipartFile image, Errors errors) {
         UserResponse.SignupOutDTO signupOutDTO = userService.회원가입(signupInDTO, image);
@@ -88,13 +78,18 @@ public class UserController {
     }
 
     // 내 연차 리스트
-     // 무한스크롤 slice
-//    @GetMapping("/user/myannual")
-//    public ResponseEntity<?> getMyAnnual(@AuthenticationPrincipal MyUserDetails myUserDetails,
-//                                         @PageableDefault(sort = "createAt", direction = Sort.Direction.DESC) Pageable pageable) {
-//        List<EventResponse.EventListOutDTO> eventListOutDTO = userService.내연차리스트(myUserDetails, pageable);
-//        return ResponseEntity.ok(responseDTO);
-//    }
+    @GetMapping("/user/myannual")
+    public ResponseEntity<?> getMyAnnual(@AuthenticationPrincipal MyUserDetails myUserDetails,
+                                         @PageableDefault(size = 10) Pageable pageable) {
+        Slice<EventResponse.EventListOutDTO> eventListOutDTO = userService.내연차리스트(myUserDetails, pageable);
+        return ResponseEntity.ok(eventListOutDTO);
+    }
 
     // 내 당직 리스트
+    @GetMapping("/user/myduty")
+    public ResponseEntity<?> getMyDuty(@AuthenticationPrincipal MyUserDetails myUserDetails,
+                                       @PageableDefault(size = 10) Pageable pageable) {
+        Slice<EventResponse.EventListOutDTO> eventListOutDTO = userService.내당직리스트(myUserDetails, pageable);
+        return ResponseEntity.ok(eventListOutDTO);
+    }
 }

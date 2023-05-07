@@ -1,6 +1,5 @@
 package shop.mtcoding.restend.service;
 
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import shop.mtcoding.restend.core.annotation.MyLog;
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.core.exception.Exception400;
@@ -49,7 +47,6 @@ public class UserService {
     private final EventRepository eventRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @MyLog
     @Transactional
     public UserResponse.SignupOutDTO 회원가입(UserRequest.SignupInDTO signupInDTO, MultipartFile image){
 
@@ -76,7 +73,6 @@ public class UserService {
         }
     }
 
-    @MyLog
     public Object[] 로그인(UserRequest.LoginInDTO loginInDTO) {
         try {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
@@ -119,7 +115,6 @@ public class UserService {
         }
     }
 
-    @MyLog
     public UserResponse.UserDetailOutDTO 회원상세보기(Long id) {
         User userPS = userRepository.findById(id).orElseThrow(
                 ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
@@ -127,7 +122,6 @@ public class UserService {
         return new UserResponse.UserDetailOutDTO(userPS);
     }
 
-    @MyLog
     @Transactional
     public UserResponse.UserDetailOutDTO 회원정보수정(Long id, UserRequest.SignupInDTO signupInDTO, MultipartFile image) {
         User userPS = userRepository.findById(id).orElseThrow(
@@ -209,27 +203,52 @@ public class UserService {
     }
 
 
-//    public Slice<EventResponse.EventListOutDTO> 내연차리스트(MyUserDetails myUserDetails, Pageable pageable) throws Exception {
-//        User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
-//                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
-//        );
-//
-//        Sort sort = pageable.getSort().and(Sort.by("startDate").descending());
-//        Pageable page = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
-//
-//        List<Event> events = eventRepository.findAllByUser(user);
-//
-//        List<Long> annualIds = events.stream()
-//                .filter(event -> event.getEventType().equals(EventType.ANNUAL))
-//                .map(Event::getId)
-//                .collect(Collectors.toList());
-//
-//        Slice<Annual> annuals = annualRepository.findAllByIdIn(annualIds, page);
-//
-//        Slice<EventResponse.EventListOutDTO> myAnnuals =
-//
-//        return myEventList;
-//    }
+    public Slice<EventResponse.EventListOutDTO> 내연차리스트(MyUserDetails myUserDetails, Pageable pageable) {
+        User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
+                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
+        );
+
+        //Sort sort = pageable.getSort().and(Sort.by("startDate").descending());
+        Pageable page = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+
+        Slice<Event> events = eventRepository.findByUserAndEventTypeOrderByAnnual_StartDateDesc(user, EventType.ANNUAL, page);
+
+        Slice<EventResponse.EventListOutDTO> myAnnuals = events.map(event -> EventResponse.EventListOutDTO.builder()
+                .eventId(event.getId())
+                .userId(event.getUser().getId())
+                .eventType(event.getEventType())
+                .id(event.getAnnual().getId())
+                .startDate(event.getAnnual().getStartDate())
+                .endDate(event.getAnnual().getEndDate())
+                .createdAt(event.getCreatedAt())
+                .updatedAt(event.getUpdatedAt())
+                .build());
+
+        return myAnnuals;
+    }
 
 
+    public Slice<EventResponse.EventListOutDTO> 내당직리스트(MyUserDetails myUserDetails, Pageable pageable) {
+        User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
+                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
+        );
+
+        //Sort sort = pageable.getSort().and(Sort.by("startDate").descending());
+        Pageable page = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
+
+        Slice<Event> events = eventRepository.findByUserAndEventTypeOrderByDuty_DateDesc(user, EventType.DUTY, page);
+
+        Slice<EventResponse.EventListOutDTO> myDutys = events.map(event -> EventResponse.EventListOutDTO.builder()
+                .eventId(event.getId())
+                .userId(event.getUser().getId())
+                .eventType(event.getEventType())
+                .id(event.getDuty().getId())
+                .startDate(event.getDuty().getDate())
+                .endDate(event.getDuty().getDate())
+                .createdAt(event.getCreatedAt())
+                .updatedAt(event.getUpdatedAt())
+                .build());
+
+        return myDutys;
+    }
 }

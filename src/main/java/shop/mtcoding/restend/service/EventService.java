@@ -2,6 +2,8 @@ package shop.mtcoding.restend.service;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 import shop.mtcoding.restend.dto.event.EventRequest;
 import shop.mtcoding.restend.dto.event.EventResponse;
@@ -221,6 +223,49 @@ public class EventService {
                     .endDate(event.getDuty().getDate())
                     .build();
             results.add(eventListOutDTO);
+        }
+        return results;
+    }
+
+    public Slice<EventResponse.EventListOutDTO> 연차당직리스트(String eventType, Boolean myEvent, User user, Pageable pageable) {
+        Slice<Event> events = null;
+        Slice<EventResponse.EventListOutDTO> results = null;
+        switch (eventType) {
+            case "연차":
+                if (myEvent) {
+                    events = eventRepository.findByUserAndEventTypeOrderByAnnual_StartDateDesc(user, EventType.ANNUAL, pageable);
+                } else {
+                    events = eventRepository.findByEventTypeOrderByAnnual_StartDateDesc(EventType.ANNUAL, pageable);
+                }
+                results = events.map(event -> EventResponse.EventListOutDTO.builder()
+                        .eventId(event.getId())
+                        .userId(event.getUser().getId())
+                        .eventType(event.getEventType())
+                        .id(event.getAnnual().getId())
+                        .startDate(event.getAnnual().getStartDate())
+                        .endDate(event.getAnnual().getEndDate())
+                        .createdAt(event.getCreatedAt())
+                        .updatedAt(event.getUpdatedAt())
+                        .build());
+                break;
+
+            case "당직":
+                if (myEvent) {
+                    events = eventRepository.findByUserAndEventTypeOrderByDuty_DateDesc(user, EventType.DUTY, pageable);
+                } else {
+                    events = eventRepository.findByEventTypeOrderByDuty_DateDesc(EventType.DUTY, pageable);
+                }
+                results = events.map(event -> EventResponse.EventListOutDTO.builder()
+                        .eventId(event.getId())
+                        .userId(event.getUser().getId())
+                        .eventType(event.getEventType())
+                        .id(event.getDuty().getId())
+                        .startDate(event.getDuty().getDate())
+                        .endDate(event.getDuty().getDate())
+                        .createdAt(event.getCreatedAt())
+                        .updatedAt(event.getUpdatedAt())
+                        .build());
+                break;
         }
         return results;
     }
