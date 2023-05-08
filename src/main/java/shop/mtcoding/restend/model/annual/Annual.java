@@ -28,4 +28,5 @@ public class Annual {
 		this.startDate = startDate;
 		this.endDate = endDate;
 	}
+
 }
