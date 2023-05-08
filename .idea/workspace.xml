@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2a945f38-a5fa-4e04-bda1-a8c86aeef6e1" name="Changes" comment="">
+<<<<<<< Updated upstream
       <change afterPath="$PROJECT_DIR$/src/test/java/shop/mtcoding/restend/model/order/OrderRepositoryTest.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -77,6 +81,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< Updated upstream
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
@@ -105,6 +110,29 @@
       <recent name="shop.mtcoding.restend.model.order" />
     </key>
   </component>
+=======
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "spring.configuration.checksum": "9dd3d089549b2956e48ca6f38c1fd1a5",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+>>>>>>> Stashed changes
   <component name="RunManager" selected="Spring Boot.RestendApplication">
     <configuration name="MiniProject_BE [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -148,6 +176,13 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="RestendApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="shop.mtcoding.restend.main" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="shop.mtcoding.restend.RestendApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RestendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="restend.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="shop.mtcoding.restend.RestendApplication" />
@@ -180,9 +215,13 @@
       <workItem from="1683178206219" duration="3309000" />
       <workItem from="1683181527985" duration="8497000" />
       <workItem from="1683190194668" duration="254000" />
+<<<<<<< Updated upstream
       <workItem from="1683190452571" duration="16941000" />
       <workItem from="1683217227232" duration="2155000" />
       <workItem from="1683264249880" duration="1532000" />
+=======
+      <workItem from="1683543624518" duration="2554000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
