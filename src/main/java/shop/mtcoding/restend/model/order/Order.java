@@ -6,6 +6,11 @@ import shop.mtcoding.restend.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+@NamedEntityGraph(name = "Order.detail",
+		attributeNodes = {
+				@NamedAttributeNode(value = "event"),
+				@NamedAttributeNode(value = "approver")
+		})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "order_tb")
@@ -30,6 +35,9 @@ public class Order {
 	private LocalDateTime createdAt;
 
 
+
+
+
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = LocalDateTime.now();
@@ -43,4 +51,6 @@ public class Order {
 		this.approver = approver;
 		this.createdAt = createdAt;
 	}
+
+
 }

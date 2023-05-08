@@ -11,7 +11,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.web.multipart.MultipartFile;
+
+import shop.mtcoding.restend.core.annotation.MyLog;
+
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.core.exception.Exception400;
@@ -47,6 +51,7 @@ public class UserService {
     private final EventRepository eventRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
+
     @Transactional
     public UserResponse.SignupOutDTO 회원가입(UserRequest.SignupInDTO signupInDTO, MultipartFile image){
 
@@ -73,7 +78,9 @@ public class UserService {
         }
     }
 
+
     public Object[] 로그인(UserRequest.LoginInDTO loginInDTO) {
+
         try {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
                     = new UsernamePasswordAuthenticationToken(loginInDTO.getEmail(), loginInDTO.getPassword());
@@ -115,12 +122,15 @@ public class UserService {
         }
     }
 
+
     public UserResponse.UserDetailOutDTO 회원상세보기(Long id) {
+
         User userPS = userRepository.findById(id).orElseThrow(
                 ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
         );
         return new UserResponse.UserDetailOutDTO(userPS);
     }
+
 
     @Transactional
     public UserResponse.UserDetailOutDTO 회원정보수정(Long id, UserRequest.SignupInDTO signupInDTO, MultipartFile image) {

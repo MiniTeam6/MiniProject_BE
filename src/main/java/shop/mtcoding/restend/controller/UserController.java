@@ -9,10 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.web.multipart.MultipartFile;
+
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.dto.ResponseDTO;
+
+import shop.mtcoding.restend.dto.annual.AnnualRequest;
+import shop.mtcoding.restend.dto.event.EventRequest;
+
 import shop.mtcoding.restend.dto.event.EventResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
@@ -27,8 +33,13 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final EventService eventService;
+
+
+
 
     // 회원가입
+
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestPart @Valid UserRequest.SignupInDTO signupInDTO, @RequestPart MultipartFile image, Errors errors) {
         UserResponse.SignupOutDTO signupOutDTO = userService.회원가입(signupInDTO, image);
@@ -61,6 +72,29 @@ public class UserController {
         return ResponseEntity.ok(responseDTO);
     }
 
+
+    // 마이페이지
+    @GetMapping("/user/mypage")
+    public ResponseEntity<?> mypage(@AuthenticationPrincipal MyUserDetails myUserDetails) throws JsonProcessingException {
+        UserResponse.DetailOutDTO detailOutDTO = userService.회원상세보기(myUserDetails.getUser().getId());
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(detailOutDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+
+    /***
+     * 연차/당직 신청
+     * @param eventAddDto
+     * @param myUserDetails
+     * @return
+     */
+    @PostMapping("/user/event/add")
+    public ResponseEntity<?> eventAdd(@RequestBody @Valid EventRequest.EventAddDto eventAddDto, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        eventService.insertEvent(myUserDetails.getUser().getId(), eventAddDto);
+        return null;
+    }
+
+
     // 내 정보 보기
     @GetMapping("/user/myinfo")
     public ResponseEntity<?> getMyInfo(@AuthenticationPrincipal MyUserDetails myUserDetails) {
@@ -92,4 +126,5 @@ public class UserController {
         Slice<EventResponse.EventListOutDTO> eventListOutDTO = userService.내당직리스트(myUserDetails, pageable);
         return ResponseEntity.ok(eventListOutDTO);
     }
+
 }
