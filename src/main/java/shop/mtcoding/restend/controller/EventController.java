@@ -41,7 +41,7 @@ public class EventController {
     }
 
     // 모든 이벤트 리스트
-    @GetMapping("user/event")
+    @GetMapping("/user/event")
     public ResponseEntity<?> list(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.이벤트리스트());
         return ResponseEntity.ok(responseDTO);
@@ -49,14 +49,14 @@ public class EventController {
 
 
     // 모든 연차 리스트
-    @GetMapping("user/event/annual")
+    @GetMapping("/user/event/annual")
     public ResponseEntity<?> annual(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.연차리스트());
         return ResponseEntity.ok(responseDTO);
     }
 
     // 모든 당직 리스트
-    @GetMapping("user/event/duty")
+    @GetMapping("/user/event/duty")
     public ResponseEntity<?> duty(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.당직리스트());
         return ResponseEntity.ok(responseDTO);

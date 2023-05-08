@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.multipart.MultipartFile;
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.core.exception.Exception403;
@@ -77,23 +78,23 @@ public class UserController {
     // 마이페이지
     @GetMapping("/user/mypage")
     public ResponseEntity<?> mypage(@AuthenticationPrincipal MyUserDetails myUserDetails) throws JsonProcessingException {
-        UserResponse.DetailOutDTO detailOutDTO = userService.회원상세보기(myUserDetails.getUser().getId());
+        UserResponse.UserDetailOutDTO detailOutDTO = userService.회원상세보기(myUserDetails.getUser().getId());
         ResponseDTO<?> responseDTO = new ResponseDTO<>(detailOutDTO);
         return ResponseEntity.ok(responseDTO);
     }
 
-
-    /***
-     * 연차/당직 신청
-     * @param eventAddDto
-     * @param myUserDetails
-     * @return
-     */
-    @PostMapping("/user/event/add")
-    public ResponseEntity<?> eventAdd(@RequestBody @Valid EventRequest.EventAddDto eventAddDto, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        eventService.insertEvent(myUserDetails.getUser().getId(), eventAddDto);
-        return null;
-    }
+//
+//    /***
+//     * 연차/당직 신청
+//     * @param eventAddDto
+//     * @param myUserDetails
+//     * @return
+//     */
+//    @PostMapping("/user/event/add")
+//    public ResponseEntity<?> eventAdd(@RequestBody @Valid EventRequest.EventAddDto eventAddDto, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+//        eventService.insertEvent(myUserDetails.getUser().getId(), eventAddDto);
+//        return null;
+//    }
 
 
     // 내 정보 보기
