@@ -15,7 +15,6 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import shop.mtcoding.restend.core.advice.MyLogAdvice;
 import shop.mtcoding.restend.core.advice.MyValidAdvice;
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.config.MyFilterRegisterConfig;
@@ -43,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @EnableAspectJAutoProxy // AOP 활성화
 @Import({
         MyValidAdvice.class,
-        MyLogAdvice.class,
+//        MyLogAdvice.class,
         MySecurityConfig.class,
         MyFilterRegisterConfig.class
 }) // Advice 와 Security 설정 가져오기
@@ -68,16 +67,16 @@ public class UserControllerUnitTest extends DummyEntity {
     @Test
     public void join_test() throws Exception {
         // 준비
-        UserRequest.JoinInDTO joinInDTO = new UserRequest.JoinInDTO();
+        UserRequest.SignupInDTO joinInDTO = new UserRequest.SignupInDTO();
         joinInDTO.setUsername("코스");
-        joinInDTO.setPassword("1234");
+        joinInDTO.setPassword("aaaa1234@@");
         joinInDTO.setEmail("cos@nate.com");
         String requestBody = om.writeValueAsString(joinInDTO);
 
         // 가정해볼께
-        User cos = newMockUser(1L,"코스");
-        UserResponse.JoinOutDTO joinOutDTO = new UserResponse.JoinOutDTO(cos);
-        Mockito.when(userService.회원가입(any())).thenReturn(joinOutDTO);
+        User cos = newMockUser(1L,"코스", "USER");
+        UserResponse.SignupOutDTO signupOutDTO = new UserResponse.SignupOutDTO(cos);
+//        Mockito.when(userService.회원가입(any())).thenReturn(signupOutDTO);
 
         // 테스트진행
         ResultActions resultActions = mvc
@@ -97,11 +96,11 @@ public class UserControllerUnitTest extends DummyEntity {
         // given
         UserRequest.LoginInDTO loginInDTO = new UserRequest.LoginInDTO();
         loginInDTO.setEmail("cos@nate.com");
-        loginInDTO.setPassword("1234");
+        loginInDTO.setPassword("aaaa1234@@");
         String requestBody = om.writeValueAsString(loginInDTO);
-
+        System.out.println("테스트 : "+requestBody);
         // stub
-        Mockito.when(userService.로그인(any())).thenReturn("Bearer 1234");
+//        Mockito.when(userService.로그인(any())).thenReturn("Bearer 1234");
 
         // when
         ResultActions resultActions = mvc
@@ -111,6 +110,7 @@ public class UserControllerUnitTest extends DummyEntity {
 
         // then
         String jwtToken = resultActions.andReturn().getResponse().getHeader(MyJwtProvider.HEADER);
+        System.out.println("테스트 : "+jwtToken);
         Assertions.assertThat(jwtToken.startsWith(MyJwtProvider.TOKEN_PREFIX)).isTrue();
         resultActions.andExpect(status().isOk());
     }
@@ -123,13 +123,13 @@ public class UserControllerUnitTest extends DummyEntity {
         Long id = 1L;
 
         // stub
-        User cos = newMockUser(1L,"코스");
-        UserResponse.DetailOutDTO detailOutDTO = new UserResponse.DetailOutDTO(cos);
-        Mockito.when(userService.회원상세보기(any())).thenReturn(detailOutDTO);
+        User cos = newMockUser(1L,"코스", "USER");
+        UserResponse.UserDetailOutDTO userDetailOutDTO = new UserResponse.UserDetailOutDTO(cos);
+        Mockito.when(userService.회원상세보기(any())).thenReturn(userDetailOutDTO);
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/api/user/"+id));
+                .perform(get("/api/user/users/"+id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 

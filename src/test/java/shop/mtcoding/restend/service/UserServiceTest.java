@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.multipart.MultipartFile;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.core.dummy.DummyEntity;
 import shop.mtcoding.restend.dto.user.UserRequest;
@@ -55,24 +56,25 @@ public class UserServiceTest extends DummyEntity {
     public void 회원가입_test() throws Exception{
 
         // given
-        UserRequest.JoinInDTO joinInDTO = new UserRequest.JoinInDTO();
-        joinInDTO.setUsername("코스");
-        joinInDTO.setPassword("1234");
-        joinInDTO.setEmail("cos@nate.com");
+        UserRequest.SignupInDTO signupInDTO = new UserRequest.SignupInDTO();
+        signupInDTO.setUsername("코스");
+        signupInDTO.setPassword("1234");
+        signupInDTO.setEmail("cos@nate.com");
 
         // stub 1
 //        Mockito.when(userRepository.findByUsername(any())).thenReturn(Optional.empty());
 
         // stub 2
-        User cos = newMockUser(1L, "코스");
+        User cos = newMockUser(1L, "코스","USER");
+        MultipartFile image=null;
         Mockito.when(userRepository.save(any())).thenReturn(cos);
 
         // when
-        UserResponse.JoinOutDTO joinOutDTO = userService.회원가입(joinInDTO);
+        UserResponse.SignupOutDTO signupOutDTO = userService.회원가입(signupInDTO, image);
 
         // then
-        Assertions.assertThat(joinOutDTO.getId()).isEqualTo(1L);
-        Assertions.assertThat(joinOutDTO.getUsername()).isEqualTo("코스");
+        Assertions.assertThat(signupOutDTO.getId()).isEqualTo(1L);
+        Assertions.assertThat(signupOutDTO.getUsername()).isEqualTo("코스");
     }
 
     @Test
@@ -83,7 +85,7 @@ public class UserServiceTest extends DummyEntity {
         loginInDTO.setPassword("1234");
 
         // stub
-        User cos = newMockUser(1L,  "코스");
+        User cos = newMockUser(1L,  "코스", "USER");
         MyUserDetails myUserDetails = new MyUserDetails(cos);
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 myUserDetails, myUserDetails.getPassword(), myUserDetails.getAuthorities()
@@ -91,7 +93,8 @@ public class UserServiceTest extends DummyEntity {
         Mockito.when(authenticationManager.authenticate(any())).thenReturn(authentication);
 
         // when
-        String jwt = userService.로그인(loginInDTO);
+        Object[] tmp = userService.로그인(loginInDTO);
+        String jwt=(String) tmp[1];
         System.out.println("디버그 : "+jwt);
 
         // then
@@ -104,11 +107,11 @@ public class UserServiceTest extends DummyEntity {
         Long id = 1L;
 
         // stub
-        User cos = newMockUser(1L, "코스");
+        User cos = newMockUser(1L, "코스","USER");
         Mockito.when(userRepository.findById(any())).thenReturn(Optional.of(cos));
 
         // when
-        UserResponse.DetailOutDTO detailOutDTO  = userService.회원상세보기(id);
+        UserResponse.UserDetailOutDTO detailOutDTO  = userService.회원상세보기(id);
 
         // then
         Assertions.assertThat(detailOutDTO.getId()).isEqualTo(1L);

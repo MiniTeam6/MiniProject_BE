@@ -42,7 +42,7 @@ public class UserController {
     // 회원가입
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestPart @Valid UserRequest.SignupInDTO signupInDTO, @RequestPart MultipartFile image, Errors errors) {
+    public ResponseEntity<?> signup(@RequestPart(name = "signupInDTO") @Valid UserRequest.SignupInDTO signupInDTO, Errors errors,@RequestPart(name = "image") MultipartFile image) {
         UserResponse.SignupOutDTO signupOutDTO = userService.회원가입(signupInDTO, image);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(signupOutDTO);
         return ResponseEntity.ok(responseDTO);

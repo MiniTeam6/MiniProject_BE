@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.dto.ResponseDTO;
@@ -36,7 +37,7 @@ public class AdminController {
 	 * @return
 	 */
 	@PostMapping("/search")
-	public ResponseEntity<?> userSearch(@RequestBody @Valid UserRequest.SearchInDTO searchInDTO){
+	public ResponseEntity<?> userSearch(@RequestBody @Valid UserRequest.SearchInDTO searchInDTO, Errors errors){
 		List<UserResponse.UserListOutDTO> userListOutDTO = userService.회원리스트검색(searchInDTO);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(userListOutDTO);
 		return ResponseEntity.ok(responseDTO);
@@ -48,7 +49,7 @@ public class AdminController {
 	 * @return
 	 */
 	@PostMapping("/role/update")
-	public ResponseEntity<?> roleUpdate(@RequestBody @Valid UserRequest.RoleUpdateInDTO roleUpdateInDTO){
+	public ResponseEntity<?> roleUpdate(@RequestBody @Valid UserRequest.RoleUpdateInDTO roleUpdateInDTO, Errors errors){
 		UserResponse.UserDetailOutDTO userDetailOutDTO= userService.권한업데이트(roleUpdateInDTO);
 		ResponseDTO<?>responseDTO = new ResponseDTO<>(userDetailOutDTO);
 		return ResponseEntity.ok(responseDTO);
@@ -60,7 +61,7 @@ public class AdminController {
 	 * @return
 	 */
 	@PostMapping("/status")
-	public ResponseEntity<?> statusUpdate(@RequestBody @Valid UserRequest.StatusUpdateInDTO statusUpdateInDTO){
+	public ResponseEntity<?> statusUpdate(@RequestBody @Valid UserRequest.StatusUpdateInDTO statusUpdateInDTO, Errors errors){
 		UserResponse.StatusUpdateOutDTO statusUpdateOutDTO = userService.회원가입승인(statusUpdateInDTO);
 		ResponseDTO<?>responseDTO = new ResponseDTO<>(statusUpdateOutDTO);
 		return ResponseEntity.ok(responseDTO);
@@ -159,12 +160,4 @@ public class AdminController {
 		ResponseDTO<?>responseDTO = new ResponseDTO<>(dutyApprovalOutDTOS);
 		return ResponseEntity.ok(responseDTO);
 	}
-
-
-
-
-
-
-
-
 }
