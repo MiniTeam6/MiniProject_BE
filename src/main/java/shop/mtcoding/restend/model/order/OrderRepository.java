@@ -1,5 +1,6 @@
 package shop.mtcoding.restend.model.order;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,8 +19,9 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 	 * @param eventType
 	 * @return
 	 */
-	@Query("SELECT o FROM Order o WHERE o.orderState = :orderState AND o.event.eventType = :eventType")
+	@Query("SELECT o FROM Order o JOIN FETCH o.event WHERE o.orderState = :orderState AND o.event.eventType = :eventType")
 	List<Order> findByOrderStateAndEventType(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType);
+
 
 	/***
 	 * 결재완료된 연차조회 = 요청중인(대기)연차 제외하고 불러옴
@@ -27,8 +29,12 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 	 * @param eventType
 	 * @return
 	 */
+	@EntityGraph(value = "Order.detail", type = EntityGraph.EntityGraphType.LOAD)
 	@Query("SELECT o FROM Order o WHERE o.orderState <> :orderState AND o.event.eventType = :eventType")
 	List<Order> findByOrderStateNotAndEventType(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType);
+
+
+
 	/***
 	 * 연차요청내역/승인내역 월별로 조회
 	 * @param orderstate

@@ -1,8 +1,10 @@
 package shop.mtcoding.restend.model.event;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import shop.mtcoding.restend.model.annual.Annual;
 import shop.mtcoding.restend.model.duty.Duty;
+
 import shop.mtcoding.restend.model.user.User;
 
 import java.util.List;
@@ -11,6 +13,9 @@ import java.util.List;
 public interface EventRepository extends JpaRepository<Event, Long> {
 
     List<Event> findAll();
+
+    List<Event> findAllByEventTypeAndUser(EventType eventType, User user);
+
 
     List<Event> findAllByUser(User user);
 

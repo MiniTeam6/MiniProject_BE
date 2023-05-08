@@ -27,4 +27,11 @@ public class OrderRequest {
 						.build();
 		}
 	}
+
+	@Getter @Setter
+	public static class ApprovalWaitInDTO{
+
+
+
+	}
 }
