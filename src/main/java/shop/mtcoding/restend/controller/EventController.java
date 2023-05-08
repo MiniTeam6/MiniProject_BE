@@ -1,6 +1,9 @@
 package shop.mtcoding.restend.controller;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -62,4 +65,16 @@ public class EventController {
         return ResponseEntity.ok(responseDTO);
     }
 
+
+    // 연차 당직 리스트
+    // 파라미터로 탭 구분: 연차/당직/내연차/내당직
+    @GetMapping("user/event/list")
+    public ResponseEntity<?> list(@RequestParam String eventType,
+                                  @RequestParam(required = false) Boolean myEvent,
+                                  @AuthenticationPrincipal MyUserDetails myUserDetails,
+                                  @PageableDefault(size = 10) Pageable pageable) {
+        if (myEvent == null) myEvent = false;
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.연차당직리스트(eventType, myEvent, myUserDetails.getUser(), pageable));
+        return ResponseEntity.ok(responseDTO);
+    }
 }
