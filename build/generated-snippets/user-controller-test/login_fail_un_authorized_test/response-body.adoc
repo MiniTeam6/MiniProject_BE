@@ -1,8 +1,0 @@
-[source,options="nowrap"]
-----
-{
-  "status" : 401,
-  "msg" : "unAuthorized",
-  "data" : "인증되지 않았습니다"
-}
-----

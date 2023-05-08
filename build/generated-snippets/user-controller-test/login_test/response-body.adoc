@@ -1,8 +1,0 @@
-[source,options="nowrap"]
-----
-{
-  "status" : 200,
-  "msg" : "성공",
-  "data" : null
-}
-----
