@@ -20,6 +20,16 @@ import java.time.LocalDate;
 public class EventRequest {
 
     @Getter
+    public static class EventAddInDto {
+        private String eventType;
+
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private LocalDate startDate;
+        @DateTimeFormat(pattern = "yyyy-MM-dd")
+        private LocalDate endDate;
+    }
+
+    @Getter
     public static class EventAddDto {
         @NotEmpty
         @Pattern(regexp = "DUTY|ANNUAL")

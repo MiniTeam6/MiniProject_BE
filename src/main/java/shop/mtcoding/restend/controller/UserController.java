@@ -22,6 +22,7 @@ import shop.mtcoding.restend.dto.event.EventRequest;
 import shop.mtcoding.restend.dto.event.EventResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
+import shop.mtcoding.restend.service.EventService;
 import shop.mtcoding.restend.service.UserService;
 
 import javax.validation.Valid;
@@ -73,26 +74,17 @@ public class UserController {
     }
 
 
-    // 마이페이지
-    @GetMapping("/user/mypage")
-    public ResponseEntity<?> mypage(@AuthenticationPrincipal MyUserDetails myUserDetails) throws JsonProcessingException {
-        UserResponse.DetailOutDTO detailOutDTO = userService.회원상세보기(myUserDetails.getUser().getId());
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(detailOutDTO);
-        return ResponseEntity.ok(responseDTO);
-    }
-
-
-    /***
+    /*
      * 연차/당직 신청
      * @param eventAddDto
      * @param myUserDetails
      * @return
      */
-    @PostMapping("/user/event/add")
-    public ResponseEntity<?> eventAdd(@RequestBody @Valid EventRequest.EventAddDto eventAddDto, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        eventService.insertEvent(myUserDetails.getUser().getId(), eventAddDto);
-        return null;
-    }
+//    @PostMapping("/user/event/add")
+//    public ResponseEntity<?> eventAdd(@RequestBody @Valid EventRequest.EventAddDto eventAddDto, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+//        eventService.insertEvent(myUserDetails.getUser().getId(), eventAddDto);
+//        return null;
+//    }
 
 
     // 내 정보 보기
