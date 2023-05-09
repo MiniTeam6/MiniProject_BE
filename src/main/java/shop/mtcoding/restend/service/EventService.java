@@ -117,6 +117,7 @@ public class EventService {
                 Annual annual = annualRepository.save(Annual.builder()
                         .startDate(eventAddInDto.getStartDate())
                         .endDate(eventAddInDto.getEndDate())
+                        .count(eventAddInDto.getCount())
                         .build());
                 event = eventRepository.save(Event.builder()
                         .user(user)
@@ -233,6 +234,7 @@ public class EventService {
                 .updatedAt(event.getUpdatedAt())
                 .startDate(event.getEventType() == EventType.ANNUAL ? event.getAnnual().getStartDate() : event.getDuty().getDate())
                 .endDate(event.getEventType() == EventType.ANNUAL ? event.getAnnual().getEndDate() : event.getDuty().getDate())
+                .count(event.getEventType() == EventType.ANNUAL ? event.getAnnual().getCount() : null)
                 .build();
     }
 

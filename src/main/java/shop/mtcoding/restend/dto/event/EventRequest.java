@@ -32,6 +32,7 @@ public class EventRequest {
         private LocalDate startDate;
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate endDate;
+        private Long count;
     }
 
     @Getter
@@ -95,5 +96,6 @@ public class EventRequest {
         private LocalDate startDate;
         @DateTimeFormat(pattern = "yyyy-MM-dd")
         private LocalDate endDate;
+        private Long count;
     }
 }
