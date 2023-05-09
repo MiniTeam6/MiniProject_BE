@@ -4,6 +4,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import org.springframework.data.jpa.repository.Query;
 import shop.mtcoding.restend.model.annual.Annual;
 import shop.mtcoding.restend.model.duty.Duty;
 
@@ -31,8 +32,10 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     Slice<Event> findByEventTypeOrderByAnnual_StartDateDesc(EventType annual, Pageable page);
     Slice<Event> findByEventTypeOrderByDuty_DateDesc(EventType duty, Pageable page);
 
+    @Query("SELECT e FROM Event e JOIN FETCH e.user WHERE e.eventType = :eventType AND e.annual.startDate BETWEEN :start AND :end ORDER BY e.annual.startDate DESC")
     Slice<Event> findByEventTypeAndAnnual_StartDateBetweenOrderByAnnual_StartDateDesc(EventType eventType, LocalDate start, LocalDate end, Pageable page);
 
-    Slice<Event> findByEventTypeAndDuty_DateOrderByDuty_DateDesc(EventType duty, LocalDate start, LocalDate end, Pageable pageable);
+    @Query("SELECT e FROM Event e JOIN FETCH e.user WHERE e.eventType = :eventType AND e.duty.date BETWEEN :start AND :end ORDER BY e.duty.date DESC")
+    Slice<Event> findByEventTypeAndDuty_DateOrderByDuty_DateDesc(EventType eventType, LocalDate start, LocalDate end, Pageable pageable);
 }
 

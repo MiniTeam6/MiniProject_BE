@@ -245,6 +245,10 @@ public class EventService {
             EventResponse.EventListOutDTO eventListOutDTO = EventResponse.EventListOutDTO.builder()
                     .eventId(event.getId())
                     .userId(event.getUser().getId())
+                    .userUsername(event.getUser().getUsername())
+                    .userEmail(event.getUser().getEmail())
+                    .userImageUri(event.getUser().getImageUri())
+                    .userThumbnailUri(event.getUser().getThumbnailUri())
                     .eventType(event.getEventType())
                     .id(event.getEventType() == EventType.ANNUAL ? event.getAnnual().getId() : event.getDuty().getId())
                     .createdAt(event.getCreatedAt())
@@ -268,12 +272,16 @@ public class EventService {
             EventResponse.EventListOutDTO eventListOutDTO = EventResponse.EventListOutDTO.builder()
                     .eventId(event.getId())
                     .userId(event.getUser().getId())
+                    .userUsername(event.getUser().getUsername())
+                    .userEmail(event.getUser().getEmail())
+                    .userImageUri(event.getUser().getImageUri())
+                    .userThumbnailUri(event.getUser().getThumbnailUri())
                     .eventType(event.getEventType())
                     .id(event.getAnnual().getId())
-                    .createdAt(event.getCreatedAt())
-                    .updatedAt(event.getUpdatedAt())
                     .startDate(event.getAnnual().getStartDate())
                     .endDate(event.getAnnual().getEndDate())
+                    .createdAt(event.getCreatedAt())
+                    .updatedAt(event.getUpdatedAt())
                     .build();
             results.add(eventListOutDTO);
         }
@@ -290,18 +298,23 @@ public class EventService {
             EventResponse.EventListOutDTO eventListOutDTO = EventResponse.EventListOutDTO.builder()
                     .eventId(event.getId())
                     .userId(event.getUser().getId())
+                    .userUsername(event.getUser().getUsername())
+                    .userEmail(event.getUser().getEmail())
+                    .userImageUri(event.getUser().getImageUri())
+                    .userThumbnailUri(event.getUser().getThumbnailUri())
                     .eventType(event.getEventType())
                     .id(event.getDuty().getId())
-                    .createdAt(event.getCreatedAt())
-                    .updatedAt(event.getUpdatedAt())
                     .startDate(event.getDuty().getDate())
                     .endDate(event.getDuty().getDate())
+                    .createdAt(event.getCreatedAt())
+                    .updatedAt(event.getUpdatedAt())
                     .build();
             results.add(eventListOutDTO);
         }
         return results;
     }
 
+    @Transactional
     public Slice<EventResponse.EventListOutDTO> 연차당직리스트(String eventType, String yearMonth, User user, Pageable pageable) {
         Slice<Event> events = null;
         Slice<EventResponse.EventListOutDTO> results = null;
@@ -314,6 +327,10 @@ public class EventService {
                 results = events.map(event -> EventResponse.EventListOutDTO.builder()
                         .eventId(event.getId())
                         .userId(event.getUser().getId())
+                        .userUsername(event.getUser().getUsername())
+                        .userEmail(event.getUser().getEmail())
+                        .userImageUri(event.getUser().getImageUri())
+                        .userThumbnailUri(event.getUser().getThumbnailUri())
                         .eventType(event.getEventType())
                         .id(event.getAnnual().getId())
                         .startDate(event.getAnnual().getStartDate())
@@ -329,6 +346,10 @@ public class EventService {
                 results = events.map(event -> EventResponse.EventListOutDTO.builder()
                         .eventId(event.getId())
                         .userId(event.getUser().getId())
+                        .userUsername(event.getUser().getUsername())
+                        .userEmail(event.getUser().getEmail())
+                        .userImageUri(event.getUser().getImageUri())
+                        .userThumbnailUri(event.getUser().getThumbnailUri())
                         .eventType(event.getEventType())
                         .id(event.getDuty().getId())
                         .startDate(event.getDuty().getDate())
