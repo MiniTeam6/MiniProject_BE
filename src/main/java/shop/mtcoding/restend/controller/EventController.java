@@ -33,9 +33,6 @@ public class EventController {
 //        if (eventAddInDTO.getEventType().equals("ANNUAL")) {
 //            session.setAttribute("count", eventAddInDTO.getCount());
 //        }
-        if (eventAddInDTO.getEventType().equals("ANNUAL") && eventAddInDTO.getCount() == null) {
-            throw new NullPointerException("연차 신청시 연차일수를 입력해주세요.");
-        }
         EventResponse.EventAddOutDTO eventAddOutDTO = eventService.연차당직신청(eventAddInDTO, myUserDetails.getUser());
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventAddOutDTO);
         return ResponseEntity.ok(responseDTO);
@@ -51,9 +48,6 @@ public class EventController {
     // 연차/당직 신청 수정
     @PostMapping("/user/event/modify")
     public ResponseEntity<?> modify(@RequestBody @Valid EventRequest.EventModifyInDto eventModifyInDTO, Errors errors, @AuthenticationPrincipal MyUserDetails myUserDetails) {
-        if (eventModifyInDTO.getEventType().equals("ANNUAL") && eventModifyInDTO.getCount() == null) {
-            throw new NullPointerException("연차 신청시 연차일수를 입력해주세요.");
-        }
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.연차당직신청수정(eventModifyInDTO, myUserDetails.getUser()));
         return ResponseEntity.ok(responseDTO);
     }

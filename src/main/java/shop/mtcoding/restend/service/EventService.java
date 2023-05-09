@@ -113,6 +113,12 @@ public class EventService {
         switch (eventAddInDto.getEventType()) {
             case "ANNUAL":
                 // 연차 신청
+                if (eventAddInDto.getCount() == null) {
+                    throw new Exception404("연차 신청시 연차 사용일수를 입력해주세요. ");
+                }
+                if (eventAddInDto.getCount() > user.getAnnualCount()) {
+                    throw new Exception404("연차 신청시 연차 사용일수가 보유 연차일수보다 많습니다. ");
+                }
                 Annual annual = annualRepository.save(Annual.builder()
                         .startDate(eventAddInDto.getStartDate())
                         .endDate(eventAddInDto.getEndDate())
@@ -199,6 +205,12 @@ public class EventService {
         Order order = null;
         switch (eventModifyInDTO.getEventType()) {
             case "ANNUAL":
+                if (eventModifyInDTO.getCount() == null) {
+                    throw new Exception404("연차 신청시 연차 사용일수를 입력해주세요. ");
+                }
+                if (eventModifyInDTO.getCount() > user.getAnnualCount()) {
+                    throw new Exception404("연차 신청시 연차 사용일수가 보유 연차일수보다 많습니다. ");
+                }
                 Annual annual = annualRepository.findById(eventModifyInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 연차가 없습니다."));
                 event = eventRepository.findByAnnual_Id(annual.getId());
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
