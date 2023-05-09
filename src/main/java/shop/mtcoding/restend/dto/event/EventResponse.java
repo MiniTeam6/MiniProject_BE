@@ -54,4 +54,17 @@ public class EventResponse {
         private LocalDateTime updatedAt;
         private OrderState orderState;
     }
+
+    @Builder
+    @Getter
+    public static class MyEventListOutDTO {
+        private Long eventId;
+        private EventType eventType;
+        private Long id;
+        private LocalDate startDate;
+        private LocalDate endDate;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
+        private OrderState orderState;
+    }
 }

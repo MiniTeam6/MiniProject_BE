@@ -221,7 +221,7 @@ public class UserService {
     }
 
 
-    public Slice<EventResponse.EventListOutDTO> 내연차리스트(MyUserDetails myUserDetails, Pageable pageable) {
+    public Slice<EventResponse.MyEventListOutDTO> 내연차리스트(MyUserDetails myUserDetails, Pageable pageable) {
         User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
                 ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
         );
@@ -231,17 +231,12 @@ public class UserService {
 
         Slice<Event> events = eventRepository.findByUserAndEventTypeOrderByAnnual_StartDateDesc(user, EventType.ANNUAL, page);
 
-        Slice<EventResponse.EventListOutDTO> myAnnuals = events.map(
+        Slice<EventResponse.MyEventListOutDTO> myAnnuals = events.map(
                 event -> {
                     User u = event.getUser();
                     Order order = orderRepository.findByEvent(event);
-                    return EventResponse.EventListOutDTO.builder()
+                    return EventResponse.MyEventListOutDTO.builder()
                             .eventId(event.getId())
-                            .userId(u.getId())
-                            .userName(u.getUsername())
-                            .userEmail(u.getEmail())
-                            .userImageUri(u.getImageUri())
-                            .userThumbnailUri(u.getThumbnailUri())
                             .eventType(event.getEventType())
                             .id(event.getAnnual().getId())
                             .startDate(event.getAnnual().getStartDate())
@@ -256,7 +251,7 @@ public class UserService {
     }
 
 
-    public Slice<EventResponse.EventListOutDTO> 내당직리스트(MyUserDetails myUserDetails, Pageable pageable) {
+    public Slice<EventResponse.MyEventListOutDTO> 내당직리스트(MyUserDetails myUserDetails, Pageable pageable) {
         User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
                 ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
         );
@@ -267,17 +262,12 @@ public class UserService {
         Slice<Event> events = eventRepository.findByUserAndEventTypeOrderByDuty_DateDesc(user, EventType.DUTY, page);
 
         // User 객체 만들어서 넣어주기
-        Slice<EventResponse.EventListOutDTO> myDutys = events.map(
+        Slice<EventResponse.MyEventListOutDTO> myDuties = events.map(
                 event -> {
                     User u = event.getUser();
                     Order order = orderRepository.findByEvent(event);
-                    return EventResponse.EventListOutDTO.builder()
+                    return EventResponse.MyEventListOutDTO.builder()
                             .eventId(event.getId())
-                            .userId(u.getId())
-                            .userName(u.getUsername())
-                            .userEmail(u.getEmail())
-                            .userImageUri(u.getImageUri())
-                            .userThumbnailUri(u.getThumbnailUri())
                             .eventType(event.getEventType())
                             .id(event.getDuty().getId())
                             .startDate(event.getDuty().getDate())
@@ -287,11 +277,6 @@ public class UserService {
                             .orderState(order.getOrderState())
                             .build();
                 });
-
-
-        return myDutys;
+        return myDuties;
     }
-
-
-
 }
