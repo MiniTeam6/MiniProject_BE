@@ -10,6 +10,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
+
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.dto.ResponseDTO;
@@ -54,7 +55,7 @@ public class UserController {
     // 모든 유저 리스트
     @GetMapping("/user/users")
     public ResponseEntity<?> findAllUser() {
-        List<UserResponse.UserListOutDTO> userListOutDTO = userService.회원전체리스트();
+        List<UserResponse.UserListOutDTO> userListOutDTO = userService.회원전체리스트2();
         ResponseDTO<?> responseDTO = new ResponseDTO<>(userListOutDTO);
         return ResponseEntity.ok(responseDTO);
     }
@@ -69,12 +70,22 @@ public class UserController {
     }
 
 
-    /*
-     * 연차/당직 신청
-     * @param eventAddDto
-     * @param myUserDetails
-     * @return
-     */
+    // 마이페이지
+    @GetMapping("/user/mypage")
+    public ResponseEntity<?> mypage(@AuthenticationPrincipal MyUserDetails myUserDetails)  {
+        UserResponse.UserDetailOutDTO detailOutDTO = userService.회원상세보기(myUserDetails.getUser().getId());
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(detailOutDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+//
+//    /***
+//     * 연차/당직 신청
+//     * @param eventAddDto
+//     * @param myUserDetails
+//     * @return
+//     */
+
 //    @PostMapping("/user/event/add")
 //    public ResponseEntity<?> eventAdd(@RequestBody @Valid EventRequest.EventAddDto eventAddDto, @AuthenticationPrincipal MyUserDetails myUserDetails) {
 //        eventService.insertEvent(myUserDetails.getUser().getId(), eventAddDto);

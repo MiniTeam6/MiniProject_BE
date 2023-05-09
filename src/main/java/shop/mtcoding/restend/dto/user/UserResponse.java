@@ -3,6 +3,8 @@ package shop.mtcoding.restend.dto.user;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.Getter;
 import lombok.Setter;
+import shop.mtcoding.restend.model.event.EventType;
+import shop.mtcoding.restend.model.order.OrderState;
 import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.model.user.UserRole;
 
@@ -76,6 +78,20 @@ public class UserResponse {
         }
     }
 
+    @Getter @Setter
+    public static class UserRoleUpdateOutDTO{
+        private String username;
+        private String email;
+
+        private UserRole role;
+
+        public UserRoleUpdateOutDTO(User user) {
+            this.username=user.getUsername();
+            this.email = user.getEmail();
+            this.role = user.getRole();
+        }
+    }
+
 
     @JsonSerialize
     @Getter
@@ -96,6 +112,32 @@ public class UserResponse {
             this.role=user.getRole().toString();
         }
     }
+
+
+
+    @JsonSerialize
+    @Getter
+    @Setter
+    public static class UserApprovalListOutDTO{
+        private Long id;
+        private LocalDateTime createAt;
+        private LocalDateTime updateAt;
+        private String imageUri;
+        private String username;
+        private String email;
+        private String role;
+        public UserApprovalListOutDTO(User user){
+            this.id=user.getId();
+            this.createAt=user.getCreatedAt();
+            this.updateAt=user.getUpdatedAt();
+            this.imageUri = user.getImageUri();
+            this.username = user.getUsername();
+            this.email=user.getEmail();
+            this.role=user.getRole().toString();
+        }
+    }
+
+
     @Getter @Setter
     public static class StatusUpdateOutDTO{
         private Long id;
@@ -112,4 +154,14 @@ public class UserResponse {
             this.status=user.getStatus();
         }
     }
+    @Getter
+    @Setter
+    public static class UserAnnualInfoDTO {
+        private String username;
+        private LocalDate startDate;
+        private LocalDate endDate;
+        private OrderState orderState;
+        private EventType eventType;
+    }
+
 }

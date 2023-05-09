@@ -8,24 +8,18 @@ import shop.mtcoding.restend.model.order.OrderState;
 import shop.mtcoding.restend.model.user.User;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class OrderRequest {
 	@Getter @Setter
 	public static class ApprovalInDTO{
-		@NotEmpty
+		@NotNull
 		private Long eventId;
 		@Pattern(regexp = "APPROVED|REJECTED")
 		@NotEmpty
 		private String orderState;
 
-		public Order toEntity(User approval, Event event){
-			return Order.builder()
-						.event(event)
-						.approver(approval)
-						.orderState(OrderState.valueOf(orderState))
-						.build();
-		}
 	}
 
 	@Getter @Setter
