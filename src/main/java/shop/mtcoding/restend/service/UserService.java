@@ -150,10 +150,11 @@ public class UserService {
 
     public List<UserResponse.UserListOutDTO> 회원리스트검색(UserRequest.SearchInDTO searchInDTO){
         if(searchInDTO.getSearchType().equals("name")){
-            List<User> users = userRepository.findByUsernameContaining(searchInDTO.getKeyword());
+            List<User> users = userRepository.findByUsernameContainingAndStatusTrue(searchInDTO.getKeyword());
             List<UserResponse.UserListOutDTO> userDTOs = users.stream()
                     .map(user->new UserResponse.UserListOutDTO(user))
                     .collect(Collectors.toList());
+
             return userDTOs;
         }else{
             List<User> users = userRepository.findByEmailContaining(searchInDTO.getKeyword());
@@ -164,15 +165,15 @@ public class UserService {
         }
     }
 
-    public List<UserResponse.UserListOutDTO> 회원전체리스트(){
+    public List<UserResponse.UserApprovalListOutDTO> 회원전체리스트(){
         List<User> users = userRepository.findUsersByStatus(true);
-        List<UserResponse.UserListOutDTO> userDTOs = users.stream()
-                .map(user -> new UserResponse.UserListOutDTO(user))
+        List<UserResponse.UserApprovalListOutDTO> userDTOs = users.stream()
+                .map(user -> new UserResponse.UserApprovalListOutDTO(user))
                 .collect(Collectors.toList());
         return userDTOs;
     }
     @Transactional
-    public UserResponse.UserDetailOutDTO 권한업데이트(UserRequest.RoleUpdateInDTO roleUpdateInDTO){
+    public UserResponse.UserRoleUpdateOutDTO 권한업데이트(UserRequest.RoleUpdateInDTO roleUpdateInDTO){
         Optional<User> user = userRepository.findByEmail(roleUpdateInDTO.getEmail());
         if(user.isEmpty()){
             throw new Exception404(roleUpdateInDTO.getEmail()+"  User를 찾을 수 없습니다. ");
@@ -181,7 +182,7 @@ public class UserService {
         user.get().setRole(UserRole.valueOf(roleUpdateInDTO.getRole()));
         try{
             User userPS=userRepository.save(user.get());
-            return new UserResponse.UserDetailOutDTO(userPS);
+            return new UserResponse.UserRoleUpdateOutDTO(userPS);
         }catch (Exception e){
             throw new Exception500(e+roleUpdateInDTO.getEmail()+"유저권한 업데이트 실패");
         }
@@ -259,4 +260,7 @@ public class UserService {
 
         return myDutys;
     }
+
+
+
 }

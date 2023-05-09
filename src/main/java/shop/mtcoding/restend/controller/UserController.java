@@ -54,7 +54,7 @@ public class UserController {
     // 모든 유저 리스트
     @GetMapping("/user/users")
     public ResponseEntity<?> findAllUser() {
-        List<UserResponse.UserListOutDTO> userListOutDTO = userService.회원전체리스트();
+        List<UserResponse.UserApprovalListOutDTO> userListOutDTO = userService.회원전체리스트();
         ResponseDTO<?> responseDTO = new ResponseDTO<>(userListOutDTO);
         return ResponseEntity.ok(responseDTO);
     }

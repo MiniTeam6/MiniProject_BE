@@ -3,6 +3,7 @@ package shop.mtcoding.restend.controller;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
@@ -14,6 +15,7 @@ import shop.mtcoding.restend.dto.order.OrderResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.model.event.EventRepository;
+import shop.mtcoding.restend.model.event.EventType;
 import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.service.EventService;
 import shop.mtcoding.restend.service.OrderService;
@@ -50,7 +52,7 @@ public class AdminController {
 	 */
 	@PostMapping("/role/update")
 	public ResponseEntity<?> roleUpdate(@RequestBody @Valid UserRequest.RoleUpdateInDTO roleUpdateInDTO, Errors errors){
-		UserResponse.UserDetailOutDTO userDetailOutDTO= userService.권한업데이트(roleUpdateInDTO);
+		UserResponse.UserRoleUpdateOutDTO userDetailOutDTO= userService.권한업데이트(roleUpdateInDTO);
 		ResponseDTO<?>responseDTO = new ResponseDTO<>(userDetailOutDTO);
 		return ResponseEntity.ok(responseDTO);
 	}
@@ -85,7 +87,7 @@ public class AdminController {
 
 	@GetMapping("/role/list")
 	public ResponseEntity<?>roleList(){
-		List<UserResponse.UserListOutDTO>userListOutDTOS=userService.회원전체리스트();
+		List<UserResponse.UserApprovalListOutDTO>userListOutDTOS=userService.회원전체리스트();
 		ResponseDTO<?>responseDTO=new ResponseDTO<>(userListOutDTOS);
 		return ResponseEntity.ok(responseDTO);
 	}
@@ -144,8 +146,10 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("/annual/approval")
-	public ResponseEntity<?> annualApproval(){
-		List<OrderResponse.AnnualApprovalOutDTO> annualApprovalOutDTOS = orderService.연차승인내역();
+	public ResponseEntity<?> annualApproval(@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
+											@RequestParam(name = "page", defaultValue = "0") int page,
+											@RequestParam(name = "size", defaultValue = "10") int size){
+		Page<OrderResponse.AnnualApprovalOutDTO> annualApprovalOutDTOS = orderService.연차승인내역(keyword,page,size);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(annualApprovalOutDTOS);
 		return ResponseEntity.ok(responseDTO);
 	}
@@ -155,9 +159,13 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("/duty/approval")
-	public ResponseEntity<?> dutyApproval(){
-		List<OrderResponse.DutyApprovalOutDTO> dutyApprovalOutDTOS = orderService.당직승인내역();
-		ResponseDTO<?>responseDTO = new ResponseDTO<>(dutyApprovalOutDTOS);
+	public ResponseEntity<?> dutyApproval(@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
+											@RequestParam(name = "page", defaultValue = "0") int page,
+											@RequestParam(name = "size", defaultValue = "10") int size){
+		Page<OrderResponse.DutyApprovalOutDTO> dutyApprovalOutDTOS = orderService.당직승인내역(keyword,page,size);
+		ResponseDTO<?> responseDTO = new ResponseDTO<>(dutyApprovalOutDTOS);
 		return ResponseEntity.ok(responseDTO);
 	}
+
+
 }

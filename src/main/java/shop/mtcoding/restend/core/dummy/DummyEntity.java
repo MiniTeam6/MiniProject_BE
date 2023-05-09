@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class DummyEntity {
-    public User newUser(String username, String role) {
+    public User newUser(String username, String role,Boolean status) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String email = "";
         if (username.equals("사르")) {
@@ -29,7 +29,8 @@ public class DummyEntity {
                 .thumbnailUri("https://test")
                 .phone("010-1234-1234")
                 .role(role)
-                .status(true)
+                .status(status)
+                .updatedAt(LocalDateTime.now())
                 .build();
     }
 

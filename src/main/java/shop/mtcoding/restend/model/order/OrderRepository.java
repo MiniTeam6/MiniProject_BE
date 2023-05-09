@@ -1,5 +1,7 @@
 package shop.mtcoding.restend.model.order;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,15 +25,25 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 	List<Order> findByOrderStateAndEventType(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType);
 
 
+//	/***
+//	 * 결재완료된 연차조회 = 요청중인(대기)연차 제외하고 불러옴
+//	 * @param orderState
+//	 * @param eventType
+//	 * @return
+//	 */
+//	@EntityGraph(value = "Order.detail", type = EntityGraph.EntityGraphType.LOAD)
+//	@Query("SELECT o FROM Order o WHERE o.orderState <> :orderState AND o.event.eventType = :eventType ")
+//	List<Order> findByOrderStateNotAndEventType(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType);
+
 	/***
 	 * 결재완료된 연차조회 = 요청중인(대기)연차 제외하고 불러옴
 	 * @param orderState
 	 * @param eventType
+	 * @param keyword
 	 * @return
 	 */
-	@EntityGraph(value = "Order.detail", type = EntityGraph.EntityGraphType.LOAD)
-	@Query("SELECT o FROM Order o WHERE o.orderState <> :orderState AND o.event.eventType = :eventType")
-	List<Order> findByOrderStateNotAndEventType(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType);
+	@Query("SELECT o FROM Order o WHERE o.orderState <> :orderState AND o.event.eventType = :eventType AND (o.event.user.username LIKE %:keyword% OR o.event.user.email LIKE %:keyword%)  " )
+	Page<Order> findByOrderStateNotAndEventTypeSearch(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType, @Param("keyword") String keyword, Pageable pageable);
 
 
 
@@ -57,4 +69,11 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
 
     Order findByEvent_Id(Long eventId);
+
+
+
+	@Query("SELECT o FROM Order o WHERE o.event.id IN :eventIds AND o.orderState <> :orderState")
+	List<Order> findOrdersByEventIdsAndOrderStateNot(@Param("eventIds") List<Long> eventIds, @Param("orderState") OrderState orderState);
+
 }
+

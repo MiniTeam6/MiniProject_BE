@@ -33,9 +33,9 @@ public class DataInit extends DummyEntity{
     @Bean
     CommandLineRunner init(UserRepository userRepository, EventRepository eventRepository, AnnualRepository annualRepository, DutyRepository dutyRepository){
         return args -> {
-            User ssar = userRepository.save(newUser("사르", "ADMIN"));
-            User cos = userRepository.save(newUser("코스", "USER"));
-            User love = userRepository.save(newUser("러브", "USER"));
+            User ssar = userRepository.save(newUser("사르", "ADMIN",true));
+            User cos = userRepository.save(newUser("코스", "USER",true));
+            User love = userRepository.save(newUser("러브", "USER",false));
 //            userRepository.save(newMockUser(2L,"코스", "USER"));
             Annual annual1 = annualRepository.save(newAnnual(LocalDate.of(2023, 06, 1), LocalDate.of(2023, 06, 30)));
             Duty duty1 = dutyRepository.save(newDuty(LocalDate.of(2023, 06, 1)));

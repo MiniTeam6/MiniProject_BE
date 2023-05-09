@@ -3,6 +3,10 @@ package shop.mtcoding.restend.model.user;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import shop.mtcoding.restend.model.event.Event;
+import shop.mtcoding.restend.model.event.EventType;
+import shop.mtcoding.restend.model.order.Order;
+import shop.mtcoding.restend.model.order.OrderState;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +25,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param username
      * @return
      */
-    List<User> findByUsernameContaining(String username);
+    List<User> findByUsernameContainingAndStatusTrue(String username);
 
     /***
      * 이메일로 유저검색
@@ -47,6 +51,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findUsersByStatus(@Param("status")Boolean status);
 
 
+    @Query("SELECT u.id FROM User u WHERE u.username LIKE %:search% OR u.email LIKE %:search%")
+    List<Long> findUserIdsByUsernameOrEmail(@Param("search") String search);
+
+
 
 
 }
+
+
+
+
+
+
+
