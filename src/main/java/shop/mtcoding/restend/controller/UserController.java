@@ -3,7 +3,6 @@ package shop.mtcoding.restend.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,13 +10,10 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.multipart.MultipartFile;
-
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.dto.ResponseDTO;
 
-import shop.mtcoding.restend.dto.annual.AnnualRequest;
-import shop.mtcoding.restend.dto.event.EventRequest;
 
 import shop.mtcoding.restend.dto.event.EventResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
@@ -34,7 +30,6 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final EventService eventService;
 
 
 
