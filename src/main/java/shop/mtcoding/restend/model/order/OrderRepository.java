@@ -48,9 +48,14 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 	 * @param eventType
 	 * @param keyword
 	 * @return
+	 *
+	 *
 	 */
-	@Query("SELECT o FROM Order o WHERE o.orderState <> :orderState AND o.event.eventType = :eventType AND (o.event.user.username LIKE %:keyword% OR o.event.user.email LIKE %:keyword%)  " )
-	Page<Order> findByOrderStateNotAndEventTypeSearch(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType, @Param("keyword") String keyword, Pageable pageable);
+	@Query("SELECT o FROM Order o WHERE o.orderState <> :orderState AND o.event.eventType = :eventType AND o.event.user.username LIKE %:keyword%   " )
+	Page<Order> findApprovalSearchUserName(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType, @Param("keyword") String keyword, Pageable pageable);
+
+	@Query("SELECT o FROM Order o WHERE o.orderState <> :orderState AND o.event.eventType = :eventType AND o.event.user.email LIKE %:keyword%   " )
+	Page<Order> findApprovalSearchEmail(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType, @Param("keyword") String keyword, Pageable pageable);
 
 
 

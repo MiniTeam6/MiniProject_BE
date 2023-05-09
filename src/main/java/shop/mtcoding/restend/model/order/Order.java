@@ -19,7 +19,7 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "event_id")
 	private Event event;
 	@Enumerated(EnumType.STRING)
@@ -36,6 +36,9 @@ public class Order {
 
 
 
+	public void setOrderState(OrderState updateOrderState){
+		this.orderState = updateOrderState;
+	}
 
 
 	@PrePersist

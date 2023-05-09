@@ -63,7 +63,7 @@ public class UserRequest {
     @Setter @Getter
     public static class SearchInDTO{
         @NotEmpty
-        @Pattern(regexp = "name|email", message = "name/email로만 검색할 수 있습니다. ")
+        @Pattern(regexp = "username|email", message = "검색 타입이 올바르지 않습니다. username/email로만 검색할 수 있습니다. ")
         private String searchType;
         @NotEmpty
         private String keyword;
@@ -83,6 +83,6 @@ public class UserRequest {
         @Pattern(regexp = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$", message = "이메일 형식으로 작성해주세요")
         private String email;
         @NotEmpty
-        private String name;  //username 으로 바꾸기
+        private String username;  //username 으로 바꾸기
     }
 }

@@ -2,6 +2,7 @@ package shop.mtcoding.restend.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.Value;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +41,8 @@ public class OrderService {
 			throw new Exception404("해당 Event를 찾을 수 없습니다. ");
 		}
 
-		Order approval = approvalInDTO.toEntity(user.get(), event.get());
+		Order approval = orderRepository.findByEvent_Id(event.get().getId());
+		approval.setOrderState(OrderState.valueOf(approvalInDTO.getOrderState()));
 		orderRepository.save(approval);
 		return new OrderResponse.AnnualApprovalOutDTO(approval);
 
@@ -57,7 +59,8 @@ public class OrderService {
 			throw new Exception404("해당 Event를 찾을 수 없습니다. ");
 		}
 
-		Order approval = approvalInDTO.toEntity(user.get(), event.get());
+		Order approval = orderRepository.findByEvent_Id(event.get().getId());
+		approval.setOrderState(OrderState.valueOf(approvalInDTO.getOrderState()));
 		orderRepository.save(approval);
 		return new OrderResponse.DutyApprovalOutDTO(approval);
 
@@ -71,10 +74,15 @@ public class OrderService {
 	}
 
 	@Transactional
-	public Page<OrderResponse.AnnualApprovalOutDTO> 연차승인내역(String keyword, int page, int size) {
+	public Page<OrderResponse.AnnualApprovalOutDTO> 연차승인내역(String type,String keyword, int page, int size) {
 		Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "event.annual.startDate"));
-		Page<Order> annualApprovals = orderRepository.findByOrderStateNotAndEventTypeSearch(OrderState.WAITING, EventType.ANNUAL, keyword, pageable);
-		return annualApprovals.map(request -> new OrderResponse.AnnualApprovalOutDTO(request));
+		if(type.equals("username")){
+			Page<Order> annualApprovals = orderRepository.findApprovalSearchUserName(OrderState.WAITING, EventType.ANNUAL, keyword, pageable);
+			return annualApprovals.map(request -> new OrderResponse.AnnualApprovalOutDTO(request));
+		}else {
+			Page<Order> annualApprovals = orderRepository.findApprovalSearchEmail(OrderState.WAITING, EventType.ANNUAL, keyword, pageable);
+			return annualApprovals.map(request -> new OrderResponse.AnnualApprovalOutDTO(request));
+		}
 	}
 
 	@Transactional
@@ -85,10 +93,16 @@ public class OrderService {
 	}
 
 	@Transactional
-	public Page<OrderResponse.DutyApprovalOutDTO> 당직승인내역(String keyword, int page, int size) {
+	public Page<OrderResponse.DutyApprovalOutDTO> 당직승인내역(String type, String keyword, int page, int size) {
 		Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "event.duty.date"));
-		Page<Order> dutyApproval = orderRepository.findByOrderStateNotAndEventTypeSearch(OrderState.WAITING, EventType.DUTY,keyword,pageable);
-		return dutyApproval.map(request-> new OrderResponse.DutyApprovalOutDTO(request));
+		if(type.equals("username")){
+			Page<Order> dutyApproval = orderRepository.findApprovalSearchUserName(OrderState.WAITING, EventType.DUTY,keyword,pageable);
+			return dutyApproval.map(request-> new OrderResponse.DutyApprovalOutDTO(request));
+		}else {
+			Page<Order> dutyApproval = orderRepository.findApprovalSearchEmail(OrderState.WAITING, EventType.DUTY,keyword,pageable);
+			return dutyApproval.map(request-> new OrderResponse.DutyApprovalOutDTO(request));
+		}
+
 	}
 
 

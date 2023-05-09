@@ -22,6 +22,7 @@ import shop.mtcoding.restend.service.OrderService;
 import shop.mtcoding.restend.service.UserService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Log4j2
@@ -33,18 +34,21 @@ public class AdminController {
 	private final UserService userService;
 	private final OrderService orderService;
 
-	/**
-	 * 회원리스트 검색 -> 이름, 이메일 list
-	 *
-	 * @param searchInDTO
+	/***
+	 * 회원리스트 검색(role)
+	 * @param type
+	 * @param keyword
+	 * @param page
+	 * @param size
 	 * @return
 	 */
-	@PostMapping("/search")
-	public ResponseEntity<?> userSearch(@RequestBody @Valid UserRequest.SearchInDTO searchInDTO,
+	@GetMapping("/search")
+	public ResponseEntity<?> userSearch(@RequestParam(name="type",required = false, defaultValue = "username")@Pattern(regexp = "username|email")
+											String type,
+										@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
 										@RequestParam(name = "page", defaultValue = "0") int page,
-										@RequestParam(name = "size", defaultValue = "10") int size,
-										Errors errors) {
-		Page<UserResponse.UserListOutDTO> userListOutDTO = userService.회원리스트검색(searchInDTO,page,size);
+										@RequestParam(name = "size", defaultValue = "10") int size) {
+		Page<UserResponse.UserListOutDTO> userListOutDTO = userService.회원리스트검색(type,keyword,page,size);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(userListOutDTO);
 		return ResponseEntity.ok(responseDTO);
 	}
@@ -159,10 +163,12 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("/annual/approval")
-	public ResponseEntity<?> annualApproval(@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
+	public ResponseEntity<?> annualApproval(@RequestParam(name="type",required = false, defaultValue = "username")@Pattern(regexp = "username|email")
+											String type,
+											@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
 											@RequestParam(name = "page", defaultValue = "0") int page,
 											@RequestParam(name = "size", defaultValue = "10") int size) {
-		Page<OrderResponse.AnnualApprovalOutDTO> annualApprovalOutDTOS = orderService.연차승인내역(keyword, page, size);
+		Page<OrderResponse.AnnualApprovalOutDTO> annualApprovalOutDTOS = orderService.연차승인내역(type,keyword, page, size);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(annualApprovalOutDTOS);
 		return ResponseEntity.ok(responseDTO);
 	}
@@ -172,10 +178,11 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("/duty/approval")
-	public ResponseEntity<?> dutyApproval(@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
+	public ResponseEntity<?> dutyApproval(@RequestParam(name="type",required = false, defaultValue = "username")@Pattern(regexp = "username|email") String type,
+										  @RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
 										  @RequestParam(name = "page", defaultValue = "0") int page,
 										  @RequestParam(name = "size", defaultValue = "10") int size) {
-		Page<OrderResponse.DutyApprovalOutDTO> dutyApprovalOutDTOS = orderService.당직승인내역(keyword, page, size);
+		Page<OrderResponse.DutyApprovalOutDTO> dutyApprovalOutDTOS = orderService.당직승인내역(type,keyword, page, size);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(dutyApprovalOutDTOS);
 		return ResponseEntity.ok(responseDTO);
 	}

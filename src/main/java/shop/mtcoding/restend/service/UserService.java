@@ -146,18 +146,21 @@ public class UserService {
     }
 
     /***
-     * admin 회원role에서 검색하는거
-     * @param searchInDTO
+     *
+     * @param type
+     * @param keyword
+     * @param page
+     * @param size
      * @return
      */
 
-    public Page<UserResponse.UserListOutDTO> 회원리스트검색(UserRequest.SearchInDTO searchInDTO,int page, int size){
+    public Page<UserResponse.UserListOutDTO> 회원리스트검색(String type,String keyword,int page, int size){
         Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "username"));
-        if(searchInDTO.getSearchType().equals("name")){
-            Page<User> users = userRepository.findByUsernameContainingAndStatusTrue(searchInDTO.getKeyword(), pageable);
+        if(type.equals("username")){
+            Page<User> users = userRepository.findByUsernameContainingAndStatusTrue(keyword, pageable);
             return users.map(request-> new UserResponse.UserListOutDTO(request));
         }else{
-            Page<User> users = userRepository.findByEmailContainingAndStatusTrue(searchInDTO.getKeyword(),pageable);
+            Page<User> users = userRepository.findByEmailContainingAndStatusTrue(keyword,pageable);
             return users.map(request-> new UserResponse.UserListOutDTO(request));
         }
     }
