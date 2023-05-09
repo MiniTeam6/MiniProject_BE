@@ -4,7 +4,7 @@ endif::[]
 
 :user: user-controller-test
 
-= REST API
+= 연차/당직 시스템 프로젝트
 :toc: left
 :toclevels: 2
 :source-highlighter: highlightjs

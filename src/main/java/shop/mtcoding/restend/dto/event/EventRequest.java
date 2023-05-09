@@ -75,17 +75,15 @@ public class EventRequest {
     @Getter
     @Setter
     public static class EventCancelInDto {
-        @NotEmpty
         private Long id;
         @NotEmpty
-        @Pattern(regexp = "당직|연차")
+        @Pattern(regexp = "DUTY|ANNUAL")
         private String eventType;
     }
 
     @Getter
     @Setter
     public static class EventModifyInDto {
-        @NotEmpty
         private Long id;
         @NotEmpty
         @Pattern(regexp = "당직|연차")

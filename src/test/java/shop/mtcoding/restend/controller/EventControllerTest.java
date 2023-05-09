@@ -241,7 +241,7 @@ public class EventControllerTest extends MyRestDoc {
     }
 
 
-    @DisplayName("연차/당직 신청 취소")
+    @DisplayName("연차 신청 취소")
     @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
     public void event_cancel_annual_test() throws Exception {
@@ -268,7 +268,7 @@ public class EventControllerTest extends MyRestDoc {
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
-    @DisplayName("연차/당직 신청 취소")
+    @DisplayName("당직 신청 취소")
     @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
     public void event_cancel_duty_test() throws Exception {
@@ -296,7 +296,7 @@ public class EventControllerTest extends MyRestDoc {
     }
 
 //    @DisplayName("연차/당직 신청 수정")
-//    @WithUserDetails(value = "ssar@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+//    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
 //    @Test
 //    public void event_modify_duty_test() throws Exception {
 //        // given
