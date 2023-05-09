@@ -1,10 +1,7 @@
 package shop.mtcoding.restend.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +18,7 @@ import shop.mtcoding.restend.core.exception.Exception401;
 import shop.mtcoding.restend.core.exception.Exception404;
 import shop.mtcoding.restend.core.exception.Exception500;
 import shop.mtcoding.restend.dto.event.EventResponse;
+import shop.mtcoding.restend.dto.order.OrderResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.model.annual.Annual;
@@ -147,31 +145,39 @@ public class UserService {
         return new UserResponse.UserDetailOutDTO(userPS);
     }
 
+    /***
+     * admin 회원role에서 검색하는거
+     * @param searchInDTO
+     * @return
+     */
 
-    public List<UserResponse.UserListOutDTO> 회원리스트검색(UserRequest.SearchInDTO searchInDTO){
+    public Page<UserResponse.UserListOutDTO> 회원리스트검색(UserRequest.SearchInDTO searchInDTO,int page, int size){
+        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "username"));
         if(searchInDTO.getSearchType().equals("name")){
-            List<User> users = userRepository.findByUsernameContainingAndStatusTrue(searchInDTO.getKeyword());
-            List<UserResponse.UserListOutDTO> userDTOs = users.stream()
-                    .map(user->new UserResponse.UserListOutDTO(user))
-                    .collect(Collectors.toList());
-
-            return userDTOs;
+            Page<User> users = userRepository.findByUsernameContainingAndStatusTrue(searchInDTO.getKeyword(), pageable);
+            return users.map(request-> new UserResponse.UserListOutDTO(request));
         }else{
-            List<User> users = userRepository.findByEmailContaining(searchInDTO.getKeyword());
-            List<UserResponse.UserListOutDTO> userDTOs = users.stream()
-                    .map(UserResponse.UserListOutDTO::new)
-                    .collect(Collectors.toList());
-            return userDTOs;
+            Page<User> users = userRepository.findByEmailContainingAndStatusTrue(searchInDTO.getKeyword(),pageable);
+            return users.map(request-> new UserResponse.UserListOutDTO(request));
         }
     }
 
-    public List<UserResponse.UserApprovalListOutDTO> 회원전체리스트(){
-        List<User> users = userRepository.findUsersByStatus(true);
-        List<UserResponse.UserApprovalListOutDTO> userDTOs = users.stream()
-                .map(user -> new UserResponse.UserApprovalListOutDTO(user))
+    @Transactional
+    public Page<UserResponse.UserApprovalListOutDTO> 회원전체리스트(int page, int size){
+        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "username"));
+        Page<User> users = userRepository.findUsersByStatus(true,pageable);
+        return users.map(request-> new UserResponse.UserApprovalListOutDTO(request));
+    }
+
+    @Transactional
+    public List<UserResponse.UserListOutDTO> 회원전체리스트2(){
+        List<User> users = userRepository.findUsersByStatus2(true);
+        List<UserResponse.UserListOutDTO> userDTOs = users.stream()
+                .map(user -> new UserResponse.UserListOutDTO(user))
                 .collect(Collectors.toList());
         return userDTOs;
     }
+
     @Transactional
     public UserResponse.UserRoleUpdateOutDTO 권한업데이트(UserRequest.RoleUpdateInDTO roleUpdateInDTO){
         Optional<User> user = userRepository.findByEmail(roleUpdateInDTO.getEmail());
@@ -203,12 +209,11 @@ public class UserService {
         }
     }
 
-    public List<UserResponse.UserListOutDTO> 회원가입요청목록(){
-        List<User>users=userRepository.findUsersByStatus(false);
-        List<UserResponse.UserListOutDTO> userDTOs = users.stream()
-                .map(user->new UserResponse.UserListOutDTO(user))
-                .collect(Collectors.toList());
-        return userDTOs;
+
+    public Page<UserResponse.UserListOutDTO> 회원가입요청목록(int page, int size){
+        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.ASC, "username"));
+        Page<User>users=userRepository.findUsersByStatus(false,pageable);
+        return users.map(request-> new UserResponse.UserListOutDTO(request));
     }
 
 

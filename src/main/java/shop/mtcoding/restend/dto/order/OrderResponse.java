@@ -99,6 +99,7 @@ public class OrderResponse {
 			this.startDate=order.getEvent().getAnnual().getStartDate();
 			this.endDate=order.getEvent().getAnnual().getEndDate();
 			this.orderState=order.getOrderState().toString();
+			this.userEmail=order.getEvent().getUser().getEmail();
 		}
 	}
 

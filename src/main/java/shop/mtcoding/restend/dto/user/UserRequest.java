@@ -63,6 +63,7 @@ public class UserRequest {
     @Setter @Getter
     public static class SearchInDTO{
         @NotEmpty
+        @Pattern(regexp = "name|email", message = "name/email로만 검색할 수 있습니다. ")
         private String searchType;
         @NotEmpty
         private String keyword;

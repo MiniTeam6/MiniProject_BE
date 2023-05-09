@@ -64,28 +64,24 @@ public class OrderService {
 	}
 
 	@Transactional
-	public List<OrderResponse.AnnualRequestOutDTO> 연차요청내역() {
-		List<Order> annualRequest = orderRepository.findByOrderStateAndEventType(OrderState.WAITING, EventType.ANNUAL);
-		List<OrderResponse.AnnualRequestOutDTO> requestOutDTOS =
-				annualRequest.stream().map(request -> new OrderResponse.AnnualRequestOutDTO(request))
-						.collect(Collectors.toList());
-		return requestOutDTOS;
+	public Page<OrderResponse.AnnualRequestOutDTO> 연차요청내역(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "event.annual.startDate"));
+		Page<Order> annualRequests = orderRepository.findByOrderStateAndEventType(OrderState.WAITING, EventType.ANNUAL, pageable);
+		return annualRequests.map(request -> new OrderResponse.AnnualRequestOutDTO(request));
 	}
 
 	@Transactional
 	public Page<OrderResponse.AnnualApprovalOutDTO> 연차승인내역(String keyword, int page, int size) {
 		Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "event.annual.startDate"));
-		Page<Order> annualRequests = orderRepository.findByOrderStateNotAndEventTypeSearch(OrderState.WAITING, EventType.ANNUAL, keyword, pageable);
-		return annualRequests.map(request -> new OrderResponse.AnnualApprovalOutDTO(request));
+		Page<Order> annualApprovals = orderRepository.findByOrderStateNotAndEventTypeSearch(OrderState.WAITING, EventType.ANNUAL, keyword, pageable);
+		return annualApprovals.map(request -> new OrderResponse.AnnualApprovalOutDTO(request));
 	}
 
 	@Transactional
-	public List<OrderResponse.DutyRequestOutDTO> 당직요청내역() {
-		List<Order> dutyRequest = orderRepository.findByOrderStateAndEventType(OrderState.WAITING, EventType.DUTY);
-		List<OrderResponse.DutyRequestOutDTO> approvalOutDTOS =
-				dutyRequest.stream().map(request -> new OrderResponse.DutyRequestOutDTO(request))
-						.collect(Collectors.toList());
-		return approvalOutDTOS;
+	public Page<OrderResponse.DutyRequestOutDTO> 당직요청내역(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "event.duty.date"));
+		Page<Order> dutyRequest = orderRepository.findByOrderStateAndEventType(OrderState.WAITING, EventType.DUTY,pageable);
+		return dutyRequest.map(request -> new OrderResponse.DutyRequestOutDTO(request));
 	}
 
 	@Transactional

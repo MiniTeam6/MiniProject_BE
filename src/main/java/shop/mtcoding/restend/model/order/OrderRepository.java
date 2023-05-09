@@ -20,9 +20,16 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 	 * @param orderState
 	 * @param eventType
 	 * @return
+	 *
 	 */
-	@Query("SELECT o FROM Order o JOIN FETCH o.event WHERE o.orderState = :orderState AND o.event.eventType = :eventType")
-	List<Order> findByOrderStateAndEventType(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType);
+//	@Query("SELECT o FROM Order o JOIN FETCH o.event WHERE o.orderState = :orderState AND o.event.eventType = :eventType")
+	@EntityGraph(attributePaths="event")
+	@Query("SELECT o FROM Order o JOIN o.event WHERE o.orderState = :orderState AND o.event.eventType = :eventType")
+	Page<Order> findByOrderStateAndEventType(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType, Pageable pageable);
+
+
+//	@Query("SELECT o FROM Order o JOIN FETCH o.event WHERE o.orderState = :orderState AND o.event.eventType = :eventType")
+//	Page<Order> findByOrderStateAndEventType(@Param("orderState") OrderState orderState, @Param("eventType") EventType eventType,Pageable pageable);
 
 
 //	/***

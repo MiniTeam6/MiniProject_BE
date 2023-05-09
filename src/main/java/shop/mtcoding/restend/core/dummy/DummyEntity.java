@@ -1,10 +1,13 @@
 package shop.mtcoding.restend.core.dummy;
 
+import org.aspectj.weaver.ast.Or;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import shop.mtcoding.restend.model.annual.Annual;
 import shop.mtcoding.restend.model.duty.Duty;
 import shop.mtcoding.restend.model.event.Event;
 import shop.mtcoding.restend.model.event.EventType;
+import shop.mtcoding.restend.model.order.Order;
+import shop.mtcoding.restend.model.order.OrderState;
 import shop.mtcoding.restend.model.user.User;
 
 import java.time.LocalDate;
@@ -105,6 +108,23 @@ public class DummyEntity {
         return Duty.builder()
                 .id(id)
                 .date(date)
+                .build();
+    }
+//    public Order(Long id, Event event, OrderState orderState, User approver, LocalDateTime createdAt) {
+        public Order newOrder(Event event, OrderState orderState, User approver) {
+        return Order.builder()
+                .event(event)
+                .orderState(orderState)
+                .approver(approver)
+                .build();
+    }
+
+    public Order newMockOrder(Long id,Event event, OrderState orderState, User approver) {
+        return Order.builder()
+                .id(id)
+                .event(event)
+                .orderState(orderState)
+                .approver(approver)
                 .build();
     }
 }

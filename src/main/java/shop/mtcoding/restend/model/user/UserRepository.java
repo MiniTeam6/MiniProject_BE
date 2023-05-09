@@ -1,5 +1,7 @@
 package shop.mtcoding.restend.model.user;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,14 +27,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @param username
      * @return
      */
-    List<User> findByUsernameContainingAndStatusTrue(String username);
+    Page<User> findByUsernameContainingAndStatusTrue(String username, Pageable pageable);
 
     /***
      * 이메일로 유저검색
      * @param email
      * @return
      */
-    List<User> findByEmailContaining(String email);
+    Page<User> findByEmailContainingAndStatusTrue(String email,Pageable pageable);
 
     /***
      * 둘다 검색
@@ -48,7 +50,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
      * @return
      */
     @Query("SELECT u FROM User u WHERE u.status = :status")
-    List<User> findUsersByStatus(@Param("status")Boolean status);
+    Page<User> findUsersByStatus(@Param("status")Boolean status,Pageable pageable);
+
+    @Query("SELECT u FROM User u WHERE u.status = :status")
+    List<User> findUsersByStatus2(@Param("status")Boolean status);
 
 
     @Query("SELECT u.id FROM User u WHERE u.username LIKE %:search% OR u.email LIKE %:search%")
