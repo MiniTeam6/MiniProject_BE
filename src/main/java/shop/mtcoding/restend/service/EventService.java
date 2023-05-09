@@ -112,7 +112,7 @@ public class EventService {
     public EventResponse.EventAddOutDTO 연차당직신청(EventRequest.EventAddInDto eventAddInDto, User user) {
         Event event = null;
         switch (eventAddInDto.getEventType()) {
-            case "연차":
+            case "ANNUAL":
                 // 연차 신청
                 Annual annual = annualRepository.save(Annual.builder()
                         .startDate(eventAddInDto.getStartDate())
@@ -128,7 +128,7 @@ public class EventService {
                         .orderState(OrderState.WAITING)
                         .build());
                 break;
-            case "당직":
+            case "DUTY":
                 // 당직 신청
                 Duty duty = dutyRepository.save(Duty.builder()
                         .date(eventAddInDto.getStartDate())
@@ -160,7 +160,7 @@ public class EventService {
         Event event = null;
         Order order = null;
         switch (eventCancelInDTO.getEventType()) {
-            case "연차":
+            case "ANNUAL":
                 Annual annual = annualRepository.findById(eventCancelInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 연차가 없습니다."));
                 event = eventRepository.findByAnnual_Id(annual.getId());
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
@@ -175,7 +175,7 @@ public class EventService {
                     throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
                 }
                 break;
-            case "당직":
+            case "DUTY":
                 Duty duty = dutyRepository.findById(eventCancelInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 당직이 없습니다."));
                 event = eventRepository.findByDuty_Id(duty.getId());
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
@@ -198,7 +198,7 @@ public class EventService {
         Event event = null;
         Order order = null;
         switch (eventModifyInDTO.getEventType()) {
-            case "연차":
+            case "ANNUAL":
                 Annual annual = annualRepository.findById(eventModifyInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 연차가 없습니다."));
                 event = eventRepository.findByAnnual_Id(annual.getId());
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
@@ -212,7 +212,7 @@ public class EventService {
                 }
                 break;
 
-            case "당직":
+            case "DUTY":
                 Duty duty = dutyRepository.findById(eventModifyInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 당직이 없습니다."));
                 event = eventRepository.findByDuty_Id(duty.getId());
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
@@ -321,7 +321,7 @@ public class EventService {
         LocalDate start = LocalDate.parse(yearMonth + "-01");
         LocalDate end = start.plusMonths(1).minusDays(1);
         switch (eventType) {
-            case "연차":
+            case "ANNUAL":
                 events = eventRepository.findByEventTypeAndAnnual_StartDateBetweenOrderByAnnual_StartDateDesc(EventType.ANNUAL, start, end, pageable);
 
                 results = events.map(event -> EventResponse.EventListOutDTO.builder()
@@ -340,7 +340,7 @@ public class EventService {
                         .build());
                 break;
 
-            case "당직":
+            case "DUTY":
                 events = eventRepository.findByEventTypeAndDuty_DateOrderByDuty_DateDesc(EventType.DUTY, start, end, pageable);
 
                 results = events.map(event -> EventResponse.EventListOutDTO.builder()

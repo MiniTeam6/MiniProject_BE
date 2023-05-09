@@ -7,6 +7,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
+import org.springframework.web.HttpSessionRequiredException;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
 import shop.mtcoding.restend.dto.ResponseDTO;
@@ -14,6 +15,7 @@ import shop.mtcoding.restend.dto.event.EventRequest;
 import shop.mtcoding.restend.dto.event.EventResponse;
 import shop.mtcoding.restend.service.EventService;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
@@ -27,7 +29,9 @@ public class EventController {
 
     // 연차/당직 신청
     @PostMapping("/user/event/add")
-    public ResponseEntity<?> add(@RequestBody @Valid EventRequest.EventAddInDto eventAddInDTO, Errors errors, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> add(@RequestBody @Valid EventRequest.EventAddInDto eventAddInDTO, Errors errors, @AuthenticationPrincipal MyUserDetails myUserDetails, HttpSession session) {
+//        if (eventAddInDTO.getEventType().equals("ANNUAL")) {
+//            session.setAttribute("count", eventAddInDTO.getCount());
         EventResponse.EventAddOutDTO eventAddOutDTO = eventService.연차당직신청(eventAddInDTO, myUserDetails.getUser());
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventAddOutDTO);
         return ResponseEntity.ok(responseDTO);
@@ -74,7 +78,7 @@ public class EventController {
     // 파리미터 없으면 현재 월
     // 파라미터로 탭 구분: 연차/당직
     @GetMapping("/user/event/list")
-    public ResponseEntity<?> list(@RequestParam String eventType,
+    public ResponseEntity<?> list(@RequestParam @Pattern(regexp = "ANNUAL|DUTY") String eventType,
                                   @RequestParam(required = false) @Pattern(regexp = "^\\d{4}-\\d{2}$") String yearMonth,
                                   @AuthenticationPrincipal MyUserDetails myUserDetails,
                                   @PageableDefault(size = 10) Pageable pageable) {

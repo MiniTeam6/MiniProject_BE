@@ -25,7 +25,7 @@ public class EventRequest {
     @Setter
     public static class EventAddInDto {
         @NotEmpty
-        @Pattern(regexp = "당직|연차")
+        @Pattern(regexp = "ANNUAL|DUTY")
         private String eventType;
 
         @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -75,18 +75,20 @@ public class EventRequest {
     @Getter
     @Setter
     public static class EventCancelInDto {
+        @NotNull
         private Long id;
         @NotEmpty
-        @Pattern(regexp = "DUTY|ANNUAL")
+        @Pattern(regexp = "ANNUAL|DUTY")
         private String eventType;
     }
 
     @Getter
     @Setter
     public static class EventModifyInDto {
+        @NotNull
         private Long id;
         @NotEmpty
-        @Pattern(regexp = "당직|연차")
+        @Pattern(regexp = "ANNUAL|DUTY")
         private String eventType;
 
         @DateTimeFormat(pattern = "yyyy-MM-dd")

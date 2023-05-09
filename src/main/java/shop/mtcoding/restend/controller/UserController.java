@@ -19,7 +19,6 @@ import shop.mtcoding.restend.dto.ResponseDTO;
 import shop.mtcoding.restend.dto.event.EventResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
-import shop.mtcoding.restend.service.EventService;
 import shop.mtcoding.restend.service.UserService;
 
 import javax.validation.Valid;
