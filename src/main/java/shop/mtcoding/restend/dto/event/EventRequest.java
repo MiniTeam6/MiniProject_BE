@@ -78,6 +78,10 @@ public class EventRequest {
         @NotEmpty
         private Long id;
         @NotEmpty
+<<<<<<< HEAD
+=======
+
+>>>>>>> 766824b (충돌 수정)
         @Pattern(regexp = "당직|연차")
 
         private String eventType;
