@@ -40,6 +40,15 @@ public class UserController {
         return ResponseEntity.ok(responseDTO);
     }
 
+    // 이메일 중복 확인
+    @GetMapping("/emailcheck")
+    public ResponseEntity<?> emailCheck(@RequestParam String email) {
+        Boolean result = userService.이메일중복확인(email);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(result);
+        return ResponseEntity.ok(responseDTO);
+    }
+
+
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserRequest.LoginInDTO loginInDTO){

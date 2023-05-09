@@ -81,6 +81,11 @@ public class UserService {
         }
     }
 
+    public Boolean 이메일중복확인(String email) {
+        Optional<User> userOP = userRepository.findByEmail(email);
+        return userOP.isPresent();
+    }
+
 
     public Object[] 로그인(UserRequest.LoginInDTO loginInDTO) {
 
@@ -279,4 +284,6 @@ public class UserService {
                 });
         return myDuties;
     }
+
+
 }
