@@ -121,7 +121,7 @@ public class UserService {
 
 
     @Transactional
-    public UserResponse.UserDetailOutDTO 회원정보수정(Long id, UserRequest.SignupInDTO signupInDTO, MultipartFile image) {
+    public UserResponse.UserDetailOutDTO 회원정보수정(Long id, UserRequest.ModifyInDTO modifyInDTO, MultipartFile image) {
         User userPS = userRepository.findById(id).orElseThrow(
                 ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
         );
@@ -133,7 +133,7 @@ public class UserService {
         String imageUri = "imageUri";
         String thumbnailUri = "thumbnailUri";
 
-        userPS.update(signupInDTO.toEntity(imageUri, thumbnailUri));
+        userPS.update(modifyInDTO.toEntity(userPS.getEmail(), imageUri, thumbnailUri));
         return new UserResponse.UserDetailOutDTO(userPS);
     }
 

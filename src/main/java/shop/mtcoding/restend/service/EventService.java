@@ -207,7 +207,7 @@ public class EventService {
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
-                    annual.update(eventModifyInDTO.getStartDate(), eventModifyInDTO.getEndDate());
+                    annual.update(eventModifyInDTO.getStartDate(), eventModifyInDTO.getEndDate(), eventModifyInDTO.getCount());
                 } else {
                     throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
                 }
