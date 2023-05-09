@@ -2,9 +2,12 @@ package shop.mtcoding.restend.model.user;
 
 import lombok.*;
 import shop.mtcoding.restend.core.exception.Exception404;
+import shop.mtcoding.restend.model.event.Event;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -45,6 +48,9 @@ public class User {
     private LocalDateTime updatedAt;
 
     private Long annualCount;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+//    @ToString.Exclude
+//    private List<Event> eventList=new ArrayList<>();
 
     @PrePersist
     protected void onCreate() {
@@ -55,6 +61,7 @@ public class User {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
     public void setRole(UserRole role) {
         if(this.role.equals(role)){
             //checkpoint : throw 동일한 권한으로 변경할 수 없습니다.

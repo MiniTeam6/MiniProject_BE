@@ -3,5 +3,7 @@ SET REFERENTIAL_INTEGRITY FALSE;
 truncate table user_tb;
 truncate table event_tb;
 truncate table order_tb;
+truncate table annual_tb;
+truncate table duty_tb;
 SET REFERENTIAL_INTEGRITY TRUE;
 -- 모든 제약 조건 활성화

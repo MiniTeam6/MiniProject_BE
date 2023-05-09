@@ -1,10 +1,13 @@
 package shop.mtcoding.restend.core.dummy;
 
+import org.aspectj.weaver.ast.Or;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import shop.mtcoding.restend.model.annual.Annual;
 import shop.mtcoding.restend.model.duty.Duty;
 import shop.mtcoding.restend.model.event.Event;
 import shop.mtcoding.restend.model.event.EventType;
+import shop.mtcoding.restend.model.order.Order;
+import shop.mtcoding.restend.model.order.OrderState;
 import shop.mtcoding.restend.model.user.User;
 
 import java.time.LocalDate;
@@ -12,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class DummyEntity {
-    public User newUser(String username, String role) {
+    public User newUser(String username, String role,Boolean status) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String email = "";
         if (username.equals("사르")) {
@@ -29,7 +32,8 @@ public class DummyEntity {
                 .thumbnailUri("https://test")
                 .phone("010-1234-1234")
                 .role(role)
-                .status(true)
+                .status(status)
+                .updatedAt(LocalDateTime.now())
                 .build();
     }
 
@@ -104,6 +108,23 @@ public class DummyEntity {
         return Duty.builder()
                 .id(id)
                 .date(date)
+                .build();
+    }
+//    public Order(Long id, Event event, OrderState orderState, User approver, LocalDateTime createdAt) {
+        public Order newOrder(Event event, OrderState orderState, User approver) {
+        return Order.builder()
+                .event(event)
+                .orderState(orderState)
+                .approver(approver)
+                .build();
+    }
+
+    public Order newMockOrder(Long id,Event event, OrderState orderState, User approver) {
+        return Order.builder()
+                .id(id)
+                .event(event)
+                .orderState(orderState)
+                .approver(approver)
                 .build();
     }
 }
