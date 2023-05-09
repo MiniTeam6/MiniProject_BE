@@ -21,6 +21,7 @@ import shop.mtcoding.restend.service.EventService;
 import shop.mtcoding.restend.service.OrderService;
 import shop.mtcoding.restend.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -167,7 +168,9 @@ public class AdminController {
 											String type,
 											@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
 											@RequestParam(name = "page", defaultValue = "0") int page,
-											@RequestParam(name = "size", defaultValue = "10") int size) {
+											@RequestParam(name = "size", defaultValue = "10") int size,
+											HttpSession session) {
+		Integer count =(Integer) session.getAttribute("count");
 		Page<OrderResponse.AnnualApprovalOutDTO> annualApprovalOutDTOS = orderService.연차승인내역(type,keyword, page, size);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(annualApprovalOutDTOS);
 		return ResponseEntity.ok(responseDTO);
