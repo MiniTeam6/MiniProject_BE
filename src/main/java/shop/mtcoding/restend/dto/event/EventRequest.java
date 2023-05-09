@@ -79,6 +79,7 @@ public class EventRequest {
         private Long id;
         @NotEmpty
         @Pattern(regexp = "당직|연차")
+
         private String eventType;
     }
 
