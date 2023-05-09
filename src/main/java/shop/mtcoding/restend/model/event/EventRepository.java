@@ -5,6 +5,7 @@ import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import shop.mtcoding.restend.model.annual.Annual;
 import shop.mtcoding.restend.model.duty.Duty;
 
@@ -37,5 +38,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     @Query("SELECT e FROM Event e JOIN FETCH e.user WHERE e.eventType = :eventType AND e.duty.date BETWEEN :start AND :end ORDER BY e.duty.date DESC")
     Slice<Event> findByEventTypeAndDuty_DateOrderByDuty_DateDesc(EventType eventType, LocalDate start, LocalDate end, Pageable pageable);
+
+    @Query("SELECT e FROM Event e WHERE e.user.id IN :userIds AND e.eventType = :eventType")
+    List<Event> findEventsByUserIdsAndEventType(@Param("userIds") List<Long> userIds, @Param("eventType") EventType eventType);
 }
 

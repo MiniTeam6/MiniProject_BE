@@ -66,6 +66,9 @@ public class UserResponse {
         private String imageUri;
         private String thumbnailUri;
         private UserRole role;
+        private Boolean status;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
 
         public UserDetailOutDTO(User user) {
             this.id = user.getId();
@@ -75,6 +78,9 @@ public class UserResponse {
             this.imageUri = user.getImageUri();
             this.thumbnailUri = user.getThumbnailUri();
             this.role = user.getRole();
+            this.status = user.getStatus();
+            this.createdAt = user.getCreatedAt();
+            this.updatedAt = user.getUpdatedAt();
         }
     }
 
@@ -98,18 +104,24 @@ public class UserResponse {
     @Setter
     public static class UserListOutDTO{
         private Long id;
-        private LocalDateTime createAt;
-        private String imageUri;
         private String username;
         private String email;
+        private String phone;
         private String role;
+        private String imageUri;
+        private String thumbnailUri;
+        private LocalDateTime createAt;
+        private LocalDateTime updateAt;
         public UserListOutDTO(User user){
             this.id=user.getId();
             this.createAt=user.getCreatedAt();
             this.imageUri = user.getImageUri();
             this.username = user.getUsername();
             this.email=user.getEmail();
+            this.phone=user.getPhone();
             this.role=user.getRole().toString();
+            this.thumbnailUri = user.getThumbnailUri();
+            this.updateAt=user.getUpdatedAt();
         }
     }
 
