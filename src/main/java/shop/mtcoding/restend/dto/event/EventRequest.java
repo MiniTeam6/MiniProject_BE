@@ -78,6 +78,7 @@ public class EventRequest {
         private Long id;
         @NotEmpty
         @Pattern(regexp = "DUTY|ANNUAL")
+
         private String eventType;
     }
 

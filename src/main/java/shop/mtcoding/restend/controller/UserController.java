@@ -112,7 +112,7 @@ public class UserController {
     // 내 연차 리스트
     @GetMapping("/user/myannual")
     public ResponseEntity<?> getMyAnnual(@AuthenticationPrincipal MyUserDetails myUserDetails,
-                                         @PageableDefault(size = 10) Pageable pageable) {
+                                         @PageableDefault(size = 8) Pageable pageable) {
         Slice<EventResponse.EventListOutDTO> eventListOutDTO = userService.내연차리스트(myUserDetails, pageable);
         return ResponseEntity.ok(eventListOutDTO);
     }
@@ -120,7 +120,7 @@ public class UserController {
     // 내 당직 리스트
     @GetMapping("/user/myduty")
     public ResponseEntity<?> getMyDuty(@AuthenticationPrincipal MyUserDetails myUserDetails,
-                                       @PageableDefault(size = 10) Pageable pageable) {
+                                       @PageableDefault(size = 8) Pageable pageable) {
         Slice<EventResponse.EventListOutDTO> eventListOutDTO = userService.내당직리스트(myUserDetails, pageable);
         return ResponseEntity.ok(eventListOutDTO);
     }
