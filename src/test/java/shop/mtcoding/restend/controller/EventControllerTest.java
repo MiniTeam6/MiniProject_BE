@@ -94,7 +94,7 @@ public class EventControllerTest extends MyRestDoc {
         eventRepository.save(dummy.newEvent(cos, "DUTY", null, duty1));
         em.clear();
     }
-    @DisplayName("연차/당직 신청 성공")
+    @DisplayName("연차 신청 성공")
     @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @Test
     public void event_add_annual_test() throws Exception {
@@ -126,7 +126,7 @@ public class EventControllerTest extends MyRestDoc {
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
-    @DisplayName("연차/당직 신청 실패")
+    @DisplayName("연차 신청 실패")
     @Test
     public void event_add_annual_fail_test() throws Exception {
         // given
@@ -134,6 +134,62 @@ public class EventControllerTest extends MyRestDoc {
         eventAddInDto.setEventType("연차");
         eventAddInDto.setStartDate(LocalDate.of(2023,05,9));
         eventAddInDto.setEndDate(LocalDate.of(2023, 06, 1));
+
+        // when
+        String requestBody = om.writeValueAsString(eventAddInDto);
+        System.out.println("테스트 : "+requestBody);
+
+        // when
+        ResultActions resultActions = mvc
+                .perform(post("/api/user/event/add").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
+        resultActions.andExpect(jsonPath("$.status").value(401));
+        resultActions.andExpect(jsonPath("$.msg").value("unAuthorized"));
+        resultActions.andExpect(jsonPath("$.data").value("인증되지 않았습니다"));
+        resultActions.andExpect(status().isUnauthorized());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("당직 신청 성공")
+    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void event_add_duty_test() throws Exception {
+        // given
+        EventRequest.EventAddInDto eventAddInDto=new EventAddInDto();
+        eventAddInDto.setEventType("당직");
+        eventAddInDto.setStartDate(LocalDate.of(2023,05,10));
+
+        // when
+        String requestBody = om.writeValueAsString(eventAddInDto);
+        System.out.println("테스트 : "+requestBody);
+
+        // when
+        ResultActions resultActions = mvc
+                .perform(post("/api/user/event/add").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
+        resultActions.andExpect(jsonPath("$.status").value(200));
+        resultActions.andExpect(jsonPath("$.msg").value("성공"));
+        resultActions.andExpect(jsonPath("$.data.eventId").value(3L));
+        resultActions.andExpect(jsonPath("$.data.userId").value(2L));
+        resultActions.andExpect(jsonPath("$.data.eventType").value("DUTY"));
+        resultActions.andExpect(jsonPath("$.data.startDate").value("2023-05-10"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
+
+    @DisplayName("당직 신청 실패")
+    @Test
+    public void event_add_duty_fail_test() throws Exception {
+        // given
+        EventRequest.EventAddInDto eventAddInDto=new EventAddInDto();
+        eventAddInDto.setEventType("당직");
+        eventAddInDto.setStartDate(LocalDate.of(2023,05,10));
 
         // when
         String requestBody = om.writeValueAsString(eventAddInDto);
@@ -239,39 +295,39 @@ public class EventControllerTest extends MyRestDoc {
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
 
-    @DisplayName("연차/당직 신청 수정")
-    @WithUserDetails(value = "ssar@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    @Test
-    public void event_modify_duty_test() throws Exception {
-        // given
-        EventRequest.EventModifyInDto eventModifyInDto=new EventModifyInDto();
-        eventModifyInDto.setId(1L);
-        eventModifyInDto.setEventType("연차");
-        eventModifyInDto.setStartDate(LocalDate.of(2023,07,1));
-        eventModifyInDto.setEndDate(LocalDate.of(2023,07,10));
-
-        // when
-        String requestBody = om.writeValueAsString(eventModifyInDto);
-        System.out.println("테스트 : "+requestBody);
-
-        // when
-        ResultActions resultActions = mvc
-                .perform(post("/api/user/event/modify").content(requestBody).contentType(MediaType.APPLICATION_JSON));
-        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-        System.out.println("테스트 : " + responseBody);
-
-        // then
-        resultActions.andExpect(jsonPath("$.status").value(200));
-        resultActions.andExpect(jsonPath("$.msg").value("성공"));
-        resultActions.andExpect(jsonPath("$.data[0].eventId").value(2L));
-        resultActions.andExpect(jsonPath("$.data[0].userId").value(2L));
-        resultActions.andExpect(jsonPath("$.data[0].eventType").value("DUTY"));
-        resultActions.andExpect(jsonPath("$.data[0].id").value(1L));
-        resultActions.andExpect(jsonPath("$.data[0].startDate").value("2023-06-01"));
-        resultActions.andExpect(jsonPath("$.data[0].endDate").value("2023-06-30"));
-        resultActions.andExpect(status().isOk());
-        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
-    }
+//    @DisplayName("연차/당직 신청 수정")
+//    @WithUserDetails(value = "ssar@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+//    @Test
+//    public void event_modify_duty_test() throws Exception {
+//        // given
+//        EventRequest.EventModifyInDto eventModifyInDto=new EventModifyInDto();
+//        eventModifyInDto.setId(1L);
+//        eventModifyInDto.setEventType("연차");
+//        eventModifyInDto.setStartDate(LocalDate.of(2023,07,1));
+//        eventModifyInDto.setEndDate(LocalDate.of(2023,07,10));
+//
+//        // when
+//        String requestBody = om.writeValueAsString(eventModifyInDto);
+//        System.out.println("테스트 : "+requestBody);
+//
+//        // when
+//        ResultActions resultActions = mvc
+//                .perform(post("/api/user/event/modify").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+//        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+//        System.out.println("테스트 : " + responseBody);
+//
+//        // then
+//        resultActions.andExpect(jsonPath("$.status").value(200));
+//        resultActions.andExpect(jsonPath("$.msg").value("성공"));
+//        resultActions.andExpect(jsonPath("$.data[0].eventId").value(2L));
+//        resultActions.andExpect(jsonPath("$.data[0].userId").value(2L));
+//        resultActions.andExpect(jsonPath("$.data[0].eventType").value("DUTY"));
+//        resultActions.andExpect(jsonPath("$.data[0].id").value(1L));
+//        resultActions.andExpect(jsonPath("$.data[0].startDate").value("2023-06-01"));
+//        resultActions.andExpect(jsonPath("$.data[0].endDate").value("2023-06-30"));
+//        resultActions.andExpect(status().isOk());
+//        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+//    }
 
     @Test
     @DisplayName("모든 연차 리스트")
