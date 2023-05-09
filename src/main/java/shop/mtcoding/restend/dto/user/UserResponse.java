@@ -40,18 +40,18 @@ public class UserResponse {
         private String phone;
         private UserRole role;
         private Boolean status;
-        private LocalDate nextAnnual;
-        private LocalDate nextDuty;
+        private String imageUri;
+        private String thumbnailUri;
 
-        public LoginOutDTO(User user, LocalDate nextAnnual, LocalDate nextDuty) {
+        public LoginOutDTO(User user) {
             this.id = user.getId();
             this.username = user.getUsername();
             this.email = user.getEmail();
             this.phone = user.getPhone();
             this.role = user.getRole();
             this.status = user.getStatus();
-            this.nextAnnual = nextAnnual;
-            this.nextDuty = nextDuty;
+            this.imageUri = user.getImageUri();
+            this.thumbnailUri = user.getThumbnailUri();
         }
     }
 

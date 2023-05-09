@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,6 +29,8 @@ import shop.mtcoding.restend.model.duty.DutyRepository;
 import shop.mtcoding.restend.model.event.Event;
 import shop.mtcoding.restend.model.event.EventRepository;
 import shop.mtcoding.restend.model.event.EventType;
+import shop.mtcoding.restend.model.order.Order;
+import shop.mtcoding.restend.model.order.OrderRepository;
 import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.model.user.UserRepository;
 import shop.mtcoding.restend.model.user.UserRole;
@@ -47,6 +48,7 @@ public class UserService {
     private final AnnualRepository annualRepository;
     private final DutyRepository dutyRepository;
     private final EventRepository eventRepository;
+    private final OrderRepository orderRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
 
@@ -95,23 +97,8 @@ public class UserService {
                     .map(event -> event.getDuty().getId())
                     .collect(Collectors.toList()));
 
-            LocalDate today = LocalDate.now();
-
-//            LocalDate nextAnnualDate = annuals.stream()
-//                    .filter(annual -> annual.getStartDate().isAfter(today) || annual.getStartDate().isEqual(today))
-//                    .map(Annual::getStartDate)
-//                    .min(LocalDate::compareTo)
-//                    .orElse(null);
-//            LocalDate nextDutyDate = duties.stream()
-//                    .map(Duty::getDate)
-//                    .filter(date -> date.isAfter(today))
-//                    .min(LocalDate::compareTo)
-//                    .orElse(null);
-            LocalDate nextAnnualDate = null;
-            LocalDate nextDutyDate = null;
-
             Object[] result = new Object[2];
-            result[0] = new UserResponse.LoginOutDTO(myUserDetails.getUser(), nextAnnualDate, nextDutyDate);
+            result[0] = new UserResponse.LoginOutDTO(myUserDetails.getUser());
             result[1] = MyJwtProvider.create(myUserDetails.getUser());
             return result;
 
@@ -221,20 +208,26 @@ public class UserService {
 
         Slice<Event> events = eventRepository.findByUserAndEventTypeOrderByAnnual_StartDateDesc(user, EventType.ANNUAL, page);
 
-        Slice<EventResponse.EventListOutDTO> myAnnuals = events.map(event -> EventResponse.EventListOutDTO.builder()
-                .eventId(event.getId())
-                .userId(event.getUser().getId())
-                .userUsername(event.getUser().getUsername())
-                .userEmail(event.getUser().getEmail())
-                .userImageUri(event.getUser().getImageUri())
-                .userThumbnailUri(event.getUser().getThumbnailUri())
-                .eventType(event.getEventType())
-                .id(event.getAnnual().getId())
-                .startDate(event.getAnnual().getStartDate())
-                .endDate(event.getAnnual().getEndDate())
-                .createdAt(event.getCreatedAt())
-                .updatedAt(event.getUpdatedAt())
-                .build());
+        Slice<EventResponse.EventListOutDTO> myAnnuals = events.map(
+                event -> {
+                    User u = event.getUser();
+                    Order order = orderRepository.findByEvent(event);
+                    return EventResponse.EventListOutDTO.builder()
+                            .eventId(event.getId())
+                            .userId(u.getId())
+                            .userUsername(u.getUsername())
+                            .userEmail(u.getEmail())
+                            .userImageUri(u.getImageUri())
+                            .userThumbnailUri(u.getThumbnailUri())
+                            .eventType(event.getEventType())
+                            .id(event.getAnnual().getId())
+                            .startDate(event.getAnnual().getStartDate())
+                            .endDate(event.getAnnual().getEndDate())
+                            .createdAt(event.getCreatedAt())
+                            .updatedAt(event.getUpdatedAt())
+                            .orderOrderState(order.getOrderState())
+                            .build();
+                });
 
         return myAnnuals;
     }
@@ -250,20 +243,28 @@ public class UserService {
 
         Slice<Event> events = eventRepository.findByUserAndEventTypeOrderByDuty_DateDesc(user, EventType.DUTY, page);
 
-        Slice<EventResponse.EventListOutDTO> myDutys = events.map(event -> EventResponse.EventListOutDTO.builder()
-                .eventId(event.getId())
-                .userId(event.getUser().getId())
-                .userUsername(event.getUser().getUsername())
-                .userEmail(event.getUser().getEmail())
-                .userImageUri(event.getUser().getImageUri())
-                .userThumbnailUri(event.getUser().getThumbnailUri())
-                .eventType(event.getEventType())
-                .id(event.getDuty().getId())
-                .startDate(event.getDuty().getDate())
-                .endDate(event.getDuty().getDate())
-                .createdAt(event.getCreatedAt())
-                .updatedAt(event.getUpdatedAt())
-                .build());
+        // User 객체 만들어서 넣어주기
+        Slice<EventResponse.EventListOutDTO> myDutys = events.map(
+                event -> {
+                    User u = event.getUser();
+                    Order order = orderRepository.findByEvent(event);
+                    return EventResponse.EventListOutDTO.builder()
+                            .eventId(event.getId())
+                            .userId(u.getId())
+                            .userUsername(u.getUsername())
+                            .userEmail(u.getEmail())
+                            .userImageUri(u.getImageUri())
+                            .userThumbnailUri(u.getThumbnailUri())
+                            .eventType(event.getEventType())
+                            .id(event.getDuty().getId())
+                            .startDate(event.getDuty().getDate())
+                            .endDate(event.getDuty().getDate())
+                            .createdAt(event.getCreatedAt())
+                            .updatedAt(event.getUpdatedAt())
+                            .orderOrderState(order.getOrderState())
+                            .build();
+                });
+
 
         return myDutys;
     }

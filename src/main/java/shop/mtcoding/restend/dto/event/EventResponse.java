@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import shop.mtcoding.restend.model.annual.Annual;
 import shop.mtcoding.restend.model.event.EventType;
+import shop.mtcoding.restend.model.order.OrderState;
 import shop.mtcoding.restend.model.user.User;
 
 import java.time.LocalDate;
@@ -50,6 +51,6 @@ public class EventResponse {
         private LocalDate endDate;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
-        private String orderOrderState;
+        private OrderState orderOrderState;
     }
 }
