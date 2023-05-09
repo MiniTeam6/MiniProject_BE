@@ -130,8 +130,17 @@ public class UserService {
         // 변동 있으면 이미지 S3 에 저장
         // 썸네일 재생성
 
-        String imageUri = "imageUri";
-        String thumbnailUri = "thumbnailUri";
+        String imageUri;
+        String thumbnailUri;
+
+        if (image == null) {
+            imageUri = userPS.getImageUri();
+            thumbnailUri = userPS.getThumbnailUri();
+        } else {
+            // S3 에서 작업 필요
+            imageUri = "imageUri2";
+            thumbnailUri = "thumbnailUri2";
+        }
 
         userPS.update(modifyInDTO.toEntity(userPS.getEmail(), imageUri, thumbnailUri));
         return new UserResponse.UserDetailOutDTO(userPS);
