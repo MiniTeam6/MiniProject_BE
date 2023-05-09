@@ -32,12 +32,9 @@ public class UserController {
     private final UserService userService;
 
 
-
-
     // 회원가입
-
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestPart(name = "signupInDTO") @Valid UserRequest.SignupInDTO signupInDTO, Errors errors,@RequestPart(name = "image") MultipartFile image) {
+    public ResponseEntity<?> signup(@RequestPart(name = "signupInDTO") @Valid UserRequest.SignupInDTO signupInDTO, Errors errors, @RequestPart(name = "image") MultipartFile image) {
         UserResponse.SignupOutDTO signupOutDTO = userService.회원가입(signupInDTO, image);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(signupOutDTO);
         return ResponseEntity.ok(responseDTO);
@@ -102,8 +99,8 @@ public class UserController {
 
     // 내 정보 수정
     @PostMapping("/user/myinfo")
-    public ResponseEntity<?> updateMyInfo(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestPart @Valid UserRequest.SignupInDTO signupInDTO, @RequestPart MultipartFile image, Errors errors) {
-        UserResponse.UserDetailOutDTO userDetailOutDTO = userService.회원정보수정(myUserDetails.getUser().getId(), signupInDTO, image);
+    public ResponseEntity<?> updateMyInfo(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestPart @Valid UserRequest.ModifyInDTO modifyInDTO, @RequestPart(required=false) MultipartFile image, Errors errors) {
+        UserResponse.UserDetailOutDTO userDetailOutDTO = userService.회원정보수정(myUserDetails.getUser().getId(), modifyInDTO, image);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(userDetailOutDTO);
         return ResponseEntity.ok(responseDTO);
     }

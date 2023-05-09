@@ -32,6 +32,10 @@ public class EventController {
     public ResponseEntity<?> add(@RequestBody @Valid EventRequest.EventAddInDto eventAddInDTO, Errors errors, @AuthenticationPrincipal MyUserDetails myUserDetails, HttpSession session) {
 //        if (eventAddInDTO.getEventType().equals("ANNUAL")) {
 //            session.setAttribute("count", eventAddInDTO.getCount());
+//        }
+        if (eventAddInDTO.getEventType().equals("ANNUAL") && eventAddInDTO.getCount() == null) {
+            throw new NullPointerException("연차 신청시 연차일수를 입력해주세요.");
+        }
         EventResponse.EventAddOutDTO eventAddOutDTO = eventService.연차당직신청(eventAddInDTO, myUserDetails.getUser());
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventAddOutDTO);
         return ResponseEntity.ok(responseDTO);
@@ -39,19 +43,22 @@ public class EventController {
 
     // 연차/당직 신청 취소
     @PostMapping("/user/event/cancel")
-    public ResponseEntity<?> cancel(@RequestBody @Valid EventRequest.EventCancelInDto eventCancelInDTO,  Errors errors, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> cancel(@RequestBody @Valid EventRequest.EventCancelInDto eventCancelInDTO, Errors errors, @AuthenticationPrincipal MyUserDetails myUserDetails) {
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.연차당직신청취소(eventCancelInDTO, myUserDetails.getUser()));
         return ResponseEntity.ok(responseDTO);
     }
 
     // 연차/당직 신청 수정
     @PostMapping("/user/event/modify")
-    public ResponseEntity<?> modify(@RequestBody @Valid EventRequest.EventModifyInDto eventModifyInDTO,  Errors errors, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+    public ResponseEntity<?> modify(@RequestBody @Valid EventRequest.EventModifyInDto eventModifyInDTO, Errors errors, @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        if (eventModifyInDTO.getEventType().equals("ANNUAL") && eventModifyInDTO.getCount() == null) {
+            throw new NullPointerException("연차 신청시 연차일수를 입력해주세요.");
+        }
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.연차당직신청수정(eventModifyInDTO, myUserDetails.getUser()));
         return ResponseEntity.ok(responseDTO);
     }
 
-    // 모든 이벤트 리스트
+    // 모든 이벤트 리스트 (테스트용)
     @GetMapping("/user/event")
     public ResponseEntity<?> list(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.이벤트리스트());
@@ -59,14 +66,14 @@ public class EventController {
     }
 
 
-    // 모든 연차 리스트
+    // 모든 연차 리스트 (테스트용)
     @GetMapping("/user/event/annual")
     public ResponseEntity<?> annual(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.연차리스트());
         return ResponseEntity.ok(responseDTO);
     }
 
-    // 모든 당직 리스트
+    // 모든 당직 리스트 (테스트용)
     @GetMapping("/user/event/duty")
     public ResponseEntity<?> duty(@AuthenticationPrincipal MyUserDetails myUserDetails) {
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.당직리스트());

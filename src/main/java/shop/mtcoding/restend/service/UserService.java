@@ -229,7 +229,7 @@ public class UserService {
                     return EventResponse.EventListOutDTO.builder()
                             .eventId(event.getId())
                             .userId(u.getId())
-                            .userUsername(u.getUsername())
+                            .userName(u.getUsername())
                             .userEmail(u.getEmail())
                             .userImageUri(u.getImageUri())
                             .userThumbnailUri(u.getThumbnailUri())
@@ -239,7 +239,7 @@ public class UserService {
                             .endDate(event.getAnnual().getEndDate())
                             .createdAt(event.getCreatedAt())
                             .updatedAt(event.getUpdatedAt())
-                            .orderOrderState(order.getOrderState())
+                            .orderState(order.getOrderState())
                             .build();
                 });
 
@@ -265,7 +265,7 @@ public class UserService {
                     return EventResponse.EventListOutDTO.builder()
                             .eventId(event.getId())
                             .userId(u.getId())
-                            .userUsername(u.getUsername())
+                            .userName(u.getUsername())
                             .userEmail(u.getEmail())
                             .userImageUri(u.getImageUri())
                             .userThumbnailUri(u.getThumbnailUri())
@@ -275,7 +275,7 @@ public class UserService {
                             .endDate(event.getDuty().getDate())
                             .createdAt(event.getCreatedAt())
                             .updatedAt(event.getUpdatedAt())
-                            .orderOrderState(order.getOrderState())
+                            .orderState(order.getOrderState())
                             .build();
                 });
 
