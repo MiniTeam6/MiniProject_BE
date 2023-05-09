@@ -1,6 +1,8 @@
 package shop.mtcoding.restend.model.user;
 
 import lombok.*;
+import shop.mtcoding.restend.core.exception.Exception400;
+import shop.mtcoding.restend.core.exception.Exception401;
 import shop.mtcoding.restend.core.exception.Exception404;
 import shop.mtcoding.restend.model.event.Event;
 
@@ -77,12 +79,16 @@ public class User {
         this.status=status;
     }
 
-    public void setAnnualCount(){
+    public void verificationAnnualCount(){
         if(this.annualCount<=0){
-            throw new Exception404("남은 연차개수가 없습니다.");
+            throw new Exception401("남은 연차개수가 없습니다.");
         }
-        this.annualCount--;
     }
+
+    public void setAnnualCount(Long count){
+        this.annualCount-=count;
+    }
+
 
     @Builder
     public User(Long id, String username, String password, String email, String phone, String imageUri, String thumbnailUri, String role, Boolean status, LocalDateTime createdAt, LocalDateTime updatedAt) {

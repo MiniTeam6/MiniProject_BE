@@ -48,7 +48,7 @@ public class AdminController {
 											String type,
 										@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
 										@RequestParam(name = "page", defaultValue = "0") int page,
-										@RequestParam(name = "size", defaultValue = "10") int size) {
+										@RequestParam(name = "size", defaultValue = "8") int size) {
 		Page<UserResponse.UserListOutDTO> userListOutDTO = userService.회원리스트검색(type,keyword,page,size);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(userListOutDTO);
 		return ResponseEntity.ok(responseDTO);
@@ -86,7 +86,7 @@ public class AdminController {
 	 */
 	@GetMapping("/signup/list")
 	public ResponseEntity<?> signupList(@RequestParam(name = "page", defaultValue = "0") int page,
-										@RequestParam(name = "size", defaultValue = "10") int size) {
+										@RequestParam(name = "size", defaultValue = "8") int size) {
 
 		Page<UserResponse.UserListOutDTO> userListOutDTOS = userService.회원가입요청목록(page,size);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(userListOutDTOS);
@@ -99,7 +99,7 @@ public class AdminController {
 	 */
 	@GetMapping("/role/list")
 	public ResponseEntity<?> roleList(@RequestParam(name = "page", defaultValue = "0") int page,
-									  @RequestParam(name = "size", defaultValue = "10") int size) {
+									  @RequestParam(name = "size", defaultValue = "8") int size) {
 		Page<UserResponse.UserApprovalListOutDTO> userListOutDTOS = userService.회원전체리스트(page,size);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(userListOutDTOS);
 		return ResponseEntity.ok(responseDTO);
@@ -140,7 +140,7 @@ public class AdminController {
 	 */
 	@GetMapping("/annual/request")
 	public ResponseEntity<?> annualRequest(@RequestParam(name = "page", defaultValue = "0") int page,
-										   @RequestParam(name = "size", defaultValue = "10") int size) {
+										   @RequestParam(name = "size", defaultValue = "8") int size) {
 		Page<OrderResponse.AnnualRequestOutDTO> annualRequestOutDTOS = orderService.연차요청내역(page,size);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(annualRequestOutDTOS);
 		return ResponseEntity.ok(responseDTO);
@@ -153,7 +153,7 @@ public class AdminController {
 	 */
 	@GetMapping("/duty/request")
 	public ResponseEntity<?> dutyRequest(@RequestParam(name = "page", defaultValue = "0") int page,
-										 @RequestParam(name = "size", defaultValue = "10") int size) {
+										 @RequestParam(name = "size", defaultValue = "8") int size) {
 		Page<OrderResponse.DutyRequestOutDTO> dutyRequestOutDTOS = orderService.당직요청내역(page,size);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(dutyRequestOutDTOS);
 		return ResponseEntity.ok(responseDTO);
@@ -168,7 +168,7 @@ public class AdminController {
 											String type,
 											@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
 											@RequestParam(name = "page", defaultValue = "0") int page,
-											@RequestParam(name = "size", defaultValue = "10") int size,
+											@RequestParam(name = "size", defaultValue = "8") int size,
 											HttpSession session) {
 		Integer count =(Integer) session.getAttribute("count");
 		Page<OrderResponse.AnnualApprovalOutDTO> annualApprovalOutDTOS = orderService.연차승인내역(type,keyword, page, size);
@@ -184,7 +184,7 @@ public class AdminController {
 	public ResponseEntity<?> dutyApproval(@RequestParam(name="type",required = false, defaultValue = "username")@Pattern(regexp = "username|email") String type,
 										  @RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
 										  @RequestParam(name = "page", defaultValue = "0") int page,
-										  @RequestParam(name = "size", defaultValue = "10") int size) {
+										  @RequestParam(name = "size", defaultValue = "8") int size) {
 		Page<OrderResponse.DutyApprovalOutDTO> dutyApprovalOutDTOS = orderService.당직승인내역(type,keyword, page, size);
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(dutyApprovalOutDTOS);
 		return ResponseEntity.ok(responseDTO);

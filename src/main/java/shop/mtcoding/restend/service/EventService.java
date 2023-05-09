@@ -61,7 +61,6 @@ public class EventService {
             checkAnnualOverlap(user.get(), annualToAdd); // 연차 중복 체크
             Annual annual = annualRepository.save(annualToAdd);
             Event event = eventRepository.save(eventAddDto.annualToEventEntity(user.get(), annual));
-            user.get().setAnnualCount(); // 연차개수 마이너스
             userRepository.save(user.get());
             Order order = Order.builder()
                     .event(event)
