@@ -130,4 +130,13 @@ public class UserController {
         return ResponseEntity.ok(eventListOutDTO);
     }
 
+
+    // 가장 빠른 연차 당직
+    @GetMapping("/user/nextevent")
+    public ResponseEntity<?> getNextEvents(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        EventResponse.NextEventDTO nextEventDTO = userService.가장빠른연차당직(myUserDetails);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(nextEventDTO);
+        return ResponseEntity.ok(responseDTO);
+    }
+
 }

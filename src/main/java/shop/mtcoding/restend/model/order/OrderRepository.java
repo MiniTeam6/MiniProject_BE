@@ -84,6 +84,8 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
 	Order findByEvent(Event event);
 
+	List<Order> findByOrderState(OrderState orderState);
+
 
 	@Query("SELECT o FROM Order o WHERE o.event.id IN :eventIds AND o.orderState <> :orderState")
 	List<Order> findOrdersByEventIdsAndOrderStateNot(@Param("eventIds") List<Long> eventIds, @Param("orderState") OrderState orderState);

@@ -67,4 +67,14 @@ public class EventResponse {
         private LocalDateTime updatedAt;
         private OrderState orderState;
     }
+
+    @Getter
+    @Builder
+    public static class NextEventDTO {
+        private LocalDate nextAnnualDate;
+        private Long annualDDay;
+        private LocalDate nextDutyDate;
+        private Long dutyDDay;
+    }
+
 }

@@ -34,11 +34,13 @@ import shop.mtcoding.restend.model.event.EventRepository;
 import shop.mtcoding.restend.model.event.EventType;
 import shop.mtcoding.restend.model.order.Order;
 import shop.mtcoding.restend.model.order.OrderRepository;
+import shop.mtcoding.restend.model.order.OrderState;
 import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.model.user.UserRepository;
 import shop.mtcoding.restend.model.user.UserRole;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -286,4 +288,29 @@ public class UserService {
     }
 
 
+    public EventResponse.NextEventDTO 가장빠른연차당직(MyUserDetails myUserDetails) {
+        User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
+                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
+        );
+
+        List<Order> orders = orderRepository.findByOrderState(OrderState.APPROVED);
+        List<LocalDate> annualDate = orders.stream().filter(order ->
+                order.getEvent().getEventType().equals(EventType.ANNUAL)).map(order ->
+                order.getEvent().getAnnual().getStartDate()).filter(date -> date.isAfter(LocalDate.now()) | date.isEqual(LocalDate.now())).collect(Collectors.toList());
+        LocalDate nextAnnualDate = annualDate.stream().min(LocalDate::compareTo).orElse(null);
+        Long annualDDay = nextAnnualDate == null ? null : ChronoUnit.DAYS.between(LocalDate.now(), nextAnnualDate);
+
+        List<LocalDate> dutyDate = orders.stream().filter(order ->
+                order.getEvent().getEventType().equals(EventType.DUTY)).map(order ->
+                order.getEvent().getDuty().getDate()).filter(date -> date.isAfter(LocalDate.now()) | date.isEqual(LocalDate.now())).collect(Collectors.toList());
+        LocalDate nextDutyDate = dutyDate.stream().min(LocalDate::compareTo).orElse(null);
+        Long dutyDDay = nextDutyDate == null ? null : ChronoUnit.DAYS.between(LocalDate.now(), nextDutyDate);
+
+        return EventResponse.NextEventDTO.builder()
+                .nextAnnualDate(nextAnnualDate)
+                .annualDDay(annualDDay)
+                .nextDutyDate(nextDutyDate)
+                .dutyDDay(dutyDDay)
+                .build();
+    }
 }
