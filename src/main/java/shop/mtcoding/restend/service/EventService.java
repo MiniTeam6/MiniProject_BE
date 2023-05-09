@@ -245,6 +245,10 @@ public class EventService {
             EventResponse.EventListOutDTO eventListOutDTO = EventResponse.EventListOutDTO.builder()
                     .eventId(event.getId())
                     .userId(event.getUser().getId())
+                    .userUsername(event.getUser().getUsername())
+                    .userEmail(event.getUser().getEmail())
+                    .userImageUri(event.getUser().getImageUri())
+                    .userThumbnailUri(event.getUser().getThumbnailUri())
                     .eventType(event.getEventType())
                     .id(event.getEventType() == EventType.ANNUAL ? event.getAnnual().getId() : event.getDuty().getId())
                     .createdAt(event.getCreatedAt())
@@ -268,12 +272,16 @@ public class EventService {
             EventResponse.EventListOutDTO eventListOutDTO = EventResponse.EventListOutDTO.builder()
                     .eventId(event.getId())
                     .userId(event.getUser().getId())
+                    .userUsername(event.getUser().getUsername())
+                    .userEmail(event.getUser().getEmail())
+                    .userImageUri(event.getUser().getImageUri())
+                    .userThumbnailUri(event.getUser().getThumbnailUri())
                     .eventType(event.getEventType())
                     .id(event.getAnnual().getId())
-                    .createdAt(event.getCreatedAt())
-                    .updatedAt(event.getUpdatedAt())
                     .startDate(event.getAnnual().getStartDate())
                     .endDate(event.getAnnual().getEndDate())
+                    .createdAt(event.getCreatedAt())
+                    .updatedAt(event.getUpdatedAt())
                     .build();
             results.add(eventListOutDTO);
         }
@@ -290,31 +298,39 @@ public class EventService {
             EventResponse.EventListOutDTO eventListOutDTO = EventResponse.EventListOutDTO.builder()
                     .eventId(event.getId())
                     .userId(event.getUser().getId())
+                    .userUsername(event.getUser().getUsername())
+                    .userEmail(event.getUser().getEmail())
+                    .userImageUri(event.getUser().getImageUri())
+                    .userThumbnailUri(event.getUser().getThumbnailUri())
                     .eventType(event.getEventType())
                     .id(event.getDuty().getId())
-                    .createdAt(event.getCreatedAt())
-                    .updatedAt(event.getUpdatedAt())
                     .startDate(event.getDuty().getDate())
                     .endDate(event.getDuty().getDate())
+                    .createdAt(event.getCreatedAt())
+                    .updatedAt(event.getUpdatedAt())
                     .build();
             results.add(eventListOutDTO);
         }
         return results;
     }
 
-    public Slice<EventResponse.EventListOutDTO> 연차당직리스트(String eventType, Boolean myEvent, User user, Pageable pageable) {
+    @Transactional
+    public Slice<EventResponse.EventListOutDTO> 연차당직리스트(String eventType, String yearMonth, User user, Pageable pageable) {
         Slice<Event> events = null;
         Slice<EventResponse.EventListOutDTO> results = null;
+        LocalDate start = LocalDate.parse(yearMonth + "-01");
+        LocalDate end = start.plusMonths(1).minusDays(1);
         switch (eventType) {
             case "연차":
-                if (myEvent) {
-                    events = eventRepository.findByUserAndEventTypeOrderByAnnual_StartDateDesc(user, EventType.ANNUAL, pageable);
-                } else {
-                    events = eventRepository.findByEventTypeOrderByAnnual_StartDateDesc(EventType.ANNUAL, pageable);
-                }
+                events = eventRepository.findByEventTypeAndAnnual_StartDateBetweenOrderByAnnual_StartDateDesc(EventType.ANNUAL, start, end, pageable);
+
                 results = events.map(event -> EventResponse.EventListOutDTO.builder()
                         .eventId(event.getId())
                         .userId(event.getUser().getId())
+                        .userUsername(event.getUser().getUsername())
+                        .userEmail(event.getUser().getEmail())
+                        .userImageUri(event.getUser().getImageUri())
+                        .userThumbnailUri(event.getUser().getThumbnailUri())
                         .eventType(event.getEventType())
                         .id(event.getAnnual().getId())
                         .startDate(event.getAnnual().getStartDate())
@@ -325,14 +341,15 @@ public class EventService {
                 break;
 
             case "당직":
-                if (myEvent) {
-                    events = eventRepository.findByUserAndEventTypeOrderByDuty_DateDesc(user, EventType.DUTY, pageable);
-                } else {
-                    events = eventRepository.findByEventTypeOrderByDuty_DateDesc(EventType.DUTY, pageable);
-                }
+                events = eventRepository.findByEventTypeAndDuty_DateOrderByDuty_DateDesc(EventType.DUTY, start, end, pageable);
+
                 results = events.map(event -> EventResponse.EventListOutDTO.builder()
                         .eventId(event.getId())
                         .userId(event.getUser().getId())
+                        .userUsername(event.getUser().getUsername())
+                        .userEmail(event.getUser().getEmail())
+                        .userImageUri(event.getUser().getImageUri())
+                        .userThumbnailUri(event.getUser().getThumbnailUri())
                         .eventType(event.getEventType())
                         .id(event.getDuty().getId())
                         .startDate(event.getDuty().getDate())
