@@ -40,6 +40,10 @@ public class Order {
 		this.orderState = updateOrderState;
 	}
 
+	public void setApprover(User approver){
+		this.approver = approver;
+	}
+
 
 	@PrePersist
 	protected void onCreate() {
