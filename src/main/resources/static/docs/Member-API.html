@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>REST API</title>
+<title>회원</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,30 +438,166 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>REST API</h1>
-<div class="details">
-<span id="revnumber">version 0.0.1-SNAPSHOT</span>
-</div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_회원">회원</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_회원가입_성공">회원가입 (성공)</h3>
+<div class="sect4">
+<h5 id="_request_example">Request Example</h5>
 <div class="paragraph">
-<p>Unresolved directive in api-docs.adoc - include::overview.adoc[]</p>
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/join_test/http-request.adoc[]</p>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in api-docs.adoc - include::Member-API.adoc[]</p>
 </div>
+<div class="sect4">
+<h5 id="_response_example">Response Example</h5>
 <div class="paragraph">
-<p>Unresolved directive in api-docs.adoc - include::Event-API.adoc[]</p>
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/join_test/http-response.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_curl">Curl</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/join_test/curl-request.adoc[]</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_회원가입_유저네임_중복_실패">회원가입 (유저네임 중복 실패)</h3>
+<div class="sect4">
+<h5 id="_request_example_2">Request Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/join_fail_bad_request_test/http-request.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_2">Response Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/join_fail_bad_request_test/http-response.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_curl_2">Curl</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/join_fail_bad_request_test/curl-request.adoc[]</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_회원가입_유효성_검사_실패">회원가입 (유효성 검사 실패)</h3>
+<div class="sect4">
+<h5 id="_request_example_3">Request Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/join_fail_valid_test/http-request.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_3">Response Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/join_fail_valid_test/http-response.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_curl_3">Curl</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/join_fail_valid_test/curl-request.adoc[]</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_로그인_성공">로그인 (성공)</h3>
+<div class="sect4">
+<h5 id="_request_example_4">Request Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/login_test/http-request.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_4">Response Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/login_test/http-response.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_curl_4">Curl</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/login_test/curl-request.adoc[]</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_로그인_인증_실패">로그인 (인증 실패)</h3>
+<div class="sect4">
+<h5 id="_request_example_5">Request Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/login_fail_un_authorized_test/http-request.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_5">Response Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/login_fail_un_authorized_test/http-response.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_curl_5">Curl</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/login_fail_un_authorized_test/curl-request.adoc[]</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_회원상세보기_성공">회원상세보기 (성공)</h3>
+<div class="sect4">
+<h5 id="_request_example_6">Request Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/detail_test/http-request.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_6">Response Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/detail_test/http-response.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_curl_6">Curl</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/detail_test/curl-request.adoc[]</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_회원상세보기_인증_안됨_실패">회원상세보기 (인증 안됨 실패)</h3>
+<div class="sect4">
+<h5 id="_request_example_7">Request Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/detail_fail_un_authorized__test/http-request.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_response_example_7">Response Example</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/detail_fail_un_authorized__test/http-response.adoc[]</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_curl_7">Curl</h5>
+<div class="paragraph">
+<p>Unresolved directive in Member-API.adoc - include::{snippets}/user-controller-test/detail_fail_un_authorized__test/curl-request.adoc[]</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-05-09 20:22:26 +0900
+Last updated 2023-05-09 20:14:40 +0900
 </div>
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
-<script>hljs.initHighlighting()</script>
 </body>
 </html>

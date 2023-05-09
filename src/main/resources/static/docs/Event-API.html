@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>REST API</title>
+<title>연차/당직</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,30 +438,73 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>REST API</h1>
-<div class="details">
-<span id="revnumber">version 0.0.1-SNAPSHOT</span>
-</div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_연차당직">연차/당직</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_연차_신청_성공">연차 신청 (성공)</h3>
 <div class="paragraph">
-<p>Unresolved directive in api-docs.adoc - include::overview.adoc[]</p>
+<p>operation::event-controller-test/event_add_annual_test[snippets='http-request,http-response,curl-request']</p>
 </div>
-<div class="paragraph">
-<p>Unresolved directive in api-docs.adoc - include::Member-API.adoc[]</p>
 </div>
+<div class="sect2">
+<h3 id="_연차_신청_실패">연차 신청 (실패)</h3>
 <div class="paragraph">
-<p>Unresolved directive in api-docs.adoc - include::Event-API.adoc[]</p>
+<p>operation::event-controller-test/event_add_annual_fail_test[snippets='http-request,http-response,curl-request']</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_당직_신청_성공">당직 신청 (성공)</h3>
+<div class="paragraph">
+<p>operation::event-controller-test/event_add_duty_test[snippets='http-request,http-response,curl-request']</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_당직_신청_실패">당직 신청 (실패)</h3>
+<div class="paragraph">
+<p>operation::event-controller-test/event_add_duty_fail_test[snippets='http-request,http-response,curl-request']</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_연차_취소">연차 취소</h3>
+<div class="paragraph">
+<p>operation::event-controller-test/event_cancel_annual_test[snippets='http-request,http-response,curl-request']</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_당직_취소">당직 취소</h3>
+<div class="paragraph">
+<p>operation::event-controller-test/event_cancel_duty_test[snippets='http-request,http-response,curl-request']</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_모든_연차당직_리스트_가져오기">모든 연차/당직 리스트 가져오기</h3>
+<div class="paragraph">
+<p>operation::event-controller-test/all_search_test[snippets='http-request,http-response,curl-request']</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_모든_연차_리스트_가져오기">모든 연차 리스트 가져오기</h3>
+<div class="paragraph">
+<p>operation::event-controller-test/all_annual_test[snippets='http-request,http-response']</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_모든_당직_리스트_가져오기">모든 당직 리스트 가져오기</h3>
+<div class="paragraph">
+<p>operation::event-controller-test/all_duty_test[snippets='http-request,http-response']</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-05-09 20:22:26 +0900
+Last updated 2023-05-09 20:19:08 +0900
 </div>
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
-<script>hljs.initHighlighting()</script>
 </body>
 </html>
