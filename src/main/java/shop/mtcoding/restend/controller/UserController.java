@@ -120,7 +120,8 @@ public class UserController {
     public ResponseEntity<?> getMyAnnual(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                          @PageableDefault(size = 8) Pageable pageable) {
         Slice<EventResponse.MyEventListOutDTO> eventListOutDTO = userService.내연차리스트(myUserDetails, pageable);
-        return ResponseEntity.ok(eventListOutDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(eventListOutDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
     // 내 당직 리스트
@@ -128,7 +129,8 @@ public class UserController {
     public ResponseEntity<?> getMyDuty(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                        @PageableDefault(size = 8) Pageable pageable) {
         Slice<EventResponse.MyEventListOutDTO> eventListOutDTO = userService.내당직리스트(myUserDetails, pageable);
-        return ResponseEntity.ok(eventListOutDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(eventListOutDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
 
