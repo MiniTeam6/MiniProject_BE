@@ -77,7 +77,7 @@ public class EventRequest {
     @Setter
     public static class EventCancelInDto {
         @NotNull
-        private Long id;
+        private Long eventId;
         @NotEmpty
         @Pattern(regexp = "ANNUAL|DUTY")
         private String eventType;
@@ -87,7 +87,7 @@ public class EventRequest {
     @Setter
     public static class EventModifyInDto {
         @NotNull
-        private Long id;
+        private Long eventId;
         @NotEmpty
         @Pattern(regexp = "ANNUAL|DUTY")
         private String eventType;

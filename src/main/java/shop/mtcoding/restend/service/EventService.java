@@ -167,31 +167,31 @@ public class EventService {
         Order order = null;
         switch (eventCancelInDTO.getEventType()) {
             case "ANNUAL":
-                Annual annual = annualRepository.findById(eventCancelInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 연차가 없습니다."));
-                event = eventRepository.findByAnnual_Id(annual.getId());
+                event = eventRepository.findById(eventCancelInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
                     throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
                     orderRepository.deleteById(order.getId());
+                    Long annualId = event.getAnnual().getId();
                     eventRepository.deleteById(event.getId());
-                    annualRepository.deleteById(eventCancelInDTO.getId());
+                    annualRepository.deleteById(annualId);
                 } else {
                     throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
                 }
                 break;
             case "DUTY":
-                Duty duty = dutyRepository.findById(eventCancelInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 당직이 없습니다."));
-                event = eventRepository.findByDuty_Id(duty.getId());
+                event = eventRepository.findById(eventCancelInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
                     throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
                     orderRepository.deleteById(order.getId());
+                    Long dutyId = event.getDuty().getId();
                     eventRepository.deleteById(event.getId());
-                    dutyRepository.deleteById(eventCancelInDTO.getId());
+                    dutyRepository.deleteById(dutyId);
                 } else {
                     throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
                 }
@@ -211,28 +211,26 @@ public class EventService {
                 if (eventModifyInDTO.getCount() > user.getAnnualCount()) {
                     throw new Exception404("연차 신청시 연차 사용일수가 보유 연차일수보다 많습니다. ");
                 }
-                Annual annual = annualRepository.findById(eventModifyInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 연차가 없습니다."));
-                event = eventRepository.findByAnnual_Id(annual.getId());
+                event = eventRepository.findById(eventModifyInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
                     throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
-                    annual.update(eventModifyInDTO.getStartDate(), eventModifyInDTO.getEndDate(), eventModifyInDTO.getCount());
+                    event.getAnnual().update(eventModifyInDTO.getStartDate(), eventModifyInDTO.getEndDate(), eventModifyInDTO.getCount());
                 } else {
                     throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
                 }
                 break;
 
             case "DUTY":
-                Duty duty = dutyRepository.findById(eventModifyInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 당직이 없습니다."));
-                event = eventRepository.findByDuty_Id(duty.getId());
+                event = eventRepository.findById(eventModifyInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
                     throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
-                    duty.update(eventModifyInDTO.getStartDate());
+                    event.getDuty().update(eventModifyInDTO.getStartDate());
                 } else {
                     throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
                 }
