@@ -39,6 +39,7 @@ import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.model.user.UserRepository;
 import shop.mtcoding.restend.model.user.UserRole;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -55,15 +56,16 @@ public class UserService {
     private final EventRepository eventRepository;
     private final OrderRepository orderRepository;
     private final BCryptPasswordEncoder passwordEncoder;
+    private final S3Service s3Service;
 
 
     @Transactional
-    public UserResponse.SignupOutDTO 회원가입(UserRequest.SignupInDTO signupInDTO, MultipartFile image){
+    public UserResponse.SignupOutDTO 회원가입(UserRequest.SignupInDTO signupInDTO, MultipartFile image) throws IOException {
 
         // 이미지 S3 에 저장
         // 썸네일 생성
-        String imageUri = "imageUri";
-        String thumbnailUri = "thumbnailUri";
+        String imageUri = s3Service.uploadImage(image);
+        String thumbnailUri = s3Service.uploadThumbnail(image, imageUri);
 
         Optional<User> userOP =userRepository.findByEmail(signupInDTO.getEmail());
         if(userOP.isPresent()){
@@ -128,7 +130,7 @@ public class UserService {
 
 
     @Transactional
-    public UserResponse.UserDetailOutDTO 회원정보수정(Long id, UserRequest.ModifyInDTO modifyInDTO, MultipartFile image) {
+    public UserResponse.UserDetailOutDTO 회원정보수정(Long id, UserRequest.ModifyInDTO modifyInDTO, MultipartFile image) throws IOException {
         User userPS = userRepository.findById(id).orElseThrow(
                 ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
         );
@@ -145,8 +147,8 @@ public class UserService {
             thumbnailUri = userPS.getThumbnailUri();
         } else {
             // S3 에서 작업 필요
-            imageUri = "imageUri2";
-            thumbnailUri = "thumbnailUri2";
+            imageUri = s3Service.updateImage(userPS.getImageUri(), userPS.getThumbnailUri(), image);
+            thumbnailUri = s3Service.uploadThumbnail(image, imageUri);
         }
 
         userPS.update(modifyInDTO.toEntity(userPS.getEmail(), imageUri, thumbnailUri));
