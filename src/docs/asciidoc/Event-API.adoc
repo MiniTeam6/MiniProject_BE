@@ -26,14 +26,14 @@ operation::{event}/event_cancel_annual_test[snippets='http-request,http-response
 // operation::user-controller-test/join_success_test[snippets='http-request,request-fields,http-response,response-fields']
 operation::{event}/event_cancel_duty_test[snippets='http-request,http-response,curl-request']
 
-=== 모든 연차/당직 리스트 가져오기
-operation::{event}/all_search_test[snippets='http-request,http-response,curl-request']
+=== 연차/당직 리스트 가져오기
+// operation::{user}/[snippets='http-request,http-response,curl-request']
 
-=== 모든 연차 리스트 가져오기
-operation::{event}/all_annual_test[snippets='http-request,http-response']
+=== 내 연차 리스트 가져오기
+// operation::{event}/all_annual_test[snippets='http-request,http-response']
 
-=== 모든 당직 리스트 가져오기
-operation::{event}/all_duty_test[snippets='http-request,http-response']
+=== 내 당직 리스트 가져오기
+// operation::{event}/all_duty_test[snippets='http-request,http-response']
 
 
 
