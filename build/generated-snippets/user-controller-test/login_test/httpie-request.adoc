@@ -1,8 +1,0 @@
-[source,bash]
-----
-$ echo '{
-  "email" : "ssar@nate.com",
-  "password" : "1234"
-}' | http POST 'http://localhost:8080/api/login' \
-    'Content-Type:application/json;charset=UTF-8'
-----

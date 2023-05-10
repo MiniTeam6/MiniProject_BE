@@ -16,9 +16,12 @@ public class Duty {
 	private LocalDate date;
 
 	@Builder
-
 	public Duty(Long id, LocalDate date) {
 		this.id = id;
+		this.date = date;
+	}
+
+	public void update(LocalDate date) {
 		this.date = date;
 	}
 }

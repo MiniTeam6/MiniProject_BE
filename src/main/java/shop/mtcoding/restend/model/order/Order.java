@@ -6,6 +6,11 @@ import shop.mtcoding.restend.model.user.User;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+@NamedEntityGraph(name = "Order.detail",
+		attributeNodes = {
+				@NamedAttributeNode(value = "event"),
+				@NamedAttributeNode(value = "approver")
+		})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Table(name = "order_tb")
@@ -14,7 +19,7 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@ManyToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "event_id")
 	private Event event;
 	@Enumerated(EnumType.STRING)
@@ -30,6 +35,16 @@ public class Order {
 	private LocalDateTime createdAt;
 
 
+
+	public void setOrderState(OrderState updateOrderState){
+		this.orderState = updateOrderState;
+	}
+
+	public void setApprover(User approver){
+		this.approver = approver;
+	}
+
+
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = LocalDateTime.now();
@@ -43,4 +58,6 @@ public class Order {
 		this.approver = approver;
 		this.createdAt = createdAt;
 	}
+
+
 }

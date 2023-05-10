@@ -1,0 +1,45 @@
+[[overview]]
+== Overview
+
+[[overview-host]]
+=== Host
+
+|===
+| 환경 | Host
+
+| Docker
+| `https://docker.com`
+
+| Nginx
+| `https://nginx.com`
+
+| Jenkins
+| `https://jenkins.com`
+|===
+
+[[overview-http-status-codes]]
+=== HTTP status codes
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| successfully
+
+| `400 Bad Request`
+| Bad Request
+
+| `401 Unauthorized`
+| Unauthorized
+
+| `403 Forbidden`
+| Forbidden
+
+| `500 Internal Server Error`
+| Server Error
+|===
+
+// [[overview-error-response]]
+// === HTTP Error Response
+//
+// operation::user-controller-test/join_fail_test[snippets='http-response,response-fields']

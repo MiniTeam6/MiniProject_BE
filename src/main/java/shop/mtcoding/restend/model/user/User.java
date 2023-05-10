@@ -1,10 +1,15 @@
 package shop.mtcoding.restend.model.user;
 
 import lombok.*;
+import shop.mtcoding.restend.core.exception.Exception400;
+import shop.mtcoding.restend.core.exception.Exception401;
 import shop.mtcoding.restend.core.exception.Exception404;
+import shop.mtcoding.restend.model.event.Event;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -26,7 +31,12 @@ public class User {
     @Column(unique = true, nullable = false, length = 20)
     private String email;
 
-    private String image; //이미지 경로
+    @Column(nullable = false, length = 13)
+    private String phone;
+
+    private String imageUri; //이미지 경로
+
+    private String thumbnailUri; //썸네일 경로
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -39,6 +49,11 @@ public class User {
 
     private LocalDateTime updatedAt;
 
+    private Long annualCount;
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+//    @ToString.Exclude
+//    private List<Event> eventList=new ArrayList<>();
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();
@@ -48,6 +63,7 @@ public class User {
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
     public void setRole(UserRole role) {
         if(this.role.equals(role)){
             //checkpoint : throw 동일한 권한으로 변경할 수 없습니다.
@@ -63,16 +79,41 @@ public class User {
         this.status=status;
     }
 
+    public void verificationAnnualCount(){
+        if(this.annualCount<=0){
+            throw new Exception401("남은 연차개수가 없습니다.");
+        }
+    }
+
+    public void setAnnualCount(Long count){
+        this.annualCount-=count;
+    }
+
+
     @Builder
-    public User(Long id, String username, String password, String email, String image, String role, Boolean status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(Long id, String username, String password, String email, String phone, String imageUri, String thumbnailUri, String role, Boolean status, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
-        this.image = image;
+        this.phone = phone;
+        this.imageUri = imageUri;
+        this.thumbnailUri = thumbnailUri;
         this.role = UserRole.valueOf(role);
         this.status = status;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.annualCount=15L;
+    }
+
+    public void update(User user){
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.email = user.getEmail();
+        this.phone = user.getPhone();
+        this.imageUri = user.getImageUri();
+        this.thumbnailUri = user.getThumbnailUri();
+        this.role = user.getRole();
+        this.status = user.getStatus();
     }
 }

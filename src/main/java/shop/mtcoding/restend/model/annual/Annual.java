@@ -17,10 +17,21 @@ public class Annual {
 	@Column(nullable = false)
 	private LocalDate endDate;
 
+	@Column(nullable = false)
+	private Long count;
+
 	@Builder
-	public Annual(Long id, LocalDate startDate, LocalDate endDate) {
+	public Annual(Long id, LocalDate startDate, LocalDate endDate, Long count) {
 		this.id = id;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.count = count;
 	}
+
+	public void update(LocalDate startDate, LocalDate endDate, Long count) {
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.count = count;
+	}
+
 }

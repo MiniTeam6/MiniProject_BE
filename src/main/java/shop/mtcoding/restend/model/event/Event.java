@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Table(name = "event_tb")
 @Entity
+@ToString
 public class Event {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,6 +34,8 @@ public class Event {
 
 	private LocalDateTime updatedAt;
 
+
+
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = LocalDateTime.now();
@@ -44,7 +47,6 @@ public class Event {
 	}
 
 	@Builder
-
 	public Event(Long id, User user, EventType eventType, Annual annual, Duty duty, LocalDateTime createdAt, LocalDateTime updatedAt) {
 		this.id = id;
 		this.user = user;

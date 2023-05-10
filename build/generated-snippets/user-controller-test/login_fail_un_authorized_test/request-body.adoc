@@ -1,7 +1,0 @@
-[source,options="nowrap"]
-----
-{
-  "email" : "ssar@nate.com",
-  "password" : "12345"
-}
-----
