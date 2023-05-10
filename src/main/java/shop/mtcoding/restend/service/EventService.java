@@ -200,6 +200,7 @@ public class EventService {
         return true;
     }
 
+    @Transactional
     public EventResponse.EventModifyOutDTO 연차당직신청수정(EventRequest.EventModifyInDto eventModifyInDTO, User user) {
         Event event = null;
         Order order = null;
