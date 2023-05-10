@@ -43,9 +43,9 @@ public class OrderService {
 
 		Order approval = orderRepository.findByEvent_Id(event.get().getId());
 		approval.setOrderState(OrderState.valueOf(approvalInDTO.getOrderState()));
+		approval.setApprover(user.get());
 		orderRepository.save(approval);
 		return new OrderResponse.AnnualApprovalOutDTO(approval);
-
 	}
 
 	@Transactional
@@ -61,6 +61,7 @@ public class OrderService {
 
 		Order approval = orderRepository.findByEvent_Id(event.get().getId());
 		approval.setOrderState(OrderState.valueOf(approvalInDTO.getOrderState()));
+		approval.setApprover(user.get());
 		orderRepository.save(approval);
 		return new OrderResponse.DutyApprovalOutDTO(approval);
 

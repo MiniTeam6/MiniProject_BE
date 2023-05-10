@@ -19,7 +19,6 @@ import shop.mtcoding.restend.dto.ResponseDTO;
 import shop.mtcoding.restend.dto.event.EventResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserResponse;
-import shop.mtcoding.restend.service.EventService;
 import shop.mtcoding.restend.service.UserService;
 
 import javax.validation.Valid;
@@ -33,16 +32,22 @@ public class UserController {
     private final UserService userService;
 
 
-
-
     // 회원가입
-
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestPart(name = "signupInDTO") @Valid UserRequest.SignupInDTO signupInDTO, Errors errors,@RequestPart(name = "image") MultipartFile image) {
+    public ResponseEntity<?> signup(@RequestPart(name = "signupInDTO") @Valid UserRequest.SignupInDTO signupInDTO, Errors errors, @RequestPart(name = "image") MultipartFile image) {
         UserResponse.SignupOutDTO signupOutDTO = userService.회원가입(signupInDTO, image);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(signupOutDTO);
         return ResponseEntity.ok(responseDTO);
     }
+
+    // 이메일 중복 확인
+    @GetMapping("/emailcheck")
+    public ResponseEntity<?> emailCheck(@RequestParam String email) {
+        Boolean result = userService.이메일중복확인(email);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(result);
+        return ResponseEntity.ok(responseDTO);
+    }
+
 
     // 로그인
     @PostMapping("/login")
@@ -103,8 +108,8 @@ public class UserController {
 
     // 내 정보 수정
     @PostMapping("/user/myinfo")
-    public ResponseEntity<?> updateMyInfo(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestPart @Valid UserRequest.SignupInDTO signupInDTO, @RequestPart MultipartFile image, Errors errors) {
-        UserResponse.UserDetailOutDTO userDetailOutDTO = userService.회원정보수정(myUserDetails.getUser().getId(), signupInDTO, image);
+    public ResponseEntity<?> updateMyInfo(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestPart @Valid UserRequest.ModifyInDTO modifyInDTO, @RequestPart(required=false) MultipartFile image, Errors errors) {
+        UserResponse.UserDetailOutDTO userDetailOutDTO = userService.회원정보수정(myUserDetails.getUser().getId(), modifyInDTO, image);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(userDetailOutDTO);
         return ResponseEntity.ok(responseDTO);
     }
@@ -113,7 +118,7 @@ public class UserController {
     @GetMapping("/user/myannual")
     public ResponseEntity<?> getMyAnnual(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                          @PageableDefault(size = 8) Pageable pageable) {
-        Slice<EventResponse.EventListOutDTO> eventListOutDTO = userService.내연차리스트(myUserDetails, pageable);
+        Slice<EventResponse.MyEventListOutDTO> eventListOutDTO = userService.내연차리스트(myUserDetails, pageable);
         return ResponseEntity.ok(eventListOutDTO);
     }
 
@@ -121,8 +126,17 @@ public class UserController {
     @GetMapping("/user/myduty")
     public ResponseEntity<?> getMyDuty(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                        @PageableDefault(size = 8) Pageable pageable) {
-        Slice<EventResponse.EventListOutDTO> eventListOutDTO = userService.내당직리스트(myUserDetails, pageable);
+        Slice<EventResponse.MyEventListOutDTO> eventListOutDTO = userService.내당직리스트(myUserDetails, pageable);
         return ResponseEntity.ok(eventListOutDTO);
+    }
+
+
+    // 가장 빠른 연차 당직
+    @GetMapping("/user/nextevent")
+    public ResponseEntity<?> getNextEvents(@AuthenticationPrincipal MyUserDetails myUserDetails) {
+        EventResponse.NextEventDTO nextEventDTO = userService.가장빠른연차당직(myUserDetails);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(nextEventDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
 }

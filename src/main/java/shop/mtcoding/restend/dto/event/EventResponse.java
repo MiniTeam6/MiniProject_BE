@@ -34,6 +34,7 @@ public class EventResponse {
         private LocalDate endDate;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
+        private Long count;
     }
 
     @Builder
@@ -41,7 +42,7 @@ public class EventResponse {
     public static class EventListOutDTO {
         private Long eventId;
         private Long userId;
-        private String userUsername;
+        private String userName;
         private String userEmail;
         private String userImageUri;
         private String userThumbnailUri;
@@ -51,6 +52,29 @@ public class EventResponse {
         private LocalDate endDate;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
-        private OrderState orderOrderState;
+        private OrderState orderState;
     }
+
+    @Builder
+    @Getter
+    public static class MyEventListOutDTO {
+        private Long eventId;
+        private EventType eventType;
+        private Long id;
+        private LocalDate startDate;
+        private LocalDate endDate;
+        private LocalDateTime createdAt;
+        private LocalDateTime updatedAt;
+        private OrderState orderState;
+    }
+
+    @Getter
+    @Builder
+    public static class NextEventDTO {
+        private LocalDate nextAnnualDate;
+        private Long annualDDay;
+        private LocalDate nextDutyDate;
+        private Long dutyDDay;
+    }
+
 }

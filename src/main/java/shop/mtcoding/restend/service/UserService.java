@@ -34,11 +34,13 @@ import shop.mtcoding.restend.model.event.EventRepository;
 import shop.mtcoding.restend.model.event.EventType;
 import shop.mtcoding.restend.model.order.Order;
 import shop.mtcoding.restend.model.order.OrderRepository;
+import shop.mtcoding.restend.model.order.OrderState;
 import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.model.user.UserRepository;
 import shop.mtcoding.restend.model.user.UserRole;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -81,6 +83,11 @@ public class UserService {
         }
     }
 
+    public Boolean 이메일중복확인(String email) {
+        Optional<User> userOP = userRepository.findByEmail(email);
+        return userOP.isPresent();
+    }
+
 
     public Object[] 로그인(UserRequest.LoginInDTO loginInDTO) {
 
@@ -121,7 +128,7 @@ public class UserService {
 
 
     @Transactional
-    public UserResponse.UserDetailOutDTO 회원정보수정(Long id, UserRequest.SignupInDTO signupInDTO, MultipartFile image) {
+    public UserResponse.UserDetailOutDTO 회원정보수정(Long id, UserRequest.ModifyInDTO modifyInDTO, MultipartFile image) {
         User userPS = userRepository.findById(id).orElseThrow(
                 ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
         );
@@ -130,10 +137,19 @@ public class UserService {
         // 변동 있으면 이미지 S3 에 저장
         // 썸네일 재생성
 
-        String imageUri = "imageUri";
-        String thumbnailUri = "thumbnailUri";
+        String imageUri;
+        String thumbnailUri;
 
-        userPS.update(signupInDTO.toEntity(imageUri, thumbnailUri));
+        if (image == null) {
+            imageUri = userPS.getImageUri();
+            thumbnailUri = userPS.getThumbnailUri();
+        } else {
+            // S3 에서 작업 필요
+            imageUri = "imageUri2";
+            thumbnailUri = "thumbnailUri2";
+        }
+
+        userPS.update(modifyInDTO.toEntity(userPS.getEmail(), imageUri, thumbnailUri));
         return new UserResponse.UserDetailOutDTO(userPS);
     }
 
@@ -212,7 +228,7 @@ public class UserService {
     }
 
 
-    public Slice<EventResponse.EventListOutDTO> 내연차리스트(MyUserDetails myUserDetails, Pageable pageable) {
+    public Slice<EventResponse.MyEventListOutDTO> 내연차리스트(MyUserDetails myUserDetails, Pageable pageable) {
         User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
                 ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
         );
@@ -222,24 +238,19 @@ public class UserService {
 
         Slice<Event> events = eventRepository.findByUserAndEventTypeOrderByAnnual_StartDateDesc(user, EventType.ANNUAL, page);
 
-        Slice<EventResponse.EventListOutDTO> myAnnuals = events.map(
+        Slice<EventResponse.MyEventListOutDTO> myAnnuals = events.map(
                 event -> {
                     User u = event.getUser();
                     Order order = orderRepository.findByEvent(event);
-                    return EventResponse.EventListOutDTO.builder()
+                    return EventResponse.MyEventListOutDTO.builder()
                             .eventId(event.getId())
-                            .userId(u.getId())
-                            .userUsername(u.getUsername())
-                            .userEmail(u.getEmail())
-                            .userImageUri(u.getImageUri())
-                            .userThumbnailUri(u.getThumbnailUri())
                             .eventType(event.getEventType())
                             .id(event.getAnnual().getId())
                             .startDate(event.getAnnual().getStartDate())
                             .endDate(event.getAnnual().getEndDate())
                             .createdAt(event.getCreatedAt())
                             .updatedAt(event.getUpdatedAt())
-                            .orderOrderState(order.getOrderState())
+                            .orderState(order.getOrderState())
                             .build();
                 });
 
@@ -247,7 +258,7 @@ public class UserService {
     }
 
 
-    public Slice<EventResponse.EventListOutDTO> 내당직리스트(MyUserDetails myUserDetails, Pageable pageable) {
+    public Slice<EventResponse.MyEventListOutDTO> 내당직리스트(MyUserDetails myUserDetails, Pageable pageable) {
         User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
                 ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
         );
@@ -258,31 +269,48 @@ public class UserService {
         Slice<Event> events = eventRepository.findByUserAndEventTypeOrderByDuty_DateDesc(user, EventType.DUTY, page);
 
         // User 객체 만들어서 넣어주기
-        Slice<EventResponse.EventListOutDTO> myDutys = events.map(
+        Slice<EventResponse.MyEventListOutDTO> myDuties = events.map(
                 event -> {
                     User u = event.getUser();
                     Order order = orderRepository.findByEvent(event);
-                    return EventResponse.EventListOutDTO.builder()
+                    return EventResponse.MyEventListOutDTO.builder()
                             .eventId(event.getId())
-                            .userId(u.getId())
-                            .userUsername(u.getUsername())
-                            .userEmail(u.getEmail())
-                            .userImageUri(u.getImageUri())
-                            .userThumbnailUri(u.getThumbnailUri())
                             .eventType(event.getEventType())
                             .id(event.getDuty().getId())
                             .startDate(event.getDuty().getDate())
                             .endDate(event.getDuty().getDate())
                             .createdAt(event.getCreatedAt())
                             .updatedAt(event.getUpdatedAt())
-                            .orderOrderState(order.getOrderState())
+                            .orderState(order.getOrderState())
                             .build();
                 });
-
-
-        return myDutys;
+        return myDuties;
     }
 
 
+    public EventResponse.NextEventDTO 가장빠른연차당직(MyUserDetails myUserDetails) {
+        User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
+                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
+        );
 
+        List<Order> orders = orderRepository.findByOrderState(OrderState.APPROVED);
+        List<LocalDate> annualDate = orders.stream().filter(order ->
+                order.getEvent().getEventType().equals(EventType.ANNUAL)).map(order ->
+                order.getEvent().getAnnual().getStartDate()).filter(date -> date.isAfter(LocalDate.now()) | date.isEqual(LocalDate.now())).collect(Collectors.toList());
+        LocalDate nextAnnualDate = annualDate.stream().min(LocalDate::compareTo).orElse(null);
+        Long annualDDay = nextAnnualDate == null ? null : ChronoUnit.DAYS.between(LocalDate.now(), nextAnnualDate);
+
+        List<LocalDate> dutyDate = orders.stream().filter(order ->
+                order.getEvent().getEventType().equals(EventType.DUTY)).map(order ->
+                order.getEvent().getDuty().getDate()).filter(date -> date.isAfter(LocalDate.now()) | date.isEqual(LocalDate.now())).collect(Collectors.toList());
+        LocalDate nextDutyDate = dutyDate.stream().min(LocalDate::compareTo).orElse(null);
+        Long dutyDDay = nextDutyDate == null ? null : ChronoUnit.DAYS.between(LocalDate.now(), nextDutyDate);
+
+        return EventResponse.NextEventDTO.builder()
+                .nextAnnualDate(nextAnnualDate)
+                .annualDDay(annualDDay)
+                .nextDutyDate(nextDutyDate)
+                .dutyDDay(dutyDDay)
+                .build();
+    }
 }

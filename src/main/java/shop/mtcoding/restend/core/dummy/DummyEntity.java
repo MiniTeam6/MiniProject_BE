@@ -83,18 +83,20 @@ public class DummyEntity {
                 .build();
     }
 
-    public Annual newAnnual(LocalDate startDate, LocalDate endDate) {
+    public Annual newAnnual(LocalDate startDate, LocalDate endDate, Long count) {
         return Annual.builder()
                 .startDate(startDate)
                 .endDate(endDate)
+                .count(count)
                 .build();
     }
 
-    protected Annual newMockAnnual(Long id, LocalDate startDate, LocalDate endDate) {
+    protected Annual newMockAnnual(Long id, LocalDate startDate, LocalDate endDate, Long count) {
         return Annual.builder()
                 .id(id)
                 .startDate(startDate)
                 .endDate(endDate)
+                .count(count)
                 .build();
     }
 
