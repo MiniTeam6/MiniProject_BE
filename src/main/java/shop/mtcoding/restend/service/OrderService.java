@@ -32,19 +32,30 @@ public class OrderService {
 
 	@Transactional
 	public OrderResponse.AnnualApprovalOutDTO 연차승인(Long approvalId, OrderRequest.ApprovalInDTO approvalInDTO) {
-		Optional<User> user = userRepository.findById(approvalId);
-		if (user.isEmpty()) {
+		Optional<User> adminUser = userRepository.findById(approvalId);//승인자
+		if (adminUser.isEmpty()) {
 			throw new Exception404("해당 User를 찾을 수 없습니다. ");
 		}
 		Optional<Event> event = eventRepository.findById(approvalInDTO.getEventId());
 		if (event.isEmpty()) {
 			throw new Exception404("해당 Event를 찾을 수 없습니다. ");
 		}
-
 		Order approval = orderRepository.findByEvent_Id(event.get().getId());
 		approval.setOrderState(OrderState.valueOf(approvalInDTO.getOrderState()));
-		approval.setApprover(user.get());
+		approval.setApprover(adminUser.get());
 		orderRepository.save(approval);
+
+		//==============================
+
+		if(OrderState.APPROVED==OrderState.valueOf(approvalInDTO.getOrderState())){
+			Optional<User> user = userRepository.findById(event.get().getUser().getId());
+			if (user.isEmpty()) {
+				throw new Exception404("신청자를 찾을 수 없습니다. ");
+			}
+			user.get().setAnnualCount(event.get().getAnnual().getCount());
+			userRepository.save(user.get());
+		}
+
 		return new OrderResponse.AnnualApprovalOutDTO(approval);
 	}
 
