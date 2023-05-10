@@ -29,7 +29,7 @@ public class EventResponse {
     @Builder
     public static class EventModifyOutDTO {
         private EventType eventType;
-        private Long id;
+        private Long eventId;
         private LocalDate startDate;
         private LocalDate endDate;
         private LocalDateTime createdAt;
@@ -60,7 +60,6 @@ public class EventResponse {
     public static class MyEventListOutDTO {
         private Long eventId;
         private EventType eventType;
-        private Long id;
         private LocalDate startDate;
         private LocalDate endDate;
         private LocalDateTime createdAt;
