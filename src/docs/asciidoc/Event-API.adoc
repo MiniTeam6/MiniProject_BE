@@ -17,6 +17,12 @@ operation::{event}/event_add_duty_test[snippets='http-request,http-response,curl
 // operation::user-controller-test/join_success_test[snippets='http-request,request-fields,http-response,response-fields']
 operation::{event}/event_add_duty_fail_test[snippets='http-request,http-response,curl-request']
 
+=== 신청한 연차 수정
+operation::{event}/event_modify_annual_test[snippets='http-request,http-response,curl-request']
+
+=== 신청한 당직 수정
+operation::{event}/event_modify_duty_test[snippets='http-request,http-response,curl-request']
+
 
 === 연차 취소
 // operation::user-controller-test/join_success_test[snippets='http-request,request-fields,http-response,response-fields']
@@ -26,8 +32,15 @@ operation::{event}/event_cancel_annual_test[snippets='http-request,http-response
 // operation::user-controller-test/join_success_test[snippets='http-request,request-fields,http-response,response-fields']
 operation::{event}/event_cancel_duty_test[snippets='http-request,http-response,curl-request']
 
-=== 연차/당직 리스트 가져오기
-// operation::{user}/[snippets='http-request,http-response,curl-request']
+=== 승인된 리스트 가져오기 (모든 이벤트)
+operation::{event}/all_event_test[snippets='http-request,http-response,curl-request']
+
+=== 승인된 리스트 가져오기 (연차)
+operation::{event}/all_annual_test[snippets='http-request,http-response,curl-request']
+
+=== 승인된 리스트 가져오기 (당직)
+operation::{event}/all_duty_test[snippets='http-request,http-response,curl-request']
+
 
 === 내 연차 리스트 가져오기
 operation::{event}/my-annual-list_test[snippets='http-request,http-response']
