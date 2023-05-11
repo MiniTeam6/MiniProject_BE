@@ -40,9 +40,11 @@ jobs:
 
       - name: Configure AWS credentials and region
         run: |
+          mkdir -p ~/.aws
           echo "accessKey=${aws_access_key}" >> ~/.aws/credentials
           echo "secretKey=${aws_secret_key}" >> ~/.aws/credentials
           echo "region=ap-northeast-2" >> ~/.aws/config
+      
 
       - name: Configure AWS S3 bucket
         run: |
