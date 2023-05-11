@@ -11,6 +11,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+      aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+      aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
 
     steps:
       - name: Checkout repository
@@ -27,3 +31,16 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build -x test
+
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Configure AWS credentials and region
+        run: |
+          echo "accessKey=${aws_access_key}" >> ~/.aws/credentials
+          echo "secretKey=${aws_secret_key}" >> ~/.aws/credentials
+          echo "region=ap-northeast-2" >> ~/.aws/config
+
+      - name: Configure AWS S3 bucket
+        run: |
+          echo "bucket=${aws_s3_bucket}" >> ~/.aws/credentials
