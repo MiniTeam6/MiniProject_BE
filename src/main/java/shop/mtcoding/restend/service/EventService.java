@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
+import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -30,13 +31,10 @@ import shop.mtcoding.restend.model.user.User;
 import shop.mtcoding.restend.model.user.UserRepository;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -167,31 +165,31 @@ public class EventService {
         Order order = null;
         switch (eventCancelInDTO.getEventType()) {
             case "ANNUAL":
-                Annual annual = annualRepository.findById(eventCancelInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 연차가 없습니다."));
-                event = eventRepository.findByAnnual_Id(annual.getId());
+                event = eventRepository.findById(eventCancelInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
                     throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
                     orderRepository.deleteById(order.getId());
+                    Long annualId = event.getAnnual().getId();
                     eventRepository.deleteById(event.getId());
-                    annualRepository.deleteById(eventCancelInDTO.getId());
+                    annualRepository.deleteById(annualId);
                 } else {
                     throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
                 }
                 break;
             case "DUTY":
-                Duty duty = dutyRepository.findById(eventCancelInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 당직이 없습니다."));
-                event = eventRepository.findByDuty_Id(duty.getId());
+                event = eventRepository.findById(eventCancelInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
                     throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
                     orderRepository.deleteById(order.getId());
+                    Long dutyId = event.getDuty().getId();
                     eventRepository.deleteById(event.getId());
-                    dutyRepository.deleteById(eventCancelInDTO.getId());
+                    dutyRepository.deleteById(dutyId);
                 } else {
                     throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
                 }
@@ -200,6 +198,7 @@ public class EventService {
         return true;
     }
 
+    @Transactional
     public EventResponse.EventModifyOutDTO 연차당직신청수정(EventRequest.EventModifyInDto eventModifyInDTO, User user) {
         Event event = null;
         Order order = null;
@@ -211,28 +210,26 @@ public class EventService {
                 if (eventModifyInDTO.getCount() > user.getAnnualCount()) {
                     throw new Exception404("연차 신청시 연차 사용일수가 보유 연차일수보다 많습니다. ");
                 }
-                Annual annual = annualRepository.findById(eventModifyInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 연차가 없습니다."));
-                event = eventRepository.findByAnnual_Id(annual.getId());
+                event = eventRepository.findById(eventModifyInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
                     throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
-                    annual.update(eventModifyInDTO.getStartDate(), eventModifyInDTO.getEndDate(), eventModifyInDTO.getCount());
+                    event.getAnnual().update(eventModifyInDTO.getStartDate(), eventModifyInDTO.getEndDate(), eventModifyInDTO.getCount());
                 } else {
                     throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
                 }
                 break;
 
             case "DUTY":
-                Duty duty = dutyRepository.findById(eventModifyInDTO.getId()).orElseThrow(() -> new IllegalArgumentException("해당 당직이 없습니다."));
-                event = eventRepository.findByDuty_Id(duty.getId());
+                event = eventRepository.findById(eventModifyInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
                     throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
-                    duty.update(eventModifyInDTO.getStartDate());
+                    event.getDuty().update(eventModifyInDTO.getStartDate());
                 } else {
                     throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
                 }
@@ -327,52 +324,88 @@ public class EventService {
         return results;
     }
 
+    // 연차당직 리스트 (메인)
     @Transactional
     public Slice<EventResponse.EventListOutDTO> 연차당직리스트(String eventType, String yearMonth, User user, Pageable pageable) {
+        Slice<Order> orders = null;
         Slice<Event> events = null;
-        Slice<EventResponse.EventListOutDTO> results = null;
-        LocalDate start = LocalDate.parse(yearMonth + "-01");
-        LocalDate end = start.plusMonths(1).minusDays(1);
-        switch (eventType) {
-            case "ANNUAL":
-                events = eventRepository.findByEventTypeAndAnnual_StartDateBetweenOrderByAnnual_StartDateDesc(EventType.ANNUAL, start, end, pageable);
 
-                results = events.map(event -> EventResponse.EventListOutDTO.builder()
-                        .eventId(event.getId())
-                        .userId(event.getUser().getId())
-                        .userName(event.getUser().getUsername())
-                        .userEmail(event.getUser().getEmail())
-                        .userImageUri(event.getUser().getImageUri())
-                        .userThumbnailUri(event.getUser().getThumbnailUri())
-                        .eventType(event.getEventType())
-                        .startDate(event.getAnnual().getStartDate())
-                        .endDate(event.getAnnual().getEndDate())
-                        .createdAt(event.getCreatedAt())
-                        .updatedAt(event.getUpdatedAt())
-                        .build());
-                break;
+        if (eventType != null) {
+            switch (eventType) {
+                case "ANNUAL":
+                    if (yearMonth != null) {
+                        LocalDate start = LocalDate.parse(yearMonth + "-01");
+                        LocalDate end = start.plusMonths(1).minusDays(1);
+                        events = orderRepository.findByOrderStateAndEvent_EventTypeAndEvent_Annual_StartDateBetweenOrderByEvent_Annual_StartDateDesc(OrderState.APPROVED, EventType.ANNUAL, start, end, pageable).map(Order::getEvent);
+                    } else {
+                        events = orderRepository.findByOrderStateAndEvent_EventTypeOrderByEvent_Annual_StartDateDesc(OrderState.APPROVED, EventType.ANNUAL, pageable).map(Order::getEvent);
+                    }
+                    break;
+                case "DUTY":
+                    if (yearMonth != null) {
+                        LocalDate start = LocalDate.parse(yearMonth + "-01");
+                        LocalDate end = start.plusMonths(1).minusDays(1);
+                        events = orderRepository.findByOrderStateAndEvent_EventTypeAndEvent_Duty_DateBetweenOrderByEvent_Duty_DateDesc(OrderState.APPROVED, EventType.DUTY, start, end, pageable).map(Order::getEvent);
+                    } else {
+                        events = orderRepository.findByOrderStateAndEvent_EventTypeOrderByEvent_Duty_DateDesc(OrderState.APPROVED, EventType.DUTY, pageable).map(Order::getEvent);
+                    }
+                    break;
+            }
+        } else {
+            events = orderRepository.findByOrderState(OrderState.APPROVED, pageable).map(Order::getEvent);
+            Map<Event, LocalDate> eventMap = new HashMap<>();
 
-            case "DUTY":
-                events = eventRepository.findByEventTypeAndDuty_DateOrderByDuty_DateDesc(EventType.DUTY, start, end, pageable);
+            if (yearMonth != null) {
+                LocalDate start = LocalDate.parse(yearMonth + "-01");
+                LocalDate end = start.plusMonths(1).minusDays(1);
+                // 추가 로직 필요
+                // map 으로 event_anuual 의 startdate 나 event_duty 의 date 를 가져와서
+                // 기간을 비교하고 정렬
+                for (Event event : events) {
+                    if (event.getEventType() == EventType.ANNUAL) {
+                        if (event.getAnnual().getStartDate().isAfter(start) && event.getAnnual().getStartDate().isBefore(end)) {
+                            eventMap.put(event, event.getAnnual().getStartDate());
+                        }
+                    } else {
+                        if (event.getDuty().getDate().isAfter(start) && event.getDuty().getDate().isBefore(end)) {
+                            eventMap.put(event, event.getDuty().getDate());
+                        }
+                    }
+                }
 
-                results = events.map(event -> EventResponse.EventListOutDTO.builder()
-                        .eventId(event.getId())
-                        .userId(event.getUser().getId())
-                        .userName(event.getUser().getUsername())
-                        .userEmail(event.getUser().getEmail())
-                        .userImageUri(event.getUser().getImageUri())
-                        .userThumbnailUri(event.getUser().getThumbnailUri())
-                        .eventType(event.getEventType())
-                        .startDate(event.getDuty().getDate())
-                        .endDate(event.getDuty().getDate())
-                        .createdAt(event.getCreatedAt())
-                        .updatedAt(event.getUpdatedAt())
-                        .build());
-                break;
+            } else {
+                for (Event event : events) {
+                    if (event.getEventType() == EventType.ANNUAL) {
+                        eventMap.put(event, event.getAnnual().getStartDate());
+                    } else {
+                        eventMap.put(event, event.getDuty().getDate());
+                    }
+                }
+            }
+
+            List<Event> sortedEvents = eventMap.entrySet().stream()
+                    .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toList());
+
+            int startIdx = (int) pageable.getOffset();
+            int endIdx = (startIdx + pageable.getPageSize()) > sortedEvents.size() ? sortedEvents.size() : (startIdx + pageable.getPageSize());
+            events = new SliceImpl<>(sortedEvents.subList(startIdx, endIdx), pageable, sortedEvents.size() > endIdx);
         }
-        return results;
+
+        return events.map(event -> EventResponse.EventListOutDTO.builder()
+                .eventId(event.getId())
+                .userId(event.getUser().getId())
+                .userName(event.getUser().getUsername())
+                .userEmail(event.getUser().getEmail())
+                .userImageUri(event.getUser().getImageUri())
+                .userThumbnailUri(event.getUser().getThumbnailUri())
+                .eventType(event.getEventType())
+                .startDate(event.getAnnual() != null ? event.getAnnual().getStartDate() : event.getDuty().getDate())
+                .endDate(event.getAnnual() != null ? event.getAnnual().getEndDate() : event.getDuty().getDate())
+                .createdAt(event.getCreatedAt())
+                .updatedAt(event.getUpdatedAt())
+                .build());
     }
-
-
-
 }
+
