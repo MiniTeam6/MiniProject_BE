@@ -35,8 +35,8 @@ logging:
 cloud:
   aws:
     credentials:
-      accessKey: ${aws.access-key}
-      secretKey: ${aws.secret-key}
+      accessKey: ${aws.access.key}
+      secretKey: ${aws.secret.key}
     region:
       static: ap-northeast-2
     stack:

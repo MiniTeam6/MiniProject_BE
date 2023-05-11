@@ -280,7 +280,7 @@ public class EventControllerTest extends MyRestDoc {
         // given
         EventCancelInDto eventCancelInDto = new EventCancelInDto();
         eventCancelInDto.setEventType("ANNUAL");
-        eventCancelInDto.setId(1L);
+        eventCancelInDto.setEventId(1L);
 
         // when
         String requestBody = om.writeValueAsString(eventCancelInDto);
@@ -307,7 +307,7 @@ public class EventControllerTest extends MyRestDoc {
         // given
         EventCancelInDto eventCancelInDto = new EventCancelInDto();
         eventCancelInDto.setEventType("DUTY");
-        eventCancelInDto.setId(1L);
+        eventCancelInDto.setEventId(2L);
 
         // when
         String requestBody = om.writeValueAsString(eventCancelInDto);
@@ -335,7 +335,7 @@ public class EventControllerTest extends MyRestDoc {
     public void event_modify_annual_test() throws Exception {
         // given
         EventRequest.EventModifyInDto eventModifyInDto = new EventModifyInDto();
-        eventModifyInDto.setId(1L);
+        eventModifyInDto.setEventId(1L);
         eventModifyInDto.setEventType("ANNUAL");
         eventModifyInDto.setStartDate(LocalDate.of(2023, 07, 3));
         eventModifyInDto.setEndDate(LocalDate.of(2023, 07, 4));
@@ -514,4 +514,94 @@ public class EventControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
+//    public ResponseEntity<?> list(@RequestParam(required = false) @Pattern(regexp = "ANNUAL|DUTY") String eventType,
+//                                  @RequestParam(required = false) @Pattern(regexp = "^\\d{4}-\\d{2}$") String yearMonth,
+//                                  @AuthenticationPrincipal MyUserDetails myUserDetails,
+//                                  @PageableDefault(size = 10) Pageable pageable) {
+
+    @DisplayName("모든 승인된 연차/당직 리스트")
+    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void all_event_test() throws Exception{
+//        Slice<EventResponse.EventListOutDTO>
+//        String eventType, String yearMonth, User user, Pageable pageable
+        //given
+        ResultActions resultActions = mvc
+                .perform(get("/api/user/event/list"));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        //when
+
+        //then
+//테스트 : {"status":200,"msg":"성공","data":
+// {"content":[{"eventId":3,"userId":2,"userName":"코스","userEmail":"cos@nate.com","userImageUri":"https://test","userThumbnailUri":"https://test","eventType":"ANNUAL","id":null,"startDate":"2023-06-07","endDate":"2023-06-09","createdAt":"2023-05-11T17:20:20.277504","updatedAt":null,"orderState":null}
+// ,{"eventId":4,"userId":2,"userName":"코스","userEmail":"cos@nate.com","userImageUri":"https://test","userThumbnailUri":"https://test","eventType":"DUTY","id":null,"startDate":"2023-06-05","endDate":"2023-06-05","createdAt":"2023-05-11T17:20:20.27847","updatedAt":null,"orderState":null}]
+        resultActions.andExpect(jsonPath("$.status").value(200));
+        resultActions.andExpect(jsonPath("$.msg").value("성공"));
+        resultActions.andExpect(jsonPath("$.data.content[0].eventId").value(3L));
+        resultActions.andExpect(jsonPath("$.data.content[0].eventType").value("ANNUAL"));
+        resultActions.andExpect(jsonPath("$.data.content[0].startDate").value("2023-06-07"));
+        resultActions.andExpect(jsonPath("$.data.content[0].endDate").value("2023-06-09"));
+        resultActions.andExpect(jsonPath("$.data.content[1].eventId").value(4L));
+        resultActions.andExpect(jsonPath("$.data.content[1].eventType").value("DUTY"));
+        resultActions.andExpect(jsonPath("$.data.content[1].startDate").value("2023-06-05"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+
+
+
+    }
+    @DisplayName("모든 승인된 연차 리스트")
+    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+
+    @Test
+    public void all_annual_test() throws Exception{
+        //given
+        ResultActions resultActions = mvc
+                .perform(get("/api/user/event/list?eventType=ANNUAL"));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        //when
+
+        //then
+//        테스트 : {"status":200,"msg":"성공","data":{"content":[{"eventId":3,"userId":2,"userName":"코스","userEmail":"cos@nate.com","userImageUri":"https://test","userThumbnailUri":"https://test","eventType":"ANNUAL","id":null,"startDate":"2023-06-07","endDate":"2023-06-09","createdAt":"2023-05-11T21:14:23.501564","updatedAt":null,"orderState":null}],"pageable":{"sort":{"empty":true,"sorted":false,"unsorted":true},"offset":0,"pageNumber":0,"pageSize":10,"paged":true,"unpaged":false},"sort":{"empty":true,"sorted":false,"unsorted":true},"size":10,"number":0,"first":true,"last":true,"numberOfElements":1,"empty":false}}
+        resultActions.andExpect(jsonPath("$.status").value(200));
+        resultActions.andExpect(jsonPath("$.msg").value("성공"));
+        resultActions.andExpect(jsonPath("$.data.content[0].eventId").value(3L));
+        resultActions.andExpect(jsonPath("$.data.content[0].eventType").value("ANNUAL"));
+        resultActions.andExpect(jsonPath("$.data.content[0].startDate").value("2023-06-07"));
+        resultActions.andExpect(jsonPath("$.data.content[0].endDate").value("2023-06-09"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+
+    }
+    @DisplayName("모든 승인된 당직 리스트")
+    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+
+    @Test
+    public void all_duty_test() throws Exception{
+        //given
+        ResultActions resultActions = mvc
+                .perform(get("/api/user/event/list?eventType=DUTY"));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        //when
+
+//        테스트 : {"status":200,"msg":"성공","data":{"content":[{"eventId":4,"userId":2,"userName":"코스","userEmail":"cos@nate.com","userImageUri":"https://test","userThumbnailUri":"https://test","eventType":"DUTY","id":null,"startDate":"2023-06-05","endDate":"2023-06-05","createdAt":"2023-05-11T21:14:24.153859","updatedAt":null,"orderState":null}],"pageable":{"sort":{"empty":true,"sorted":false,"unsorted":true},"offset":0,"pageNumber":0,"pageSize":10,"paged":true,"unpaged":false},"sort":{"empty":true,"sorted":false,"unsorted":true},"size":10,"number":0,"first":true,"last":true,"numberOfElements":1,"empty":false}}
+        resultActions.andExpect(jsonPath("$.status").value(200));
+        resultActions.andExpect(jsonPath("$.msg").value("성공"));
+        resultActions.andExpect(jsonPath("$.data.content[0].eventId").value(4L));
+        resultActions.andExpect(jsonPath("$.data.content[0].eventType").value("DUTY"));
+        resultActions.andExpect(jsonPath("$.data.content[0].startDate").value("2023-06-05"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+
+        //then
+
+    }
+
+
 }
