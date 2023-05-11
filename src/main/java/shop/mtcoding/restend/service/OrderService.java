@@ -70,6 +70,7 @@ public class OrderService {
 			throw new Exception404("해당 Event를 찾을 수 없습니다. ");
 		}
 
+
 		Order approval = orderRepository.findByEvent_Id(event.get().getId());
 		approval.setOrderState(OrderState.valueOf(approvalInDTO.getOrderState()));
 		approval.setApprover(user.get());
