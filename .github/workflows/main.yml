@@ -17,12 +17,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 13556b6 (git Action)
     env:
       aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
       aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
       aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
+<<<<<<< HEAD
 =======
 >>>>>>> af168b4 (도커허브 연동 재설정 테스트 필요)
+=======
+>>>>>>> 13556b6 (git Action)
 
     steps:
 <<<<<<< HEAD
@@ -213,4 +219,20 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build -x test
+<<<<<<< HEAD
 >>>>>>> 83d3c92 (main pull)
+=======
+
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Configure AWS credentials and region
+        run: |
+          echo "accessKey=${aws_access_key}" >> ~/.aws/credentials
+          echo "secretKey=${aws_secret_key}" >> ~/.aws/credentials
+          echo "region=ap-northeast-2" >> ~/.aws/config
+
+      - name: Configure AWS S3 bucket
+        run: |
+          echo "bucket=${aws_s3_bucket}" >> ~/.aws/credentials
+>>>>>>> 13556b6 (git Action)
