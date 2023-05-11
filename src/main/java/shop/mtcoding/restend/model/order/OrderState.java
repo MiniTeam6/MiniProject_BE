@@ -1,5 +1,10 @@
 package shop.mtcoding.restend.model.order;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum OrderState {
 	WAITING("대기"),
 	APPROVED("승인"),
@@ -7,12 +12,5 @@ public enum OrderState {
 
 	private final String state;
 
-	OrderState(String state) {
-		this.state = state;
-	}
-
-	public String getState() {
-		return state;
-	}
 }
 

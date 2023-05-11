@@ -75,8 +75,13 @@ dependencies {
     // S3
     //testImplementation 'software.amazon.awssdk:s3:2.20.62'
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.464'
+    testImplementation 'com.amazonaws:aws-java-sdk-s3:1.12.464'
+
+//    testImplementation 'com.adobe.testing:s3mock-junit5:2.2.1'
     // thumbnailator
     implementation 'net.coobird:thumbnailator:0.4.19'
+    testImplementation 'net.coobird:thumbnailator:0.4.19'
+
 
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     implementation 'commons-io:commons-io:2.11.0'

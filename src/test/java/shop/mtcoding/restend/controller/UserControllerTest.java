@@ -1,11 +1,42 @@
 package shop.mtcoding.restend.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -26,6 +57,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import shop.mtcoding.restend.core.MyRestDoc;
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
@@ -33,11 +65,19 @@ import shop.mtcoding.restend.core.dummy.DummyEntity;
 import shop.mtcoding.restend.dto.user.UserRequest;
 import shop.mtcoding.restend.dto.user.UserRequest.SignupInDTO;
 import shop.mtcoding.restend.model.user.UserRepository;
+import shop.mtcoding.restend.service.S3Service;
 
 import javax.persistence.EntityManager;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
+import static org.mockito.Mockito.mock;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -72,6 +112,7 @@ public class UserControllerTest extends MyRestDoc {
     public void setUp() {
         userRepository.save(dummy.newUser("사르", "ADMIN", true));
         userRepository.save(dummy.newUser("코스", "USER",true));
+
         em.clear();
     }
 
@@ -85,6 +126,8 @@ public class UserControllerTest extends MyRestDoc {
         signupInDTO.setEmail("love@nate.com");
         signupInDTO.setPhone("010-0000-0000");
 
+        S3Service s3ServiceMock = mock(S3Service.class);
+
         // when
         String requestBody = om.writeValueAsString(signupInDTO);
         System.out.println("테스트 : "+requestBody);
@@ -95,7 +138,10 @@ public class UserControllerTest extends MyRestDoc {
                 om.writeValueAsBytes(signupInDTO)
         );
 
-        MockMultipartFile image = new MockMultipartFile("image", "image.jpg", "image/jpeg", "image".getBytes());
+        MockMultipartFile image = new MockMultipartFile("image",
+                "image.jpg",
+                MediaType.IMAGE_JPEG_VALUE,
+                new FileInputStream(new File("src/main/resources/image.jpg")));
 
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.multipart(HttpMethod.POST,"/api/signup")
@@ -103,6 +149,7 @@ public class UserControllerTest extends MyRestDoc {
                         .file(image)
                         .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
         );
+
 
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
@@ -113,6 +160,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.data.email").value("love@nate.com"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+
     }
 
     /**
@@ -137,7 +185,13 @@ public class UserControllerTest extends MyRestDoc {
                 om.writeValueAsBytes(signupInDTO)
         );
 
-        MockMultipartFile image = new MockMultipartFile("image", "image.jpg", "image/jpeg", "image".getBytes());
+//        File emptyFile = new File("src/main/resources/image.jpg");
+//        FileInputStream inputStream= new FileInputStream(getClass().getResource("/img/raspberry.png").getFile());
+
+        MockMultipartFile image = new MockMultipartFile("image",
+                "image.jpg",
+                MediaType.IMAGE_JPEG_VALUE,
+                new FileInputStream(new File("src/main/resources/image.jpg")));
 
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.multipart(HttpMethod.POST,"/api/signup")
@@ -176,8 +230,11 @@ public class UserControllerTest extends MyRestDoc {
                 "application/json",
                 om.writeValueAsBytes(signupInDTO)
         );
+        MockMultipartFile image = new MockMultipartFile("image",
+                "image.jpg",
+                MediaType.IMAGE_JPEG_VALUE,
+                new FileInputStream(new File("src/main/resources/image.jpg")));
 
-        MockMultipartFile image = new MockMultipartFile("image", "image.jpg", "image/jpeg", "image".getBytes());
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.multipart(HttpMethod.POST,"/api/signup")
                         .file(signUpInDTO)

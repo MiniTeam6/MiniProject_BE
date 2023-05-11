@@ -329,39 +329,39 @@ public class EventControllerTest extends MyRestDoc {
 
     //트랜잭션의 원칙 위배 -> All or Nothing 안되면 안되고, 되면 모두 되어야하지만
     //현재, 성공이라고 뜨고 실제로는 해당 로직이 원하는 대로 동작하지 않는다. -> 치명적인 오류
-//    @DisplayName("연차/당직 신청 수정 (연차)")
-//    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
-//    @Test
-//    public void event_modify_annual_test() throws Exception {
-//        // given
-//        EventRequest.EventModifyInDto eventModifyInDto = new EventModifyInDto();
-//        eventModifyInDto.setId(1L);
-//        eventModifyInDto.setEventType("ANNUAL");
-//        eventModifyInDto.setStartDate(LocalDate.of(2023, 07, 3));
-//        eventModifyInDto.setEndDate(LocalDate.of(2023, 07, 4));
-//        eventModifyInDto.setCount(2L);
-//
-//        // when
-//        String requestBody = om.writeValueAsString(eventModifyInDto);
-//        System.out.println("테스트 : " + requestBody);
-//
-//        // when
-//        ResultActions resultActions = mvc
-//                .perform(post("/api/user/event/modify").content(requestBody).contentType(MediaType.APPLICATION_JSON));
-//        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-//        System.out.println("테스트 : " + responseBody);
-//
-//        // then
-//        //{"status":200,"msg":"성공","data":{"content":[{"eventId":1,"eventType":"ANNUAL","startDate":"2023-06-01","endDate":"2023-06-30","createdAt":"2023-05-10T15:11:28.670271","updatedAt":null,"orderState":"WAITING"},{"eventId":3,"eventType":"ANNUAL","startDate":"2023-06-01","endDate":"2023-06-30","createdAt":"2023-05-10T15:11:28.672319","updatedAt":null,"orderState":"WAITING"}],"pageable":{"sort":{"empty":true,"unsorted":true,"sorted":false},"offset":0,"pageNumber":0,"pageSize":8,"paged":true,"unpaged":false},"first":true,"last":true,"sort":{"empty":true,"unsorted":true,"sorted":false},"number":0,"size":8,"numberOfElements":2,"empty":false}}
-//        resultActions.andExpect(jsonPath("$.status").value(200));
-//        resultActions.andExpect(jsonPath("$.msg").value("성공"));
-//        resultActions.andExpect(jsonPath("$.data.eventId").value(1L));
-//        resultActions.andExpect(jsonPath("$.data.eventType").value("ANNUAL"));
-//        resultActions.andExpect(jsonPath("$.data.startDate").value("2023-07-03"));
-//        resultActions.andExpect(jsonPath("$.data.endDate").value("2023-07-04"));
-//        resultActions.andExpect(status().isOk());
-//        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
-//    }
+    @DisplayName("연차/당직 신청 수정 (연차)")
+    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @Test
+    public void event_modify_annual_test() throws Exception {
+        // given
+        EventRequest.EventModifyInDto eventModifyInDto = new EventModifyInDto();
+        eventModifyInDto.setId(1L);
+        eventModifyInDto.setEventType("ANNUAL");
+        eventModifyInDto.setStartDate(LocalDate.of(2023, 07, 3));
+        eventModifyInDto.setEndDate(LocalDate.of(2023, 07, 4));
+        eventModifyInDto.setCount(2L);
+
+        // when
+        String requestBody = om.writeValueAsString(eventModifyInDto);
+        System.out.println("테스트 : " + requestBody);
+
+        // when
+        ResultActions resultActions = mvc
+                .perform(post("/api/user/event/modify").content(requestBody).contentType(MediaType.APPLICATION_JSON));
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
+
+        // then
+        //{"status":200,"msg":"성공","data":{"content":[{"eventId":1,"eventType":"ANNUAL","startDate":"2023-06-01","endDate":"2023-06-30","createdAt":"2023-05-10T15:11:28.670271","updatedAt":null,"orderState":"WAITING"},{"eventId":3,"eventType":"ANNUAL","startDate":"2023-06-01","endDate":"2023-06-30","createdAt":"2023-05-10T15:11:28.672319","updatedAt":null,"orderState":"WAITING"}],"pageable":{"sort":{"empty":true,"unsorted":true,"sorted":false},"offset":0,"pageNumber":0,"pageSize":8,"paged":true,"unpaged":false},"first":true,"last":true,"sort":{"empty":true,"unsorted":true,"sorted":false},"number":0,"size":8,"numberOfElements":2,"empty":false}}
+        resultActions.andExpect(jsonPath("$.status").value(200));
+        resultActions.andExpect(jsonPath("$.msg").value("성공"));
+        resultActions.andExpect(jsonPath("$.data.eventId").value(1L));
+        resultActions.andExpect(jsonPath("$.data.eventType").value("ANNUAL"));
+        resultActions.andExpect(jsonPath("$.data.startDate").value("2023-07-03"));
+        resultActions.andExpect(jsonPath("$.data.endDate").value("2023-07-04"));
+        resultActions.andExpect(status().isOk());
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+    }
 
 //    @Test
 //    @DisplayName("모든 연차 리스트")
@@ -508,9 +508,9 @@ public class EventControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
         resultActions.andExpect(jsonPath("$.data.nextAnnualDate").value("2023-06-07"));
-        resultActions.andExpect(jsonPath("$.data.annualDDay").value("28"));
+        resultActions.andExpect(jsonPath("$.data.annualDDay").value("27"));
         resultActions.andExpect(jsonPath("$.data.nextDutyDate").value("2023-06-05"));
-        resultActions.andExpect(jsonPath("$.data.dutyDDay").value("26"));
+        resultActions.andExpect(jsonPath("$.data.dutyDDay").value("25"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
