@@ -25,3 +25,16 @@ logging:
 
 file:
   path: ./upload/ # UPLOAD 폴더 상대경로 / AWS에 S3 사용하는게 좋음
+# S3 버킷 설정 (AWS)
+cloud:
+  aws:
+    credentials:
+      accessKey: ${aws.access.key}
+      secretKey: ${aws.secret.key}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    s3:
+      bucket: ${aws.s3.bucket}
+      #url: ${aws.s3.bucket.url}
