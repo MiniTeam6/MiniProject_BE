@@ -22,7 +22,7 @@ public class OrderResponse {
 		private String userEmail;
 		private String userRole;
 		private String eventType;
-		private Long id;
+		private Long orderId;
 		private LocalDate startDate;
 		private LocalDate endDate;
 		private String orderState;
@@ -34,7 +34,7 @@ public class OrderResponse {
 			this.userEmail=order.getEvent().getUser().getEmail();
 			this.userRole=order.getEvent().getUser().getRole().name();
 			this.eventType=order.getEvent().getEventType().name();
-			this.id= order.getId();
+			this.orderId= order.getId();
 			this.startDate=order.getEvent().getAnnual().getStartDate();
 			this.endDate=order.getEvent().getAnnual().getEndDate();
 			this.orderState=order.getOrderState().toString();

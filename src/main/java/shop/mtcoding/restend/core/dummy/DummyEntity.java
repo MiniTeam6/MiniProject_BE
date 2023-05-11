@@ -22,8 +22,11 @@ public class DummyEntity {
             email = "ssar";
         } else if (username.equals("러브")) {
             email = "love";
-        } else if (username.equals("코스"))
+        } else if (username.equals("코스")){
             email = "cos";
+        } else if(username.equals("코코")){
+            email = "coco";
+        }
         return User.builder()
                 .username(username)
                 .password(passwordEncoder.encode("aaaa1234@@"))
