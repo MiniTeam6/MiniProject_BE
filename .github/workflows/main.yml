@@ -10,20 +10,42 @@ on:
 
 jobs:
   build:
-    runs-on: centos-latest #centOS
+    runs-on: ubuntu-latest
+    env:
+      aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+      aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+      aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Java
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
 
-    - name: Build with Gradle
-      run: ./gradlew build
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
 
-    - name: Run Tests
-      run: ./gradlew test
+      - name: Create build/generated-snippets directory
+        run: mkdir -p build/generated-snippets
 
+      - name: Build with Gradle
+        run: ./gradlew build -x test
+
+      - name: Run Tests
+        run: ./gradlew test
+
+      - name: Configure AWS credentials and region
+        run: |
+          mkdir -p ~/.aws
+          echo "accessKey=${aws_access_key}" >> ~/.aws/credentials
+          echo "secretKey=${aws_secret_key}" >> ~/.aws/credentials
+          echo "region=ap-northeast-2" >> ~/.aws/config
+      
+
+      - name: Configure AWS S3 bucket
+        run: |
+          echo "bucket=${aws_s3_bucket}" >> ~/.aws/credentials

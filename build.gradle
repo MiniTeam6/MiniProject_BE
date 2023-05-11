@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.7.11'
+    id 'org.springframework.boot' version '2.7.1'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
@@ -29,12 +29,10 @@ tasks.bootJar {
 }
 
 tasks.test {
-    outputs.dir snippetsDir
     useJUnitPlatform()
 }
 
 tasks.asciidoctor {
-    dependsOn tasks.test
     def snippets = file('build/generated-snippets')
     configurations 'asciidoctorExt'
     attributes 'snippets': snippets
@@ -47,6 +45,7 @@ tasks.asciidoctor {
     }
     baseDirFollowsSourceFile()
 }
+
 repositories {
     mavenCentral()
 }
@@ -82,29 +81,26 @@ dependencies {
     implementation 'commons-io:commons-io:2.11.0'
 }
 
-//ext {
-//    set('snippetsDir', file("build/generated-snippets"))
-//}
-//
-//
-//tasks.named('test') {
-//    outputs.dir snippetsDir
-//    useJUnitPlatform()
-//}
-//
-//tasks.named('asciidoctor') {
-//    inputs.dir snippetsDir
-//    dependsOn test
-//}
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
 
-//bootJar {
-//    dependsOn asciidoctor
-//    copy {
-//        // src/docs/asciidoc == from 경로
-//        from "${asciidoctor.outputDir}"
-//        into 'src/main/resources/static/docs'    // /static/docs로 복사!
-//    }
-//}
+tasks.named('test') {
+    outputs.dir snippetsDir
+    useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+bootJar {
+    dependsOn asciidoctor
+    from("${asciidoctor.outputDir}") {
+        into 'src/main/resources/static/docs'
+    }
+}
 
 jar {
     enabled = false
