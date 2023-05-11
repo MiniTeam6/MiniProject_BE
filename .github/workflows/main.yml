@@ -29,6 +29,9 @@ jobs:
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
+      - name: Create build/generated-snippets directory
+        run: mkdir -p build/generated-snippets
+
       - name: Build with Gradle
         run: ./gradlew build -x test
 
