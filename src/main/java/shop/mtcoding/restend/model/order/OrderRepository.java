@@ -2,6 +2,7 @@ package shop.mtcoding.restend.model.order;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import shop.mtcoding.restend.model.event.Event;
 import shop.mtcoding.restend.model.event.EventType;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,9 +88,18 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 
 	List<Order> findByOrderState(OrderState orderState);
 
+	Slice<Order> findByOrderState(OrderState orderState, Pageable pageable);
+
 
 	@Query("SELECT o FROM Order o WHERE o.event.id IN :eventIds AND o.orderState <> :orderState")
 	List<Order> findOrdersByEventIdsAndOrderStateNot(@Param("eventIds") List<Long> eventIds, @Param("orderState") OrderState orderState);
+	
+	Slice<Order> findByOrderStateAndEvent_EventTypeOrderByEvent_Annual_StartDateDesc(OrderState approved, EventType annual, Pageable pageable);
 
+	Slice<Order> findByOrderStateAndEvent_EventTypeOrderByEvent_Duty_DateDesc(OrderState approved, EventType duty, Pageable pageable);
+
+	Slice<Order> findByOrderStateAndEvent_EventTypeAndEvent_Annual_StartDateBetweenOrderByEvent_Annual_StartDateDesc(OrderState approved, EventType annual, LocalDate start, LocalDate end, Pageable pageable);
+
+	Slice<Order> findByOrderStateAndEvent_EventTypeAndEvent_Duty_DateBetweenOrderByEvent_Duty_DateDesc(OrderState approved, EventType duty, LocalDate start, LocalDate end, Pageable pageable);
 }
 

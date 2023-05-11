@@ -2,6 +2,7 @@ package shop.mtcoding.restend.controller;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -76,16 +77,13 @@ public class EventController {
 
 
     // 연차 당직 리스트
-    // 파리미터 없으면 현재 월
-    // 파라미터로 탭 구분: 연차/당직
+    // 파리미터 없으면 전체
+    // 파라미터로 탭 구분: 연차/당직 없으면 전체
     @GetMapping("/user/event/list")
-    public ResponseEntity<?> list(@RequestParam @Pattern(regexp = "ANNUAL|DUTY") String eventType,
+    public ResponseEntity<?> list(@RequestParam(required = false) @Pattern(regexp = "ANNUAL|DUTY") String eventType,
                                   @RequestParam(required = false) @Pattern(regexp = "^\\d{4}-\\d{2}$") String yearMonth,
                                   @AuthenticationPrincipal MyUserDetails myUserDetails,
                                   @PageableDefault(size = 10) Pageable pageable) {
-        if (yearMonth == null) {
-            yearMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
-        }
         ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.연차당직리스트(eventType, yearMonth, myUserDetails.getUser(), pageable));
         return ResponseEntity.ok(responseDTO);
     }
