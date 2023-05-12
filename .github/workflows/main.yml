@@ -64,8 +64,12 @@ jobs:
         run: chmod +x ./gradlew
 =======
     - name: Build with Gradle
+<<<<<<< HEAD
       run: ./gradlew clean build --exclude-task test
 >>>>>>> 7591e05 (빌드시 테스트 제외)
+=======
+      run: ./gradlew clean build
+>>>>>>> cfa121d (asciidoctor 때문에 다시 빌드에 서 테스트 하도록 변경)
 
 <<<<<<< HEAD
       - name: Create build/generated-snippets directory
