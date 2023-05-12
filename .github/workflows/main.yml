@@ -34,7 +34,11 @@ jobs:
       uses: actions/setup-java@v2
       with:
         distribution: 'adopt@1.11'
+<<<<<<< HEAD
 >>>>>>> e1e7bc0 (자바 배포판 설정)
+=======
+        java-version: 11
+>>>>>>> 48aa313 (자바버전 포함)
 
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
