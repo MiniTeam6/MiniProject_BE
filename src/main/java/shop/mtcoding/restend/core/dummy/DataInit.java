@@ -32,9 +32,11 @@ public class DataInit extends DummyEntity{
 //        this.eventRepository = eventRepository;
 //    }
 
+
+
     @Profile("dev")
     @Bean
-    CommandLineRunner init(UserRepository userRepository, EventRepository eventRepository, AnnualRepository annualRepository, DutyRepository dutyRepository, OrderRepository orderRepository){
+    CommandLineRunner initDev(UserRepository userRepository, EventRepository eventRepository, AnnualRepository annualRepository, DutyRepository dutyRepository, OrderRepository orderRepository){
         return args -> {
             User ssar = userRepository.save(newUser("사르", "ADMIN",true));
             User cos = userRepository.save(newUser("코스", "USER",true));
@@ -47,5 +49,16 @@ public class DataInit extends DummyEntity{
             orderRepository.save(newOrder(event1,OrderState.WAITING, cos));
             orderRepository.save(newOrder(event2,OrderState.WAITING, cos));
         };
+
+
+
+    }
+    @Profile("prod")
+    @Bean
+    CommandLineRunner initProd(UserRepository userRepository, EventRepository eventRepository, AnnualRepository annualRepository, DutyRepository dutyRepository, OrderRepository orderRepository) {
+        return args -> {
+            User ssar = userRepository.save(newUser("사르", "ADMIN", true));
+        };
     }
 }
+

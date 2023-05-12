@@ -1,0 +1,11 @@
+FROM mysql
+
+#ENV MYSQL_ROOT_PASSWORD=your_password
+#ENV MYSQL_ROOT_HOST=admin
+#ENV MYSQL_DATABASE=mydb
+#ENV MYSQL_PORT=3306
+
+
+#docker build --tag mysqldb -f Dockerfile_Mysql .
+#docker run -d --name mydb mysqldb
+#docker exec -it mydb mysqldb
