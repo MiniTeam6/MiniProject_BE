@@ -82,9 +82,8 @@ public class EventController {
     @GetMapping("/user/event/list")
     public ResponseEntity<?> list(@RequestParam(required = false) @Pattern(regexp = "ANNUAL|DUTY") String eventType,
                                   @RequestParam(required = false) @Pattern(regexp = "^\\d{4}-\\d{2}$") String yearMonth,
-                                  @AuthenticationPrincipal MyUserDetails myUserDetails,
-                                  @PageableDefault(size = 10) Pageable pageable) {
-        ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.연차당직리스트(eventType, yearMonth, myUserDetails.getUser(), pageable));
+                                  @AuthenticationPrincipal MyUserDetails myUserDetails) {
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(eventService.연차당직리스트(eventType, yearMonth, myUserDetails.getUser()));
         return ResponseEntity.ok(responseDTO);
     }
 }
