@@ -49,6 +49,10 @@ jobs:
         tags: |
           ljh6384/mydb:latest
           ljh6384/myapp:latest
+        run: |
+          cd workflows
+          docker-compose build
+          docker-compose push
 
 #    - name: SSH to EC2 instance
 #      uses: appleboy/ssh-action@v0.1.10
