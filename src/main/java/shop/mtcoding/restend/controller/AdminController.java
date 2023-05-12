@@ -104,6 +104,14 @@ public class AdminController {
 		ResponseDTO<?> responseDTO = new ResponseDTO<>(userListOutDTOS);
 		return ResponseEntity.ok(responseDTO);
 	}
+	@GetMapping("/role/list/sort")
+	public ResponseEntity<?> roleListSort(@RequestParam(name = "page", defaultValue = "0") int page,
+									  @RequestParam(name = "size", defaultValue = "8") int size) {
+		Page<UserResponse.UserApprovalListOutDTO> userListOutDTOS = userService.회원전체리스트가입일정렬(page,size);
+		ResponseDTO<?> responseDTO = new ResponseDTO<>(userListOutDTOS);
+		return ResponseEntity.ok(responseDTO);
+	}
+
 
 
 	/**
