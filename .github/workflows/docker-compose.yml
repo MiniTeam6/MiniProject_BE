@@ -2,9 +2,7 @@ version: '3'
 
 services:
   mysql:
-    build:
-      context: .
-      dockerfile: Dockerfile_Mysql
+    image: ljh6384/mydb:latest
     container_name: mydb
     restart: always
     environment:
@@ -15,9 +13,7 @@ services:
       - 3306:3306
 
   spring:
-    build:
-      context: .
-      dockerfile: Dockerfile_Spring2
+    image: ljh6384/myapp:latest
     container_name: myapp
     restart: always
     ports:

@@ -11,10 +11,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+<<<<<<< HEAD
     env:
       aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
       aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
       aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
+=======
+>>>>>>> af168b4 (도커허브 연동 재설정 테스트 필요)
 
     steps:
       - name: Checkout repository
@@ -35,6 +38,7 @@ jobs:
 =======
     - name: Run Tests
       run: ./gradlew test
+
     - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
@@ -46,9 +50,25 @@ jobs:
         context: .
         file: ./docker-compose.yml
         push: true
-        tags: ljh6384/miniproj:latest
+        tags: |
+          ljh6384/mydb:latest
+          ljh6384/myapp:latest
 
+<<<<<<< HEAD
 >>>>>>> a93641e (자동배포를 위한 설정 테스트1)
+=======
+#    - name: SSH to EC2 instance
+#      uses: appleboy/ssh-action@v0.2.2
+#      with:
+#        host: ${{ secrets.SSH_HOST }}
+#        username: ${{ secrets.SSH_USERNAME }}
+#        password: ${{ secrets.SSH_PASSWORD }}
+#        script: |
+#          cd /home/ubuntu/myapp
+#          sudo docker-compose down
+#          sudo docker-compose pull
+#          sudo docker-compose up -d
+>>>>>>> af168b4 (도커허브 연동 재설정 테스트 필요)
 
       - name: Build with Gradle
         run: ./gradlew build -x test
