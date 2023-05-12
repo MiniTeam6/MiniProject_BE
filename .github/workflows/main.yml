@@ -94,8 +94,7 @@ jobs:
           ljh6384/myapp:latest
         run: |
           cd workflows
-          docker-compose build
-          docker-compose push
+          docker buildx build --file ./docker-compose.yml --iidfile /tmp/docker-build-push-8tBikn/iidfile --tag ***/mydb:latest --tag ***/myapp:latest --metadata-file /tmp/docker-build-push-8tBikn/metadata-file --push .
 
 <<<<<<< HEAD
 <<<<<<< HEAD
