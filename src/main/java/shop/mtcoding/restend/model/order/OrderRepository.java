@@ -94,12 +94,12 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 	@Query("SELECT o FROM Order o WHERE o.event.id IN :eventIds AND o.orderState <> :orderState")
 	List<Order> findOrdersByEventIdsAndOrderStateNot(@Param("eventIds") List<Long> eventIds, @Param("orderState") OrderState orderState);
 	
-	Slice<Order> findByOrderStateAndEvent_EventTypeOrderByEvent_Annual_StartDateDesc(OrderState approved, EventType annual, Pageable pageable);
+	List<Order> findByOrderStateAndEvent_EventTypeOrderByEvent_Annual_StartDateDesc(OrderState approved, EventType annual);
 
-	Slice<Order> findByOrderStateAndEvent_EventTypeOrderByEvent_Duty_DateDesc(OrderState approved, EventType duty, Pageable pageable);
+	List<Order> findByOrderStateAndEvent_EventTypeOrderByEvent_Duty_DateDesc(OrderState approved, EventType duty);
 
-	Slice<Order> findByOrderStateAndEvent_EventTypeAndEvent_Annual_StartDateBetweenOrderByEvent_Annual_StartDateDesc(OrderState approved, EventType annual, LocalDate start, LocalDate end, Pageable pageable);
+	List<Order> findByOrderStateAndEvent_EventTypeAndEvent_Annual_StartDateBetweenOrderByEvent_Annual_StartDateDesc(OrderState approved, EventType annual, LocalDate start, LocalDate end);
 
-	Slice<Order> findByOrderStateAndEvent_EventTypeAndEvent_Duty_DateBetweenOrderByEvent_Duty_DateDesc(OrderState approved, EventType duty, LocalDate start, LocalDate end, Pageable pageable);
+	List<Order> findByOrderStateAndEvent_EventTypeAndEvent_Duty_DateBetweenOrderByEvent_Duty_DateDesc(OrderState approved, EventType duty, LocalDate start, LocalDate end);
 }
 
