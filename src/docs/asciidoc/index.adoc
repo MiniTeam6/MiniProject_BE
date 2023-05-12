@@ -12,6 +12,8 @@ endif::[]
 //오버뷰 추가
 include::overview.adoc[]
 
+include::code.adoc[]
+
 // snippet 파일을 연동
 include::Member-API.adoc[]
 
@@ -19,4 +21,4 @@ include::Member-API.adoc[]
 // snippet 파일을 연동
 include::Event-API.adoc[]
 
-include::code.adoc[]
+
