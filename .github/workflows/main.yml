@@ -86,8 +86,8 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: .
-        file: ./docker-compose.yml
+        context: ./workflows
+        file: ./workflows/docker-compose.yml
         push: true
         tags: |
           ljh6384/mydb:latest
