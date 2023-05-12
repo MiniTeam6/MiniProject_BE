@@ -43,7 +43,7 @@ jobs:
           ljh6384/myapp:latest
 
     - name: SSH to EC2 instance
-      uses: appleboy/ssh-action@v0.2.2
+      uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
