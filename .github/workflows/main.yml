@@ -7,6 +7,11 @@ on:
   pull_request:
     branches:
       - main
+env:
+  aws_access_key: ${{secrets.aws_access_key}}
+  aws_secret_key: ${{secrets.aws_secret_key}}
+  aws_s3_bucket: ${{secrets.aws_s3_bucket}}
+  aws_s3_bucket_url: ${{secrets.aws_s3_bucket_url}}
 
 jobs:
   build:
@@ -72,8 +77,8 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
-        username: ${{ secrets.DOCKER.USERNAME }}
-        password: ${{ secrets.DOCKER.PASSWORD }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
