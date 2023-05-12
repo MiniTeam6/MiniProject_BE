@@ -3,8 +3,8 @@ version: '3'
 services:
   mysql:
     build:
-      context: ./workflows
-      dockerfile: ./workflows/Dockerfile_Mysql
+      context: .
+      dockerfile: Dockerfile_Mysql
     image: ljh6384/mydb:latest
     container_name: mydb
     restart: always
@@ -17,8 +17,8 @@ services:
 
   spring:
     build:
-      context: ./workflows
-      dockerfile: ./workflows/Dockerfile_spring2
+      context: .
+      dockerfile: Dockerfile_spring2
     image: ljh6384/myapp:latest
     container_name: myapp
     restart: always
