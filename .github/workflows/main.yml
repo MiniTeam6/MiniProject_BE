@@ -89,7 +89,7 @@ jobs:
         context: .
         push: true
         tags: ${{ secrets.IMAGE_NAME }}
-        file: workflows/Dockerfile_spring2
+        file: ${{ github.workspace }}/workflows/Dockerfile_spring2
 
 
 <<<<<<< HEAD
