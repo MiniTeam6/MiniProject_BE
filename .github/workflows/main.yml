@@ -63,10 +63,15 @@ jobs:
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> a93641e (자동배포를 위한 설정 테스트1)
 =======
 #    - name: SSH to EC2 instance
 #      uses: appleboy/ssh-action@v0.2.2
+=======
+#    - name: SSH to EC2 instance
+#      uses: appleboy/ssh-action@v0.1.10
+>>>>>>> 4dc6ccf (ec2 배포는 제거하고 테스트)
 #      with:
 #        host: ${{ secrets.SSH_HOST }}
 #        username: ${{ secrets.SSH_USERNAME }}
@@ -76,6 +81,7 @@ jobs:
 #          sudo docker-compose down
 #          sudo docker-compose pull
 #          sudo docker-compose up -d
+<<<<<<< HEAD
 >>>>>>> af168b4 (도커허브 연동 재설정 테스트 필요)
 =======
     - name: SSH to EC2 instance
@@ -90,6 +96,8 @@ jobs:
           sudo docker-compose pull
           sudo docker-compose up -d
 >>>>>>> acf64c2 (깃허브액션, 도커허브 설정파일 재설정)
+=======
+>>>>>>> 4dc6ccf (ec2 배포는 제거하고 테스트)
 
       - name: Build with Gradle
         run: ./gradlew build -x test
