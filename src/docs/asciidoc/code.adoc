@@ -1,0 +1,14 @@
+:snippets: ./build/generated-snippets
+
+[[code]]
+== Code
+
+[[code-user-role]]
+=== UserRole
+include::{snippets}/rest-document/user-role/response-body.adoc[]
+
+=== EventType
+include::{snippets}/rest-document/event-type/response-body.adoc[]
+
+=== OrderState
+include::{snippets}/rest-document/order-state/response-body.adoc[]

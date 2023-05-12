@@ -22,6 +22,7 @@ import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.service.UserService;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestPart(name = "signupInDTO") @Valid UserRequest.SignupInDTO signupInDTO, Errors errors, @RequestPart(name = "image") MultipartFile image) {
+    public ResponseEntity<?> signup(@Valid UserRequest.SignupInDTO signupInDTO, Errors errors,MultipartFile image) throws IOException {
         UserResponse.SignupOutDTO signupOutDTO = userService.회원가입(signupInDTO, image);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(signupOutDTO);
         return ResponseEntity.ok(responseDTO);
@@ -108,7 +109,7 @@ public class UserController {
 
     // 내 정보 수정
     @PostMapping("/user/myinfo")
-    public ResponseEntity<?> updateMyInfo(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestPart @Valid UserRequest.ModifyInDTO modifyInDTO, @RequestPart(required=false) MultipartFile image, Errors errors) {
+    public ResponseEntity<?> updateMyInfo(@AuthenticationPrincipal MyUserDetails myUserDetails, @RequestPart @Valid UserRequest.ModifyInDTO modifyInDTO, @RequestPart(required=false) MultipartFile image, Errors errors) throws IOException {
         UserResponse.UserDetailOutDTO userDetailOutDTO = userService.회원정보수정(myUserDetails.getUser().getId(), modifyInDTO, image);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(userDetailOutDTO);
         return ResponseEntity.ok(responseDTO);
@@ -119,7 +120,8 @@ public class UserController {
     public ResponseEntity<?> getMyAnnual(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                          @PageableDefault(size = 8) Pageable pageable) {
         Slice<EventResponse.MyEventListOutDTO> eventListOutDTO = userService.내연차리스트(myUserDetails, pageable);
-        return ResponseEntity.ok(eventListOutDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(eventListOutDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
     // 내 당직 리스트
@@ -127,7 +129,8 @@ public class UserController {
     public ResponseEntity<?> getMyDuty(@AuthenticationPrincipal MyUserDetails myUserDetails,
                                        @PageableDefault(size = 8) Pageable pageable) {
         Slice<EventResponse.MyEventListOutDTO> eventListOutDTO = userService.내당직리스트(myUserDetails, pageable);
-        return ResponseEntity.ok(eventListOutDTO);
+        ResponseDTO<?> responseDTO = new ResponseDTO<>(eventListOutDTO);
+        return ResponseEntity.ok(responseDTO);
     }
 
 

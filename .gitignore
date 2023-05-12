@@ -3,3 +3,7 @@
 .gradle
 .idea
 build
+src/main/resources/application-KEYS.properties
+.gradle
+.idea
+build

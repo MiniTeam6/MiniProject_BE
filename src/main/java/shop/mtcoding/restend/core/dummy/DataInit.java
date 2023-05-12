@@ -32,14 +32,16 @@ public class DataInit extends DummyEntity{
 //        this.eventRepository = eventRepository;
 //    }
 
+
+
     @Profile("dev")
     @Bean
-    CommandLineRunner init(UserRepository userRepository, EventRepository eventRepository, AnnualRepository annualRepository, DutyRepository dutyRepository, OrderRepository orderRepository){
+    CommandLineRunner initDev(UserRepository userRepository, EventRepository eventRepository, AnnualRepository annualRepository, DutyRepository dutyRepository, OrderRepository orderRepository){
         return args -> {
             User ssar = userRepository.save(newUser("사르", "ADMIN",true));
             User cos = userRepository.save(newUser("코스", "USER",true));
             User love = userRepository.save(newUser("러브", "USER",false));
-//            userRepository.save(newMockUser(2L,"코스", "USER"));
+            // userRepository.save(newMockUser(2L,"코스", "USER"));
             Annual annual1 = annualRepository.save(newAnnual(LocalDate.of(2023, 06, 1), LocalDate.of(2023, 06, 30), 30L));
             Duty duty1 = dutyRepository.save(newDuty(LocalDate.of(2023, 06, 1)));
             Event event1 = eventRepository.save(newEvent(cos, "ANNUAL", annual1, null));
@@ -47,5 +49,16 @@ public class DataInit extends DummyEntity{
             orderRepository.save(newOrder(event1,OrderState.WAITING, cos));
             orderRepository.save(newOrder(event2,OrderState.WAITING, cos));
         };
+
+
+
+    }
+    @Profile("prod")
+    @Bean
+    CommandLineRunner initProd(UserRepository userRepository, EventRepository eventRepository, AnnualRepository annualRepository, DutyRepository dutyRepository, OrderRepository orderRepository) {
+        return args -> {
+            User ssar = userRepository.save(newUser("사르", "ADMIN", true));
+        };
     }
 }
+
