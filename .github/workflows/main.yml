@@ -34,6 +34,7 @@ jobs:
       uses: actions/setup-java@v2
       with:
 <<<<<<< HEAD
+<<<<<<< HEAD
         distribution: 'adopt@1.11'
 <<<<<<< HEAD
 >>>>>>> e1e7bc0 (자바 배포판 설정)
@@ -43,6 +44,10 @@ jobs:
 >>>>>>> cb8b91c (자바 배포판 openjdk로 변경)
         java-version: 11
 >>>>>>> 48aa313 (자바버전 포함)
+=======
+        java-version: '11'
+        distribution: 'temurin'
+>>>>>>> 3a7b287 (자바 배포판 다시 변경)
 
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
