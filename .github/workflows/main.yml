@@ -79,7 +79,7 @@ jobs:
 >>>>>>> af168b4 (도커허브 연동 재설정 테스트 필요)
 =======
     - name: SSH to EC2 instance
-      uses: appleboy/ssh-action@v0.2.2
+      uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USERNAME }}
