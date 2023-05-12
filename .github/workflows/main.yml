@@ -46,7 +46,7 @@ jobs:
         context: .
         push: true
         tags: ${{ secrets.IMAGE_NAME }}
-        file: ${{ github.workspace }}/workflows/Dockerfile_spring2
+        file: Dockerfile_spring2
 
 
 #    - name: SSH to EC2 instance
