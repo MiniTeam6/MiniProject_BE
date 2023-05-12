@@ -54,8 +54,13 @@ jobs:
       run: chmod +x ./gradlew
 >>>>>>> c766623 (실행권한 부여)
 
+<<<<<<< HEAD
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
+=======
+    - name: Build with Gradle
+      run: ./gradlew clean build --exclude-task test
+>>>>>>> 7591e05 (빌드시 테스트 제외)
 
 <<<<<<< HEAD
       - name: Create build/generated-snippets directory
