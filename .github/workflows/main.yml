@@ -92,6 +92,10 @@ jobs:
         tags: |
           ljh6384/mydb:latest
           ljh6384/myapp:latest
+        run: |
+          cd workflows
+          docker-compose build
+          docker-compose push
 
 <<<<<<< HEAD
 <<<<<<< HEAD
