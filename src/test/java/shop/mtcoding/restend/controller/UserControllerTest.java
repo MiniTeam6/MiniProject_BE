@@ -355,7 +355,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isUnauthorized());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
-<<<<<<< HEAD
+
 
 //    @DisplayName("회원상세보기 권한 실패")
 //    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
@@ -377,6 +377,5 @@ public class UserControllerTest extends MyRestDoc {
 //        resultActions.andExpect(status().isForbidden());
 //        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
 //    }
-=======
->>>>>>> 71fdab4 (main pull)
+
 }

@@ -25,8 +25,14 @@ jobs:
 >>>>>>> af168b4 (도커허브 연동 재설정 테스트 필요)
 
     steps:
+<<<<<<< HEAD
       - name: Checkout repository
         uses: actions/checkout@v2
+=======
+
+    - name: Checkout repository
+      uses: actions/checkout@v2
+>>>>>>> 83d3c92 (main pull)
 
 <<<<<<< HEAD
       - name: Set up Java
@@ -172,9 +178,18 @@ jobs:
 >>>>>>> 71fdab4 (main pull)
 =======
 
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
 
 >>>>>>> deb3379 (main pull)
 
+<<<<<<< HEAD
       - name: Build with Gradle
         run: ./gradlew build -x test
 
@@ -192,3 +207,10 @@ jobs:
       - name: Configure AWS S3 bucket
         run: |
           echo "bucket=${aws_s3_bucket}" >> ~/.aws/credentials
+=======
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build -x test
+>>>>>>> 83d3c92 (main pull)
