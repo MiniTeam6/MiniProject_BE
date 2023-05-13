@@ -100,19 +100,21 @@ class AdminControllerTest {
 
 		resultActions.andExpect(jsonPath("$.status").value(200));
 		resultActions.andExpect(jsonPath("$.msg").value("성공"));
-		resultActions.andExpect(jsonPath("$.data.content[0].id").value(2L));
-		resultActions.andExpect(jsonPath("$.data.content[0].username").value("코스"));
+
+		resultActions.andExpect(jsonPath("$.data.content[0].id").value(1L));
+		resultActions.andExpect(jsonPath("$.data.content[0].username").value("사르"));
 		//resultActions.andExpect(jsonPath("$.data.content[0].createAt").value(LocalDateTime.now()));
 		resultActions.andExpect(jsonPath("$.data.content[0].imageUri").value("https://test"));
-		resultActions.andExpect(jsonPath("$.data.content[0].email").value("cos@nate.com"));
-		resultActions.andExpect(jsonPath("$.data.content[0].role").value("USER"));
+		resultActions.andExpect(jsonPath("$.data.content[0].email").value("ssar@nate.com"));
+		resultActions.andExpect(jsonPath("$.data.content[0].role").value("ADMIN"));
 
-		resultActions.andExpect(jsonPath("$.data.content[1].id").value(1L));
-		resultActions.andExpect(jsonPath("$.data.content[1].username").value("사르"));
+		resultActions.andExpect(jsonPath("$.data.content[1].id").value(2L));
+		resultActions.andExpect(jsonPath("$.data.content[1].username").value("코스"));
 		//resultActions.andExpect(jsonPath("$.data.content[0].createAt").value(LocalDateTime.now()));
 		resultActions.andExpect(jsonPath("$.data.content[1].imageUri").value("https://test"));
-		resultActions.andExpect(jsonPath("$.data.content[1].email").value("ssar@nate.com"));
-		resultActions.andExpect(jsonPath("$.data.content[1].role").value("ADMIN"));
+		resultActions.andExpect(jsonPath("$.data.content[1].email").value("cos@nate.com"));
+		resultActions.andExpect(jsonPath("$.data.content[1].role").value("USER"));
+
 	}
 
 
