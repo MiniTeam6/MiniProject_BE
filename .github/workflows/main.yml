@@ -65,11 +65,18 @@ jobs:
 =======
     - name: Build with Gradle
 <<<<<<< HEAD
+<<<<<<< HEAD
       run: ./gradlew clean build --exclude-task test
 >>>>>>> 7591e05 (빌드시 테스트 제외)
 =======
       run: ./gradlew clean build
 >>>>>>> cfa121d (asciidoctor 때문에 다시 빌드에 서 테스트 하도록 변경)
+=======
+      run: ./gradlew clean build
+=======
+      run: ./gradlew build -x test
+>>>>>>> 4cc427f (빌드 다시)
+>>>>>>> 71fdab4 (main pull)
 
 <<<<<<< HEAD
       - name: Create build/generated-snippets directory
@@ -78,6 +85,7 @@ jobs:
     - name: Run Tests
       run: ./gradlew test
 
+<<<<<<< HEAD
     - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
@@ -119,6 +127,7 @@ jobs:
 #          sudo docker-compose pull
 #          sudo docker-compose up -d
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> af168b4 (도커허브 연동 재설정 테스트 필요)
 =======
     - name: SSH to EC2 instance
@@ -135,6 +144,11 @@ jobs:
 >>>>>>> acf64c2 (깃허브액션, 도커허브 설정파일 재설정)
 =======
 >>>>>>> 4dc6ccf (ec2 배포는 제거하고 테스트)
+=======
+=======
+
+>>>>>>> 4cc427f (빌드 다시)
+>>>>>>> 71fdab4 (main pull)
 
       - name: Build with Gradle
         run: ./gradlew build -x test

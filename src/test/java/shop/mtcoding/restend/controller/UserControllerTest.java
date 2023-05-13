@@ -1,3 +1,4 @@
+
 package shop.mtcoding.restend.controller;
 
 import java.io.File;
@@ -97,6 +98,7 @@ public class UserControllerTest extends MyRestDoc {
         headers.setContentType(MediaType.APPLICATION_JSON);
         return om.writeValueAsString(multiValueMap);
     }
+
     private DummyEntity dummy = new DummyEntity();
 
     @Autowired
@@ -111,7 +113,7 @@ public class UserControllerTest extends MyRestDoc {
     @BeforeEach
     public void setUp() {
         userRepository.save(dummy.newUser("사르", "ADMIN", true));
-        userRepository.save(dummy.newUser("코스", "USER",true));
+        userRepository.save(dummy.newUser("코스", "USER", true));
 
         em.clear();
     }
@@ -128,7 +130,7 @@ public class UserControllerTest extends MyRestDoc {
 
         String requestBody = om.writeValueAsString(signupInDTO);
         // when
-        System.out.println("테스트 : "+requestBody);
+        System.out.println("테스트 : " + requestBody);
         // when
 //        MockMultipartFile signUpInDTO = new MockMultipartFile("signupInDTO",
 //                null,
@@ -163,6 +165,7 @@ public class UserControllerTest extends MyRestDoc {
 
     /**
      * https://jjay2222.tistory.com/114
+     *
      * @throws Exception
      */
     @DisplayName("회원가입 실패")
@@ -175,7 +178,7 @@ public class UserControllerTest extends MyRestDoc {
         signupInDTO.setPhone("010-0000-0000");
         signupInDTO.setEmail("ssar@nate.com");
         String requestBody = om.writeValueAsString(signupInDTO);
-        System.out.println("테스트 : "+requestBody);
+        System.out.println("테스트 : " + requestBody);
         // when
 //        MockMultipartFile signUpInDTO = new MockMultipartFile("signupInDTO",
 //                null,
@@ -225,7 +228,7 @@ public class UserControllerTest extends MyRestDoc {
         signupInDTO.setEmail("ssar@nate.com");
         signupInDTO.setPhone("010-0000-0000");
         String requestBody = om.writeValueAsString(signupInDTO);
-        System.out.println("테스트 : "+requestBody);
+        System.out.println("테스트 : " + requestBody);
         // when
 //        MockMultipartFile signUpInDTO = new MockMultipartFile("signupInDTO",
 //                null,
@@ -320,7 +323,7 @@ public class UserControllerTest extends MyRestDoc {
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/api/user/users/"+id));
+                .perform(get("/api/user/users/" + id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
@@ -341,7 +344,7 @@ public class UserControllerTest extends MyRestDoc {
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/api/user/"+id));
+                .perform(get("/api/user/" + id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
@@ -352,6 +355,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isUnauthorized());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
+<<<<<<< HEAD
 
 //    @DisplayName("회원상세보기 권한 실패")
 //    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
@@ -373,4 +377,6 @@ public class UserControllerTest extends MyRestDoc {
 //        resultActions.andExpect(status().isForbidden());
 //        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
 //    }
+=======
+>>>>>>> 71fdab4 (main pull)
 }
