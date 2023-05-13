@@ -52,11 +52,14 @@ jobs:
 =======
         java-version: '11'
 
+
         distribution: 'temurin'
 <<<<<<< HEAD
 >>>>>>> 3a7b287 (자바 배포판 다시 변경)
 =======
     - name: Grant execute permission to gradlew
+    - name: Change wrapper permissions
+
       run: chmod +x ./gradlew
 >>>>>>> c766623 (실행권한 부여)
 
