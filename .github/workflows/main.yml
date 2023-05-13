@@ -68,6 +68,7 @@ jobs:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       run: ./gradlew clean build --exclude-task test
 >>>>>>> 7591e05 (빌드시 테스트 제외)
 =======
@@ -81,6 +82,8 @@ jobs:
 >>>>>>> 71fdab4 (main pull)
 =======
 
+=======
+>>>>>>> b24da06 (main pull)
       run: ./gradlew clean build
 
 #      run: ./gradlew build -x test
@@ -88,9 +91,15 @@ jobs:
 >>>>>>> deb3379 (main pull)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
       - name: Create build/generated-snippets directory
         run: mkdir -p build/generated-snippets
 =======
+=======
+      run: ./gradlew build
+
+
+>>>>>>> b24da06 (main pull)
     - name: Run Tests
       run: ./gradlew test
 
