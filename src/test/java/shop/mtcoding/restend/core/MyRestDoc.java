@@ -29,6 +29,7 @@ public class MyRestDoc {
                 Preprocessors.preprocessResponse(Preprocessors.prettyPrint()));
 
 
+
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .addFilter(new CharacterEncodingFilter(StandardCharsets.UTF_8.name(), true))
                 .apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation))

@@ -30,10 +30,10 @@ operation::{event}/event_cancel_duty_test[snippets='http-request,http-response,c
 // operation::{user}/[snippets='http-request,http-response,curl-request']
 
 === 내 연차 리스트 가져오기
-// operation::{event}/all_annual_test[snippets='http-request,http-response']
+operation::{event}/my-annual-list_test[snippets='http-request,http-response']
 
 === 내 당직 리스트 가져오기
-// operation::{event}/all_duty_test[snippets='http-request,http-response']
+operation::{event}/my-duty-list_test[snippets='http-request,http-response']
 
 
 
