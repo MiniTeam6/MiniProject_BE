@@ -69,6 +69,7 @@ public class UserResponse {
         private Boolean status;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
+        private Long annualCount;
 
         public UserDetailOutDTO(User user) {
             this.id = user.getId();
@@ -81,6 +82,7 @@ public class UserResponse {
             this.status = user.getStatus();
             this.createdAt = user.getCreatedAt();
             this.updatedAt = user.getUpdatedAt();
+            this.annualCount=user.getAnnualCount();
         }
     }
 

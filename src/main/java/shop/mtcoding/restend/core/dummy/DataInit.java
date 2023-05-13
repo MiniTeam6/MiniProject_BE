@@ -42,12 +42,18 @@ public class DataInit extends DummyEntity{
             User cos = userRepository.save(newUser("코스", "USER",true));
             User love = userRepository.save(newUser("러브", "USER",false));
             // userRepository.save(newMockUser(2L,"코스", "USER"));
-            Annual annual1 = annualRepository.save(newAnnual(LocalDate.of(2023, 06, 1), LocalDate.of(2023, 06, 30), 30L));
+            Annual annual1 = annualRepository.save(newAnnual(LocalDate.of(2023, 06, 1), LocalDate.of(2023, 06, 5), 5L));
             Duty duty1 = dutyRepository.save(newDuty(LocalDate.of(2023, 06, 1)));
+            Annual annual2 = annualRepository.save(newAnnual(LocalDate.of(2023, 06, 7), LocalDate.of(2023, 06, 9), 3L));
+            Duty duty2 = dutyRepository.save(newDuty(LocalDate.of(2023, 06, 5)));
             Event event1 = eventRepository.save(newEvent(cos, "ANNUAL", annual1, null));
             Event event2 = eventRepository.save(newEvent(cos, "DUTY", null, duty1));
-            orderRepository.save(newOrder(event1,OrderState.WAITING, cos));
-            orderRepository.save(newOrder(event2,OrderState.WAITING, cos));
+            Event event3 = eventRepository.save(newEvent(cos, "ANNUAL", annual2, null));
+            Event event4 = eventRepository.save(newEvent(cos, "DUTY", null, duty2));
+            orderRepository.save(newOrder(event1, OrderState.WAITING, null));
+            orderRepository.save(newOrder(event2, OrderState.WAITING, null));
+            orderRepository.save(newOrder(event3, OrderState.APPROVED, ssar));
+            orderRepository.save(newOrder(event4, OrderState.APPROVED, ssar));
         };
 
 
