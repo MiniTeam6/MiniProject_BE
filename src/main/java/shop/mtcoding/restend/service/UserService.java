@@ -177,7 +177,13 @@ public class UserService {
 
     @Transactional
     public Page<UserResponse.UserApprovalListOutDTO> 회원전체리스트(int page, int size){
-        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "username"));
+        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.ASC, "username"));
+        Page<User> users = userRepository.findUsersByStatus(true,pageable);
+        return users.map(request-> new UserResponse.UserApprovalListOutDTO(request));
+    }
+    @Transactional
+    public Page<UserResponse.UserApprovalListOutDTO> 회원전체리스트가입일정렬(int page, int size){
+        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "createdAt"));
         Page<User> users = userRepository.findUsersByStatus(true,pageable);
         return users.map(request-> new UserResponse.UserApprovalListOutDTO(request));
     }

@@ -33,6 +33,7 @@ public class Order {
 
 	@Column(nullable = false)
 	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
 
 
 
@@ -48,6 +49,11 @@ public class Order {
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = LocalDateTime.now();
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		this.updatedAt = LocalDateTime.now();
 	}
 
 	@Builder
