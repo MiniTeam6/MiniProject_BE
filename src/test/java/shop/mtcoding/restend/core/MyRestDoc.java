@@ -36,6 +36,8 @@ public class MyRestDoc {
                        RestDocumentationContextProvider restDocumentation) {
         this.documentImage = MockMvcRestDocumentation.document("{class-name}/{method-name}",
                 requestParts(
+                        partWithName("signupInDTO")
+                                .description("The signupInDTO to upload"),
                         partWithName("image")
                                 .description("The uploaded image file")
                                 .attributes(key("contentTypes").value(MediaType.IMAGE_JPEG_VALUE))

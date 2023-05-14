@@ -122,15 +122,27 @@ public class UserControllerTest extends MyRestDoc {
     @Test
     public void join_test() throws Exception {
         // given
-        SignupInDTO signupInDTO = new SignupInDTO();
-        signupInDTO.setUsername("러브");
-        signupInDTO.setPassword("aaaa1234@@");
-        signupInDTO.setEmail("love@nate.com");
-        signupInDTO.setPhone("010-0000-0000");
+        SignupInDTO DTO = new SignupInDTO();
+        DTO.setUsername("러브");
+        DTO.setPassword("aaaa1234@@");
+        DTO.setEmail("love@nate.com");
+        DTO.setPhone("010-0000-0000");
 
-        String requestBody = om.writeValueAsString(signupInDTO);
+        MockMultipartFile signupInDTO = new MockMultipartFile("signupInDTO",
+                null,
+                "application/json",
+                om.writeValueAsBytes(DTO)
+        );
+
+        MockMultipartFile image = new MockMultipartFile("image",
+                "image.jpg",
+                MediaType.IMAGE_JPEG_VALUE,
+                new FileInputStream("src/main/resources/image.jpg"));
+
+
+        //tring requestBody = om.writeValueAsString(signupInDTO);
         // when
-        System.out.println("테스트 : " + requestBody);
+        //System.out.println("테스트 : " + requestBody);
         // when
 //        MockMultipartFile signUpInDTO = new MockMultipartFile("signupInDTO",
 //                null,
@@ -138,18 +150,10 @@ public class UserControllerTest extends MyRestDoc {
 //                om.writeValueAsBytes(signupInDTO)
 //        );
 
-        MockMultipartFile image = new MockMultipartFile("image",
-                "image.jpg",
-                MediaType.IMAGE_JPEG_VALUE,
-                new FileInputStream(new File("src/main/resources/image.jpg")));
 
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.multipart("/api/signup")
+                .file(signupInDTO)
                 .file(image)
-                .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
-                .param("username", signupInDTO.getUsername())
-                .param("password", signupInDTO.getPassword())
-                .param("email", signupInDTO.getEmail())
-                .param("phone", signupInDTO.getPhone())
         );
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
@@ -172,13 +176,13 @@ public class UserControllerTest extends MyRestDoc {
     @Test
     public void join_fail_bad_request_test() throws Exception {
         // given
-        SignupInDTO signupInDTO = new SignupInDTO();
-        signupInDTO.setUsername("사르");
-        signupInDTO.setPassword("aaaa1234@@");
-        signupInDTO.setPhone("010-0000-0000");
-        signupInDTO.setEmail("ssar@nate.com");
-        String requestBody = om.writeValueAsString(signupInDTO);
-        System.out.println("테스트 : " + requestBody);
+        SignupInDTO DTO = new SignupInDTO();
+        DTO.setUsername("사르");
+        DTO.setPassword("aaaa1234@@");
+        DTO.setPhone("010-0000-0000");
+        DTO.setEmail("ssar@nate.com");
+//        String requestBody = om.writeValueAsString(DTO);
+//        System.out.println("테스트 : " + requestBody);
         // when
 //        MockMultipartFile signUpInDTO = new MockMultipartFile("signupInDTO",
 //                null,
@@ -189,6 +193,12 @@ public class UserControllerTest extends MyRestDoc {
 //        File emptyFile = new File("src/main/resources/image.jpg");
 //        FileInputStream inputStream= new FileInputStream(getClass().getResource("/img/raspberry.png").getFile());
 
+        MockMultipartFile signupInDTO = new MockMultipartFile("signupInDTO",
+                null,
+                "application/json",
+                om.writeValueAsBytes(DTO)
+        );
+
         MockMultipartFile image = new MockMultipartFile("image",
                 "image.jpg",
                 MediaType.IMAGE_JPEG_VALUE,
@@ -198,11 +208,7 @@ public class UserControllerTest extends MyRestDoc {
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.multipart("/api/signup")
                         .file(image)
-                        .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
-                        .param("username", signupInDTO.getUsername())
-                        .param("password", signupInDTO.getPassword())
-                        .param("email", signupInDTO.getEmail())
-                        .param("phone", signupInDTO.getPhone())
+                        .file(signupInDTO)
         );
 
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
@@ -222,19 +228,26 @@ public class UserControllerTest extends MyRestDoc {
     @Test
     public void join_fail_valid_test() throws Exception {
         // given
-        SignupInDTO signupInDTO = new SignupInDTO();
-        signupInDTO.setUsername("사");
-        signupInDTO.setPassword("aaaa1234@@");
-        signupInDTO.setEmail("ssar@nate.com");
-        signupInDTO.setPhone("010-0000-0000");
-        String requestBody = om.writeValueAsString(signupInDTO);
-        System.out.println("테스트 : " + requestBody);
+        SignupInDTO DTO = new SignupInDTO();
+        DTO.setUsername("사");
+        DTO.setPassword("aaaa1234@@");
+        DTO.setEmail("ssar@nate.com");
+        DTO.setPhone("010-0000-0000");
+//        String requestBody = om.writeValueAsString(signupInDTO);
+//        System.out.println("테스트 : " + requestBody);
         // when
 //        MockMultipartFile signUpInDTO = new MockMultipartFile("signupInDTO",
 //                null,
 //                "application/json",
 //                om.writeValueAsBytes(signupInDTO)
 //        );
+
+        MockMultipartFile signupInDTO = new MockMultipartFile("signupInDTO",
+                null,
+                "application/json",
+                om.writeValueAsBytes(DTO)
+        );
+
         MockMultipartFile image = new MockMultipartFile("image",
                 "image.jpg",
                 MediaType.IMAGE_JPEG_VALUE,
@@ -244,11 +257,7 @@ public class UserControllerTest extends MyRestDoc {
         ResultActions resultActions = mockMvc.perform(
                 MockMvcRequestBuilders.multipart("/api/signup")
                         .file(image)
-                        .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
-                        .param("username", signupInDTO.getUsername())
-                        .param("password", signupInDTO.getPassword())
-                        .param("email", signupInDTO.getEmail())
-                        .param("phone", signupInDTO.getPhone())
+                        .file(signupInDTO)
         );
 
 //        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
