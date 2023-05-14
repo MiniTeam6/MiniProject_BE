@@ -16,55 +16,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 13556b6 (git Action)
-    env:
-      aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-      aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-      aws_s3_bucket: ${{ secrets.AWS_S3_BUCKET }}
-<<<<<<< HEAD
-=======
->>>>>>> af168b4 (도커허브 연동 재설정 테스트 필요)
-=======
->>>>>>> 13556b6 (git Action)
-
-    steps:
-<<<<<<< HEAD
-      - name: Checkout repository
-        uses: actions/checkout@v2
-=======
-
-    - name: Checkout repository
-      uses: actions/checkout@v2
->>>>>>> 83d3c92 (main pull)
-
-<<<<<<< HEAD
-      - name: Set up Java
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
-=======
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-<<<<<<< HEAD
-<<<<<<< HEAD
-        distribution: 'adopt@1.11'
-<<<<<<< HEAD
->>>>>>> e1e7bc0 (자바 배포판 설정)
-=======
-=======
-        distribution: 'openjdk@11'
->>>>>>> cb8b91c (자바 배포판 openjdk로 변경)
-        java-version: 11
->>>>>>> 48aa313 (자바버전 포함)
-=======
-        java-version: '11'
-=======
 
     steps:
       - name: Checkout repository
@@ -80,85 +31,10 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew clean build
->>>>>>> 2d76dea (DTO 컬럼 추가)
 
       - name: Run Tests
         run: ./gradlew test
 
-<<<<<<< HEAD
-        distribution: 'temurin'
-<<<<<<< HEAD
->>>>>>> 3a7b287 (자바 배포판 다시 변경)
-=======
-    - name: Grant execute permission to gradlew
-    - name: Change wrapper permissions
-
-      run: chmod +x ./gradlew
->>>>>>> c766623 (실행권한 부여)
-
-<<<<<<< HEAD
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
-=======
-    - name: Build with Gradle
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-      run: ./gradlew clean build --exclude-task test
->>>>>>> 7591e05 (빌드시 테스트 제외)
-=======
-      run: ./gradlew clean build
->>>>>>> cfa121d (asciidoctor 때문에 다시 빌드에 서 테스트 하도록 변경)
-=======
-      run: ./gradlew clean build
-=======
-      run: ./gradlew build -x test
->>>>>>> 4cc427f (빌드 다시)
->>>>>>> 71fdab4 (main pull)
-=======
-
-=======
->>>>>>> b24da06 (main pull)
-      run: ./gradlew clean build
-
-#      run: ./gradlew build -x test
-
->>>>>>> deb3379 (main pull)
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-      - name: Create build/generated-snippets directory
-        run: mkdir -p build/generated-snippets
-=======
-=======
-      run: ./gradlew build
-
-
->>>>>>> b24da06 (main pull)
-    - name: Run Tests
-      run: ./gradlew test
-
-    - name: Login to Docker Hub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
-
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        push: true
-        tags: ${{ secrets.IMAGE_NAME }}
-        file: Dockerfile_spring2
-        registry: docker.io
-        auth: |
-          {
-            "username": ${{ secrets.DOCKER_USERNAME }},
-            "password": ${{ secrets.DOCKER_PASSWORD }}
-          }
-=======
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         with:
@@ -178,106 +54,25 @@ jobs:
               "username": ${{ secrets.DOCKER_USERNAME }},
               "password": ${{ secrets.DOCKER_PASSWORD }}
             }
->>>>>>> 2d76dea (DTO 컬럼 추가)
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> a93641e (자동배포를 위한 설정 테스트1)
-=======
-#    - name: SSH to EC2 instance
-#      uses: appleboy/ssh-action@v0.2.2
-=======
-#    - name: SSH to EC2 instance
-#      uses: appleboy/ssh-action@v0.1.10
->>>>>>> 4dc6ccf (ec2 배포는 제거하고 테스트)
-#      with:
-#        host: ${{ secrets.SSH_HOST }}
-#        username: ${{ secrets.SSH_USERNAME }}
-#        password: ${{ secrets.SSH_PASSWORD }}
-#        script: |
-#          cd /home/ubuntu/myapp
-#          sudo docker-compose down
-#          sudo docker-compose pull
-#          sudo docker-compose up -d
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> af168b4 (도커허브 연동 재설정 테스트 필요)
-=======
-    - name: SSH to EC2 instance
-      uses: appleboy/ssh-action@v0.1.10
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USERNAME }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        script: |
-          cd /home/ubuntu/myapp
-          sudo docker-compose down
-          sudo docker-compose pull
-          sudo docker-compose up -d
->>>>>>> acf64c2 (깃허브액션, 도커허브 설정파일 재설정)
-=======
->>>>>>> 4dc6ccf (ec2 배포는 제거하고 테스트)
-=======
-=======
-
->>>>>>> 4cc427f (빌드 다시)
->>>>>>> 71fdab4 (main pull)
-=======
-
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Java
-        uses: actions/setup-java@v2
+      - name: Install Docker and Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get remove moby-containerd moby-runc
+          sudo apt-get install -y containerd runc
+          sudo apt-get install -y docker.io
+          sudo systemctl start docker
+          sudo systemctl enable docker
+          sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+      - name: SSH to EC2 instance
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          java-version: '11'
-          distribution: 'adopt'
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/myapp
+            docker-compose ps -q | xargs -r docker stop
+            docker-compose pull
+            docker-compose up -d
 
->>>>>>> deb3379 (main pull)
-
-<<<<<<< HEAD
-      - name: Build with Gradle
-        run: ./gradlew build -x test
-
-      - name: Run Tests
-        run: ./gradlew test
-
-      - name: Configure AWS credentials and region
-        run: |
-          mkdir -p ~/.aws
-          echo "accessKey=${aws_access_key}" >> ~/.aws/credentials
-          echo "secretKey=${aws_secret_key}" >> ~/.aws/credentials
-          echo "region=ap-northeast-2" >> ~/.aws/config
-      
-
-      - name: Configure AWS S3 bucket
-        run: |
-          echo "bucket=${aws_s3_bucket}" >> ~/.aws/credentials
-=======
-      - name: Change wrapper permissions
-        run: chmod +x ./gradlew
-
-      - name: Build with Gradle
-        run: ./gradlew build -x test
-<<<<<<< HEAD
->>>>>>> 83d3c92 (main pull)
-=======
-
-      - name: Run Tests
-        run: ./gradlew test
-
-      - name: Configure AWS credentials and region
-        run: |
-          echo "accessKey=${aws_access_key}" >> ~/.aws/credentials
-          echo "secretKey=${aws_secret_key}" >> ~/.aws/credentials
-          echo "region=ap-northeast-2" >> ~/.aws/config
-
-      - name: Configure AWS S3 bucket
-        run: |
-          echo "bucket=${aws_s3_bucket}" >> ~/.aws/credentials
->>>>>>> 13556b6 (git Action)
-=======
->>>>>>> 2d76dea (DTO 컬럼 추가)
