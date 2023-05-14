@@ -12,28 +12,28 @@ RUN apk update && \
 COPY /build/libs/restend-0.0.1-SNAPSHOT.jar my-app.jar
 
 # 스프링 프로파일을 설정합니다.
-<<<<<<< HEAD
-<<<<<<< HEAD
-ENV aws_access_key ${aws_access_key}
-ENV aws_secret_key ${aws_secret_key}
-ENV aws_s3_bucket ${aws_s3_bucket}
-ENV aws_s3_bucket_url ${aws_s3_bucket_url}
-=======
-
-<<<<<<< HEAD
-ENV aws_access_key ${{secrets.aws_access_key}}
-ENV aws_secret_key ${{secrets.aws_secret_key}}
-ENV aws_s3_bucket ${{secrets.aws_s3_bucket}}
-ENV aws_s3_bucket_url ${{secrets.aws_s3_bucket_url}}
->>>>>>> b140fe6 (시크릿키 재설정)
-=======
+#<<<<<<< HEAD
+#<<<<<<< HEAD
+#ENV aws_access_key ${aws_access_key}
+#ENV aws_secret_key ${aws_secret_key}
+#ENV aws_s3_bucket ${aws_s3_bucket}
+#ENV aws_s3_bucket_url ${aws_s3_bucket_url}
+#=======
+#
+#<<<<<<< HEAD
 #ENV aws_access_key ${{secrets.aws_access_key}}
 #ENV aws_secret_key ${{secrets.aws_secret_key}}
 #ENV aws_s3_bucket ${{secrets.aws_s3_bucket}}
 #ENV aws_s3_bucket_url ${{secrets.aws_s3_bucket_url}}
->>>>>>> 1b7fd37 (도커파일에 환경변수 제거)
-
-=======
->>>>>>> 8c446b8 (Update Dockerfile_spring2)
+#>>>>>>> b140fe6 (시크릿키 재설정)
+#=======
+##ENV aws_access_key ${{secrets.aws_access_key}}
+##ENV aws_secret_key ${{secrets.aws_secret_key}}
+##ENV aws_s3_bucket ${{secrets.aws_s3_bucket}}
+##ENV aws_s3_bucket_url ${{secrets.aws_s3_bucket_url}}
+#>>>>>>> 1b7fd37 (도커파일에 환경변수 제거)
+#
+#=======
+#>>>>>>> 8c446b8 (Update Dockerfile_spring2)
 # 애플리케이션을 실행합니다.
 CMD ["java", "-jar", "my-app.jar"]
