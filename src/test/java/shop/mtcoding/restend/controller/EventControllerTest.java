@@ -756,10 +756,10 @@ public class EventControllerTest extends MyRestDoc {
 //        테스트 : {"status":200,"msg":"성공","data":{"content":[{"eventId":3,"userId":2,"userName":"코스","userEmail":"cos@nate.com","userImageUri":"https://test","userThumbnailUri":"https://test","eventType":"ANNUAL","id":null,"startDate":"2023-06-07","endDate":"2023-06-09","createdAt":"2023-05-11T21:14:23.501564","updatedAt":null,"orderState":null}],"pageable":{"sort":{"empty":true,"sorted":false,"unsorted":true},"offset":0,"pageNumber":0,"pageSize":10,"paged":true,"unpaged":false},"sort":{"empty":true,"sorted":false,"unsorted":true},"size":10,"number":0,"first":true,"last":true,"numberOfElements":1,"empty":false}}
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
-        resultActions.andExpect(jsonPath("$.data.content[0].eventId").value(3L));
-        resultActions.andExpect(jsonPath("$.data.content[0].eventType").value("ANNUAL"));
-        resultActions.andExpect(jsonPath("$.data.content[0].startDate").value("2023-06-07"));
-        resultActions.andExpect(jsonPath("$.data.content[0].endDate").value("2023-06-09"));
+        resultActions.andExpect(jsonPath("$.data[0].eventId").value(3L));
+        resultActions.andExpect(jsonPath("$.data[0].eventType").value("ANNUAL"));
+        resultActions.andExpect(jsonPath("$.data[0].startDate").value("2023-06-07"));
+        resultActions.andExpect(jsonPath("$.data[0].endDate").value("2023-06-09"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
@@ -780,9 +780,9 @@ public class EventControllerTest extends MyRestDoc {
 //        테스트 : {"status":200,"msg":"성공","data":{"content":[{"eventId":4,"userId":2,"userName":"코스","userEmail":"cos@nate.com","userImageUri":"https://test","userThumbnailUri":"https://test","eventType":"DUTY","id":null,"startDate":"2023-06-05","endDate":"2023-06-05","createdAt":"2023-05-11T21:14:24.153859","updatedAt":null,"orderState":null}],"pageable":{"sort":{"empty":true,"sorted":false,"unsorted":true},"offset":0,"pageNumber":0,"pageSize":10,"paged":true,"unpaged":false},"sort":{"empty":true,"sorted":false,"unsorted":true},"size":10,"number":0,"first":true,"last":true,"numberOfElements":1,"empty":false}}
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
-        resultActions.andExpect(jsonPath("$.data.content[0].eventId").value(4L));
-        resultActions.andExpect(jsonPath("$.data.content[0].eventType").value("DUTY"));
-        resultActions.andExpect(jsonPath("$.data.content[0].startDate").value("2023-06-05"));
+        resultActions.andExpect(jsonPath("$.data.[0].eventId").value(4L));
+        resultActions.andExpect(jsonPath("$.data.[0].eventType").value("DUTY"));
+        resultActions.andExpect(jsonPath("$.data.[0].startDate").value("2023-06-05"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
