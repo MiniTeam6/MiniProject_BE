@@ -1,9 +1,12 @@
 spring:
   profiles:
     active:
-<<<<<<< HEAD
       - prod
+sentry:
+  dsn: https://1a0da37591cc45e79c99516ec086db2a@o4505186712223744.ingest.sentry.io/4505188161290240
+  # Set traces-sample-rate to 1.0 to capture 100% of transactions for performance monitoring.
+  # We recommend adjusting this value in production.
+  release: 23.05.16
+  environment: main
+  traces-sample-rate: 0.1
 
-=======
-      - dev
->>>>>>> cc97503 (sentry 적용)
