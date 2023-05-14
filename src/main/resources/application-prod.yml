@@ -9,7 +9,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:${MYSQL_PORT}/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${MYSQL_USERNAME}
+    username: ${MYSQL_USER}
     password: ${MYSQL_ROOT_PASSWORD}
   jpa:
     open-in-view: false
