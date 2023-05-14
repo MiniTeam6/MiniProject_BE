@@ -36,7 +36,11 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/signup")
+<<<<<<< HEAD
     public ResponseEntity<?> signup(@RequestPart @Valid UserRequest.SignupInDTO signupInDTO, Errors errors, MultipartFile image) throws IOException {
+=======
+    public ResponseEntity<?> signup(@RequestPart @Valid UserRequest.SignupInDTO signupInDTO, Errors errors, @RequestPart MultipartFile image) throws IOException {
+>>>>>>> 6dcc453 (충돌 해결3)
         UserResponse.SignupOutDTO signupOutDTO = userService.회원가입(signupInDTO, image);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(signupOutDTO);
         return ResponseEntity.ok(responseDTO);
