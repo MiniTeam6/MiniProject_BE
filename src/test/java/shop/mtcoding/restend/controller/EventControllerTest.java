@@ -726,13 +726,13 @@ public class EventControllerTest extends MyRestDoc {
 // ,{"eventId":4,"userId":2,"userName":"코스","userEmail":"cos@nate.com","userImageUri":"https://test","userThumbnailUri":"https://test","eventType":"DUTY","id":null,"startDate":"2023-06-05","endDate":"2023-06-05","createdAt":"2023-05-11T17:20:20.27847","updatedAt":null,"orderState":null}]
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
-        resultActions.andExpect(jsonPath("$.data.content[0].eventId").value(3L));
-        resultActions.andExpect(jsonPath("$.data.content[0].eventType").value("ANNUAL"));
-        resultActions.andExpect(jsonPath("$.data.content[0].startDate").value("2023-06-07"));
-        resultActions.andExpect(jsonPath("$.data.content[0].endDate").value("2023-06-09"));
-        resultActions.andExpect(jsonPath("$.data.content[1].eventId").value(4L));
-        resultActions.andExpect(jsonPath("$.data.content[1].eventType").value("DUTY"));
-        resultActions.andExpect(jsonPath("$.data.content[1].startDate").value("2023-06-05"));
+        resultActions.andExpect(jsonPath("$.data[0].eventId").value(3L));
+        resultActions.andExpect(jsonPath("$.data[0].eventType").value("ANNUAL"));
+        resultActions.andExpect(jsonPath("$.data[0].startDate").value("2023-06-07"));
+        resultActions.andExpect(jsonPath("$.data[0].endDate").value("2023-06-09"));
+        resultActions.andExpect(jsonPath("$.data[1].eventId").value(4L));
+        resultActions.andExpect(jsonPath("$.data[1].eventType").value("DUTY"));
+        resultActions.andExpect(jsonPath("$.data[1].startDate").value("2023-06-05"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
 
