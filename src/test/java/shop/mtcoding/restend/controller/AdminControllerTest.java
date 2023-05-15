@@ -143,18 +143,18 @@ class AdminControllerTest {
 	@WithUserDetails(value = "ssar@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
 	public void email_search_test() throws Exception {
 		ResultActions resultActions = mvc
-				.perform(get("/api/admin/search/?type=email&keyword=co"));
+				.perform(get("/api/admin/search/?type=email&keyword=ssar"));
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
 
 		resultActions.andExpect(jsonPath("$.status").value(200));
 		resultActions.andExpect(jsonPath("$.msg").value("성공"));
-		resultActions.andExpect(jsonPath("$.data.content[0].id").value(2L));
-		resultActions.andExpect(jsonPath("$.data.content[0].username").value("코스"));
+		resultActions.andExpect(jsonPath("$.data.content[0].id").value(1L));
+		resultActions.andExpect(jsonPath("$.data.content[0].username").value("사르"));
 		//resultActions.andExpect(jsonPath("$.data.content[0].createAt").value(LocalDateTime.now()));
 		resultActions.andExpect(jsonPath("$.data.content[0].imageUri").value("https://test"));
-		resultActions.andExpect(jsonPath("$.data.content[0].email").value("cos@nate.com"));
-		resultActions.andExpect(jsonPath("$.data.content[0].role").value("USER"));
+		resultActions.andExpect(jsonPath("$.data.content[0].email").value("ssar@nate.com"));
+		resultActions.andExpect(jsonPath("$.data.content[0].role").value("ADMIN"));
 
 	}
 	@Test
