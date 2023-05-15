@@ -17,7 +17,7 @@ public class MyFileUtil {
             Path filePath = Paths.get(uploadFolder + uuidFilename);
             Files.write(filePath, file.getBytes());
         } catch (Exception e) {
-            throw new Exception500("파일 업로드 실패 : "+e.getMessage());
+            throw new Exception500("파일 업로드 실패 : "+e.getMessage(),11);
         }
         return uuidFilename;
     }

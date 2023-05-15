@@ -9,6 +9,8 @@ import org.springframework.data.domain.SliceImpl;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.restend.core.exception.Exception400;
+import shop.mtcoding.restend.core.exception.Exception403;
 import shop.mtcoding.restend.core.exception.Exception404;
 import shop.mtcoding.restend.core.exception.Exception500;
 import shop.mtcoding.restend.dto.event.EventRequest;
@@ -55,7 +57,7 @@ public class EventService {
     public void insertEvent(Long userid, EventRequest.EventAddDto eventAddDto) {
         Optional<User> user = userRepository.findById(userid);
         if (user.isEmpty()) {
-            throw new Exception404("해당 User를 찾을 수 없습니다. ");
+            throw new Exception400("해당유저 없음 ","해당 User를 찾을 수 없습니다. ",4);
         }
         if (EventType.ANNUAL == EventType.valueOf(eventAddDto.getEventType())) {
             Annual annualToAdd = eventAddDto.annualToEntity();
@@ -97,7 +99,7 @@ public class EventService {
                             (newStartDate.isBefore(existingStartDate) && newEndDate.isAfter(existingEndDate));
                 });
         if (isOverlap) {
-            throw new Exception404("연차를 요청한 기간에 이미 연차신청 내역이 존재합니다. ");
+            throw new Exception400("연차 중복신청","연차를 요청한 기간에 이미 연차신청 내역이 존재합니다. ",8);
         }
     }
     @SentrySpan
@@ -107,7 +109,7 @@ public class EventService {
         boolean isOverlap = dutyEvents.stream()
                 .anyMatch(dutyEvent -> dutyEvent.getDuty().getDate().equals(dutyToAdd.getDate()));
         if (isOverlap) {
-            throw new Exception404("당직을 요청한 날짜에 이미 당직신청 내역이 존재합니다. ");
+            throw new Exception400("당직 중복신청","당직을 요청한 날짜에 이미 당직신청 내역이 존재합니다. ",8);
         }
     }
     @SentrySpan
@@ -118,10 +120,10 @@ public class EventService {
             case "ANNUAL":
                 // 연차 신청
                 if (eventAddInDto.getCount() == null) {
-                    throw new Exception404("연차 신청시 연차 사용일수를 입력해주세요. ");
+                    throw new Exception400("연차 신청시 연차 사용일수를 입력해주세요. ","",9);
                 }
                 if (eventAddInDto.getCount() > user.getAnnualCount()) {
-                    throw new Exception404("연차 신청시 연차 사용일수가 보유 연차일수보다 많습니다. ");
+                    throw new Exception400("연차 신청시 연차 사용일수가 보유 연차일수보다 많습니다. ","",7);
                 }
                 Annual annual = annualRepository.save(Annual.builder()
                         .startDate(eventAddInDto.getStartDate())
@@ -172,9 +174,9 @@ public class EventService {
         Order order = null;
         switch (eventCancelInDTO.getEventType()) {
             case "ANNUAL":
-                event = eventRepository.findById(eventCancelInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
+                event = eventRepository.findById(eventCancelInDTO.getEventId()).orElseThrow(() -> new Exception400("요청 Event 찾을 수 없음", "연차 신청내역을 찾을 수 없습니다",10));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
-                    throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
+                    throw new Exception403("해당 이벤트에 대한 권한이 없습니다. ");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
@@ -183,13 +185,13 @@ public class EventService {
                     eventRepository.deleteById(event.getId());
                     annualRepository.deleteById(annualId);
                 } else {
-                    throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
+                    throw new Exception400("처리된 이벤트","이미 결재완료된 내역입니다. ",12);
                 }
                 break;
             case "DUTY":
                 event = eventRepository.findById(eventCancelInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
-                    throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
+                    throw new Exception403("해당 이벤트에 대한 권한이 없습니다. ");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
@@ -198,7 +200,7 @@ public class EventService {
                     eventRepository.deleteById(event.getId());
                     dutyRepository.deleteById(dutyId);
                 } else {
-                    throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
+                    throw new Exception400("처리된 이벤트","이미 결재완료된 내역입니다. ",12);
                 }
                 break;
         }
@@ -213,33 +215,33 @@ public class EventService {
         switch (eventModifyInDTO.getEventType()) {
             case "ANNUAL":
                 if (eventModifyInDTO.getCount() == null) {
-                    throw new Exception404("연차 신청시 연차 사용일수를 입력해주세요. ");
+                    throw new Exception400("정보 미입력","연차 신청시 연차 사용일수를 입력해주세요. ",9);
                 }
                 if (eventModifyInDTO.getCount() > user.getAnnualCount()) {
-                    throw new Exception404("연차 신청시 연차 사용일수가 보유 연차일수보다 많습니다. ");
+                    throw new Exception400("연차 사용일수 초과","연차 신청시 연차 사용일수가 보유 연차일수보다 많습니다. ",7);
                 }
                 event = eventRepository.findById(eventModifyInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
-                    throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
+                    throw new Exception403("해당 이벤트에 대한 권한이 없습니다. ");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
                     event.getAnnual().update(eventModifyInDTO.getStartDate(), eventModifyInDTO.getEndDate(), eventModifyInDTO.getCount());
                 } else {
-                    throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
+                    throw new Exception400("처리된 이벤트","이미 결재완료된 내역입니다. ",12);
                 }
                 break;
 
             case "DUTY":
                 event = eventRepository.findById(eventModifyInDTO.getEventId()).orElseThrow(() -> new IllegalArgumentException("해당 이벤트가 없습니다."));
                 if (!(Objects.equals(event.getUser().getId(), user.getId()))) {
-                    throw new IllegalArgumentException("해당 이벤트에 대한 권한이 없습니다.");
+                    throw new Exception403("해당 이벤트에 대한 권한이 없습니다. ");
                 }
                 order = orderRepository.findByEvent_Id(event.getId());
                 if (order.getOrderState() == OrderState.WAITING) {
                     event.getDuty().update(eventModifyInDTO.getStartDate());
                 } else {
-                    throw new IllegalArgumentException("이미 처리된 이벤트입니다.");
+                    throw new Exception400("처리된 이벤트","이미 결재완료된 내역입니다. ",12);
                 }
                 break;
         }
