@@ -92,8 +92,6 @@ jobs:
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: SSH to EC2 instance
         uses: appleboy/ssh-action@v0.4.0
-        retry: 5
-        retry_delay: 10
         with:
           host: 3.35.56.77
           username: ${{ secrets.SSH_USERNAME }}
@@ -103,3 +101,6 @@ jobs:
             sudo docker-compose ps -q | xargs -r docker stop
             sudo docker-compose pull -v
             sudo docker-compose up -d
+        retry:
+          max-retries: 3
+          delay: '5s'
