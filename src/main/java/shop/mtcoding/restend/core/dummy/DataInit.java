@@ -20,11 +20,11 @@ import java.time.LocalDate;
 
 @Component
 public class DataInit extends DummyEntity {
-    private final AnnualRepository annualRepository;
-
-    public DataInit(AnnualRepository annualRepository) {
-        this.annualRepository = annualRepository;
-    }
+//    private final AnnualRepository annualRepository;
+//
+//    public DataInit(AnnualRepository annualRepository) {
+//        this.annualRepository = annualRepository;
+//    }
 
     @Profile("dev")
     @Bean
@@ -70,7 +70,7 @@ public class DataInit extends DummyEntity {
 
     @Profile("prod")
     @Bean
-    CommandLineRunner initProd(UserRepository userRepository, EventRepository eventRepository, AnnualRepository annualRepository, DutyRepository dutyRepository, OrderRepository orderRepository) {
+    CommandLineRunner initProd(UserRepository userRepository) {
         return args -> {
             if (userRepository.findByUsername("사르").isEmpty()) {
                 User ssar = userRepository.save(newUser("사르", "ADMIN", true));
