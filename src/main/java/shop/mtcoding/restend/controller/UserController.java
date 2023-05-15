@@ -18,7 +18,6 @@ import shop.mtcoding.restend.dto.ResponseDTO;
 
 import shop.mtcoding.restend.dto.event.EventResponse;
 import shop.mtcoding.restend.dto.user.UserRequest;
-import shop.mtcoding.restend.dto.user.UserRequest.SignupInDTO;
 import shop.mtcoding.restend.dto.user.UserResponse;
 import shop.mtcoding.restend.service.UserService;
 
@@ -36,7 +35,7 @@ public class UserController {
 
     // 회원가입
     @PostMapping("/signup")
-    public ResponseEntity<?> signup(@RequestPart @Valid UserRequest.SignupInDTO signupInDTO, Errors errors, @RequestPart MultipartFile image) throws IOException {
+    public ResponseEntity<?> signup(@RequestPart(name = "signupInDTO") @Valid UserRequest.SignupInDTO signupInDTO, Errors errors, @RequestPart(name = "image") MultipartFile image) throws IOException {
         UserResponse.SignupOutDTO signupOutDTO = userService.회원가입(signupInDTO, image);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(signupOutDTO);
         return ResponseEntity.ok(responseDTO);
