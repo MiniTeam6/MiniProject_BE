@@ -6,11 +6,11 @@ server:
       force: true
 
 spring:
-  datasource:
-    url: ${SPRING_DATASOURCE_URL}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: ${MYSQL_USER}
-    password: ${MYSQL_ROOT_PASSWORD}
+#  datasource:
+#    url: ${SPRING_DATASOURCE_URL}
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: ${MYSQL_USER}
+#    password: ${MYSQL_ROOT_PASSWORD}
   jpa:
     open-in-view: false
     hibernate:
