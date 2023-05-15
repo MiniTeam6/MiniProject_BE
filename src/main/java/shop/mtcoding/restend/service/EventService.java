@@ -1,5 +1,6 @@
 package shop.mtcoding.restend.service;
 
+import io.sentry.spring.tracing.SentrySpan;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +38,7 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@SentrySpan
 
 @Service
 @RequiredArgsConstructor
@@ -47,6 +49,7 @@ public class EventService {
     private final DutyRepository dutyRepository;
     private final UserRepository userRepository;
     private final OrderRepository orderRepository;
+    @SentrySpan
 
     @Transactional
     public void insertEvent(Long userid, EventRequest.EventAddDto eventAddDto) {
@@ -79,6 +82,7 @@ public class EventService {
             orderRepository.save(order);
         }
     }
+    @SentrySpan
 
     private void checkAnnualOverlap(User user, Annual annualToAdd) {
         List<Event> annualEvents = eventRepository.findAllByEventTypeAndUser(EventType.ANNUAL, user);
@@ -96,6 +100,7 @@ public class EventService {
             throw new Exception404("연차를 요청한 기간에 이미 연차신청 내역이 존재합니다. ");
         }
     }
+    @SentrySpan
 
     private void checkDutyOverlap(User user, Duty dutyToAdd) {
         List<Event> dutyEvents = eventRepository.findAllByEventTypeAndUser(EventType.DUTY, user);
@@ -105,6 +110,7 @@ public class EventService {
             throw new Exception404("당직을 요청한 날짜에 이미 당직신청 내역이 존재합니다. ");
         }
     }
+    @SentrySpan
 
     public EventResponse.EventAddOutDTO 연차당직신청(EventRequest.EventAddInDto eventAddInDto, User user) {
         Event event = null;
@@ -159,6 +165,7 @@ public class EventService {
                 .endDate(event.getEventType() == EventType.ANNUAL ? event.getAnnual().getEndDate() : event.getDuty().getDate())
                 .build();
     }
+    @SentrySpan
 
     public boolean 연차당직신청취소(EventRequest.EventCancelInDto eventCancelInDTO, User user) {
         Event event = null;
@@ -197,6 +204,7 @@ public class EventService {
         }
         return true;
     }
+    @SentrySpan
 
     @Transactional
     public EventResponse.EventModifyOutDTO 연차당직신청수정(EventRequest.EventModifyInDto eventModifyInDTO, User user) {
@@ -245,6 +253,7 @@ public class EventService {
                 .count(event.getEventType() == EventType.ANNUAL ? event.getAnnual().getCount() : null)
                 .build();
     }
+    @SentrySpan
 
     // 이벤트 리스트
     public List<EventResponse.EventListOutDTO> 이벤트리스트() {
@@ -271,6 +280,7 @@ public class EventService {
         return results;
     }
 
+    @SentrySpan
 
     // 연차 리스트
     public List<EventResponse.EventListOutDTO> 연차리스트() {
@@ -297,6 +307,7 @@ public class EventService {
         }
         return results;
     }
+    @SentrySpan
 
     // 당직 리스트
     public List<EventResponse.EventListOutDTO> 당직리스트() {
@@ -326,6 +337,7 @@ public class EventService {
 
 
 
+    @SentrySpan
 
     @Transactional
     public List<EventResponse.EventListOutDTO> 연차당직리스트(String eventType, String yearMonth, User user) {
