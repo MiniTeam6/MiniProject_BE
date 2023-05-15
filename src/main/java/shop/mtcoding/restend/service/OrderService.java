@@ -7,6 +7,7 @@ import lombok.Value;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shop.mtcoding.restend.core.exception.Exception400;
 import shop.mtcoding.restend.core.exception.Exception404;
 import shop.mtcoding.restend.dto.order.OrderRequest;
 import shop.mtcoding.restend.dto.order.OrderResponse;
@@ -36,11 +37,11 @@ public class OrderService {
 	public OrderResponse.AnnualApprovalOutDTO 연차승인(Long approvalId, OrderRequest.ApprovalInDTO approvalInDTO) {
 		Optional<User> adminUser = userRepository.findById(approvalId);//승인자
 		if (adminUser.isEmpty()) {
-			throw new Exception404("해당 User를 찾을 수 없습니다. ");
+			throw new Exception400("승인 User 찾을 수 없음", "해당 유저를 찾을 수 없습니다",4);
 		}
 		Optional<Event> event = eventRepository.findById(approvalInDTO.getEventId());
 		if (event.isEmpty()) {
-			throw new Exception404("해당 Event를 찾을 수 없습니다. ");
+			throw new Exception400("요청 Event 찾을 수 없음", "연차 신청내역을 찾을 수 없습니다",10);
 		}
 		Order approval = orderRepository.findByEvent_Id(event.get().getId());
 		approval.setOrderState(OrderState.valueOf(approvalInDTO.getOrderState()));
@@ -52,8 +53,9 @@ public class OrderService {
 		if(OrderState.APPROVED==OrderState.valueOf(approvalInDTO.getOrderState())){
 			Optional<User> user = userRepository.findById(event.get().getUser().getId());
 			if (user.isEmpty()) {
-				throw new Exception404("신청자를 찾을 수 없습니다. ");
+				throw new Exception400("요청 User 찾을 수 없음", "해당 유저를 찾을 수 없습니다",4);
 			}
+			user.get().verificationAnnualCount();
 			user.get().setAnnualCount(event.get().getAnnual().getCount());
 			userRepository.save(user.get());
 		}
@@ -65,13 +67,12 @@ public class OrderService {
 	public OrderResponse.DutyApprovalOutDTO 당직승인(Long approvalId, OrderRequest.ApprovalInDTO approvalInDTO) {
 		Optional<User> user = userRepository.findById(approvalId);
 		if (user.isEmpty()) {
-			throw new Exception404("해당 User를 찾을 수 없습니다. ");
+			throw new Exception400("승인 User 찾을 수 없음", "해당 유저를 찾을 수 없습니다",4);
 		}
 		Optional<Event> event = eventRepository.findById(approvalInDTO.getEventId());
 		if (event.isEmpty()) {
-			throw new Exception404("해당 Event를 찾을 수 없습니다. ");
+			throw new Exception400("요청 Event 찾을 수 없음", "당직 신청내역을 찾을 수 없습니다",10);
 		}
-
 
 		Order approval = orderRepository.findByEvent_Id(event.get().getId());
 		approval.setOrderState(OrderState.valueOf(approvalInDTO.getOrderState()));
