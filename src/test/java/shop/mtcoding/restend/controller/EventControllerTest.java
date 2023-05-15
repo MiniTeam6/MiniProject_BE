@@ -757,22 +757,6 @@ public class EventControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.data.dutyDDay").value(dutyDDay));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
-
-        // 새로운 ResultActions 객체 생성
-        ResultActions resultActions2 = mvc.perform(get("/api/user/nextevent"));
-
-        //then
-        // 테스트 : {"status":200,"msg":"성공","data":{"nextAnnualDate":"2023-06-07","annualDDay":28,"nextDutyDate":"2023-06-05","dutyDDay":26}}
-        resultActions2
-                .andExpect(jsonPath("$.status").value(200))
-                .andExpect(jsonPath("$.msg").value("성공"))
-                .andExpect(jsonPath("$.data.nextAnnualDate").value("2023-06-07"))
-                .andExpect(jsonPath("$.data.annualDDay").value("22"))
-                .andExpect(jsonPath("$.data.nextDutyDate").value("2023-06-05"))
-                .andExpect(jsonPath("$.data.dutyDDay").value("20"))
-                .andExpect(status().isOk())
-                .andDo(MockMvcResultHandlers.print())
-                .andDo(document);
     }
 //    public ResponseEntity<?> list(@RequestParam(required = false) @Pattern(regexp = "ANNUAL|DUTY") String eventType,
 //                                  @RequestParam(required = false) @Pattern(regexp = "^\\d{4}-\\d{2}$") String yearMonth,
