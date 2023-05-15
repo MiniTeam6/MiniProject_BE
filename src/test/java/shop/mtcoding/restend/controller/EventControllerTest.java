@@ -70,6 +70,7 @@ import javax.persistence.EntityManager;
 import javax.validation.constraints.Pattern;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -731,7 +732,9 @@ public class EventControllerTest extends MyRestDoc {
     @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
     public void fastest_test() throws Exception {
         TimeProvider timeProvider = mock(TimeProvider.class);
-        when(timeProvider.now()).thenReturn(LocalDate.of(2023, 5, 13));
+//        when(timeProvider.now()).thenReturn(LocalDate.of(2023, 5, 13));
+        LocalDate now = LocalDate.now();
+        when(timeProvider.now()).thenReturn(now);
 
         //given
         ResultActions resultActions = mvc
@@ -741,14 +744,35 @@ public class EventControllerTest extends MyRestDoc {
 
         //then
 //        테스트 : {"status":200,"msg":"성공","data":{"nextAnnualDate":"2023-06-07","annualDDay":28,"nextDutyDate":"2023-06-05","dutyDDay":26}}
+
+        LocalDate nextAnnualDate = now.withMonth(6).withDayOfMonth(7);
+        LocalDate nextDutyDate = now.withMonth(6).withDayOfMonth(5);
+        int annualDDay = Period.between(now, nextAnnualDate).getDays();
+        int dutyDDay = Period.between(now, nextDutyDate).getDays();
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
-        resultActions.andExpect(jsonPath("$.data.nextAnnualDate").value("2023-06-07"));
-        resultActions.andExpect(jsonPath("$.data.annualDDay").value("22"));
-        resultActions.andExpect(jsonPath("$.data.nextDutyDate").value("2023-06-05"));
-        resultActions.andExpect(jsonPath("$.data.dutyDDay").value("20"));
+        resultActions.andExpect(jsonPath("$.data.nextAnnualDate").value(nextAnnualDate.toString()));
+        resultActions.andExpect(jsonPath("$.data.annualDDay").value(annualDDay));
+        resultActions.andExpect(jsonPath("$.data.nextDutyDate").value(nextDutyDate.toString()));
+        resultActions.andExpect(jsonPath("$.data.dutyDDay").value(dutyDDay));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
+
+        // 새로운 ResultActions 객체 생성
+        ResultActions resultActions2 = mvc.perform(get("/api/user/nextevent"));
+
+        //then
+        // 테스트 : {"status":200,"msg":"성공","data":{"nextAnnualDate":"2023-06-07","annualDDay":28,"nextDutyDate":"2023-06-05","dutyDDay":26}}
+        resultActions2
+                .andExpect(jsonPath("$.status").value(200))
+                .andExpect(jsonPath("$.msg").value("성공"))
+                .andExpect(jsonPath("$.data.nextAnnualDate").value("2023-06-07"))
+                .andExpect(jsonPath("$.data.annualDDay").value("22"))
+                .andExpect(jsonPath("$.data.nextDutyDate").value("2023-06-05"))
+                .andExpect(jsonPath("$.data.dutyDDay").value("20"))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andDo(document);
     }
 //    public ResponseEntity<?> list(@RequestParam(required = false) @Pattern(regexp = "ANNUAL|DUTY") String eventType,
 //                                  @RequestParam(required = false) @Pattern(regexp = "^\\d{4}-\\d{2}$") String yearMonth,
