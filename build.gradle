@@ -86,6 +86,12 @@ dependencies {
 
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     implementation 'commons-io:commons-io:2.11.0'
+
+    //sentry
+    implementation 'io.sentry:sentry-spring-boot-starter:6.18.1'
+    implementation 'io.sentry:sentry-spring-boot-starter-jakarta:6.18.1'
+    implementation 'io.sentry:sentry-logback:6.18.1'
+
 }
 
 //ext {

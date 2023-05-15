@@ -1,5 +1,6 @@
 package shop.mtcoding.restend.service;
 
+import io.sentry.spring.tracing.SentrySpan;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.Value;
@@ -22,13 +23,15 @@ import shop.mtcoding.restend.model.user.UserRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
+@SentrySpan
 @Service
 @RequiredArgsConstructor
 public class OrderService {
 	private final OrderRepository orderRepository;
 	private final EventRepository eventRepository;
 	private final UserRepository userRepository;
+
+	@SentrySpan
 
 	@Transactional
 	public OrderResponse.AnnualApprovalOutDTO 연차승인(Long approvalId, OrderRequest.ApprovalInDTO approvalInDTO) {
@@ -58,7 +61,7 @@ public class OrderService {
 
 		return new OrderResponse.AnnualApprovalOutDTO(approval);
 	}
-
+	@SentrySpan
 	@Transactional
 	public OrderResponse.DutyApprovalOutDTO 당직승인(Long approvalId, OrderRequest.ApprovalInDTO approvalInDTO) {
 		Optional<User> user = userRepository.findById(approvalId);
@@ -78,7 +81,7 @@ public class OrderService {
 		return new OrderResponse.DutyApprovalOutDTO(approval);
 
 	}
-
+	@SentrySpan
 	@Transactional
 	public Page<OrderResponse.AnnualRequestOutDTO> 연차요청내역(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "event.annual.startDate"));
@@ -86,6 +89,7 @@ public class OrderService {
 		return annualRequests.map(request -> new OrderResponse.AnnualRequestOutDTO(request));
 	}
 
+	@SentrySpan
 	@Transactional
 	public Page<OrderResponse.AnnualApprovalOutDTO> 연차승인내역(String type,String keyword, int page, int size) {
 		Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "event.annual.startDate"));
@@ -98,6 +102,7 @@ public class OrderService {
 		}
 	}
 
+	@SentrySpan
 	@Transactional
 	public Page<OrderResponse.DutyRequestOutDTO> 당직요청내역(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "event.duty.date"));
@@ -105,6 +110,7 @@ public class OrderService {
 		return dutyRequest.map(request -> new OrderResponse.DutyRequestOutDTO(request));
 	}
 
+	@SentrySpan
 	@Transactional
 	public Page<OrderResponse.DutyApprovalOutDTO> 당직승인내역(String type, String keyword, int page, int size) {
 		Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "event.duty.date"));
