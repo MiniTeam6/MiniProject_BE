@@ -170,7 +170,7 @@ public class UserService {
 
     @SentrySpan
     public Page<UserResponse.UserListOutDTO> 회원리스트검색(String type,String keyword,int page, int size){
-        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "username"));
+        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.ASC, "username"));
         if(type.equals("username")){
             Page<User> users = userRepository.findByUsernameContainingAndStatusTrue(keyword, pageable);
             return users.map(request-> new UserResponse.UserListOutDTO(request));
