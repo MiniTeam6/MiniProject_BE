@@ -67,21 +67,21 @@ public class User {
     public void setRole(UserRole role) {
         if(this.role.equals(role)){
             //checkpoint : throw 동일한 권한으로 변경할 수 없습니다.
-            throw new Exception404("동일한 권한으로 변경할 수 없습니다.");
+            throw new Exception400("동일한 상태로 변경","동일한 권한으로 변경할 수 없습니다.",6);
         }
         this.role=role;
     }
     public void setStatus(Boolean status){
         if(this.status.equals(status)){
         //checkpoint : throw 동일한 상태로 변경할 수 없습니다.
-        throw new Exception404("이미 동일한 상태입니다.");
+        throw new Exception400("동일한 상태로 변경","이미"+status+"상태입니다.",6);
     }
         this.status=status;
     }
 
     public void verificationAnnualCount(){
         if(this.annualCount<=0){
-            throw new Exception401("남은 연차개수가 없습니다.");
+            throw new Exception400("AnnualCount","신청한 연차일이 남은 연차일수보다 많습니다. ",7);
         }
     }
 
