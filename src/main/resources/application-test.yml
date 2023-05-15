@@ -44,3 +44,5 @@ cloud:
     s3:
       bucket: ${aws.s3.bucket}
       #url: ${aws.s3.bucket.url}
+sentry:
+  environment: test
