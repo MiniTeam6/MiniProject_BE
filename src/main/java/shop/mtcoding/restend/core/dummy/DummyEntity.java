@@ -1,6 +1,5 @@
 package shop.mtcoding.restend.core.dummy;
 
-import org.aspectj.weaver.ast.Or;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import shop.mtcoding.restend.model.annual.Annual;
 import shop.mtcoding.restend.model.duty.Duty;
@@ -12,7 +11,6 @@ import shop.mtcoding.restend.model.user.User;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 public class DummyEntity {
     public User newUser(String username, String role,Boolean status) {
