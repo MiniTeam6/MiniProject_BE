@@ -8,10 +8,19 @@ on:
     branches:
       - main
 env:
+<<<<<<< HEAD
   aws_access_key: ${{secrets.aws_access_key}}
   aws_secret_key: ${{secrets.aws_secret_key}}
   aws_s3_bucket: ${{secrets.aws_s3_bucket}}
   aws_s3_bucket_url: ${{secrets.aws_s3_bucket_url}}
+=======
+  AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
+  AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
+  AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET}}
+  AWS_S3_BUCKET_URL: ${{secrets.AWS_S3_BUCKET_URL}}
+  # Set the Actions runner version
+  RUNNER_VERSION: '2.282.1'
+>>>>>>> f51d3ac (S3 버킷 url 재설정)
 
 jobs:
   build:
@@ -57,10 +66,12 @@ jobs:
 
 
           build-args: |
+
             AWS_ACCESS_KEY=${{ secrets.aws_access_key }}
             AWS_SECRET_ACCESS_KEY=${{ secrets.aws_secret_key }}
             AWS_S3_BUCKET=${{ secrets.aws_s3_bucket }}
             AWS_S3_BUCKET_URL=${{ secrets.aws_s3_bucket_url }}
+
 
 
       - name: Install Docker and Docker Compose
