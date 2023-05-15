@@ -15,7 +15,7 @@
 📨 연차 / 당직 승인
 ## 🔨 Web Architecture
 ## 🤹‍♂ Tech Stack
-## 📜 REST API
+## 📜 API
 ### 💡 User - 회원관련 기능
 |API Path|HTTP Method|기능|
 |------|---|---|
