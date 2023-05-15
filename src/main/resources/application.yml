@@ -8,3 +8,4 @@ sentry:
   # We recommend adjusting this value in production.
   release: 23.05.16
   environment: main
+  traces-sample-rate: 0.1
