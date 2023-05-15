@@ -92,7 +92,7 @@ jobs:
         retry: 5
         retry_delay: 10
         with:
-          host: 43.201.253.205
+          host: 3.35.56.77
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
