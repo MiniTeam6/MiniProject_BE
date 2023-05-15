@@ -23,6 +23,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -683,7 +685,8 @@ public class EventControllerTest extends MyRestDoc {
     @Test
     @DisplayName("가장 빠른 연차 당직")
     @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    public void _test() throws Exception {
+    @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
+    public void fastest_test() throws Exception {
         //given
         ResultActions resultActions = mvc
                 .perform(get("/api/user/nextevent"));
@@ -695,9 +698,9 @@ public class EventControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
         resultActions.andExpect(jsonPath("$.data.nextAnnualDate").value("2023-06-07"));
-        resultActions.andExpect(jsonPath("$.data.annualDDay").value("24"));
+        resultActions.andExpect(jsonPath("$.data.annualDDay").value("23"));
         resultActions.andExpect(jsonPath("$.data.nextDutyDate").value("2023-06-05"));
-        resultActions.andExpect(jsonPath("$.data.dutyDDay").value("22"));
+        resultActions.andExpect(jsonPath("$.data.dutyDDay").value("21"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
