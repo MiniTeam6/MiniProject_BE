@@ -57,6 +57,7 @@ public class MyExceptionAdvice {
     public ResponseEntity<?> unknownServerError(Exception e){
         Sentry.captureException(e);
         ResponseDTO<String> responseDTO = new ResponseDTO<>(HttpStatus.INTERNAL_SERVER_ERROR, "unknownServerError", e.getMessage(),100);
+
         return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

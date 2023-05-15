@@ -1,5 +1,9 @@
 spring:
   profiles:
     active:
+<<<<<<< HEAD
       - prod
 
+=======
+      - dev
+>>>>>>> cc97503 (sentry 적용)
