@@ -18,7 +18,6 @@ public class AnnualService {
     private final AnnualRepository annualRepository;
 
     @SentrySpan
-
     public Object 연차추가(AnnualRequest.AnnualAddDto eventAddDto, User user) {
 
         eventRepository.save(Event.builder()

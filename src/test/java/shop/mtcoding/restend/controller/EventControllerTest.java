@@ -64,6 +64,8 @@ import javax.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -713,6 +715,15 @@ public class EventControllerTest extends MyRestDoc {
     @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
     public void fastest_test() throws Exception {
+        class TimeProvider {
+            public LocalDate now() {
+                return LocalDate.now();
+            }
+        }
+
+        TimeProvider timeProvider = mock(TimeProvider.class);
+        when(timeProvider.now()).thenReturn(LocalDate.of(2023, 5, 13));
+
         //given
         ResultActions resultActions = mvc
                 .perform(get("/api/user/nextevent"));
@@ -724,9 +735,9 @@ public class EventControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
         resultActions.andExpect(jsonPath("$.data.nextAnnualDate").value("2023-06-07"));
-        resultActions.andExpect(jsonPath("$.data.annualDDay").value("23"));
+        resultActions.andExpect(jsonPath("$.data.dutyDDay").value("22"));
         resultActions.andExpect(jsonPath("$.data.nextDutyDate").value("2023-06-05"));
-        resultActions.andExpect(jsonPath("$.data.dutyDDay").value("21"));
+        resultActions.andExpect(jsonPath("$.data.dutyDDay").value("22"));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

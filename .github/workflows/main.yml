@@ -68,12 +68,13 @@ jobs:
           sudo apt-get install -y containerd runc
           sudo apt-get install -y docker.io
 
-          # 에러 발생 시 --fix-missing 옵션 사용하여 패키지 다시 설치
+#           패키지 설치 실패 시 무한 반복 실행
           while true; do
             if sudo apt-get install -y containerd runc docker.io; then
               break
             else
               sudo apt-get update --fix-missing
+              sleep 5
             fi
           done
 
@@ -81,6 +82,7 @@ jobs:
           sudo systemctl enable docker
           sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
+
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
