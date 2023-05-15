@@ -3,7 +3,8 @@
 
 
 ## 🧾 주요 기능
-
+## 🔨 Web Architecture
+## 🤹‍♂ Tech Stack
 ## 📜 REST API
 ### 💡 User - 회원관련 기능
 |API Path|HTTP Method|기능|
