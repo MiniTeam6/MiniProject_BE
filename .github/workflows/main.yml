@@ -53,6 +53,11 @@ jobs:
               "username": ${{ secrets.DOCKER_USERNAME }},
               "password": ${{ secrets.DOCKER_PASSWORD }}
             }
+          build-args: |
+            AWS_ACCESS_KEY=${{ secrets.aws_access_key }}
+            AWS_SECRET_ACCESS_KEY=${{ secrets.aws_secret_key }}
+            AWS_S3_BUCKET=${{ secrets.aws_s3_bucket }}
+            AWS_S3_BUCKET_URL=${{ secrets.aws_s3_bucket_url }}
       - name: Install Docker and Docker Compose
         run: |
           sudo apt-get update
