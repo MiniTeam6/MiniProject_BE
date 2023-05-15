@@ -68,14 +68,14 @@ public class DataInit extends DummyEntity {
     }
 
 
-    @Profile("prod")
-    @Bean
-    CommandLineRunner initProd(UserRepository userRepository) {
-        return args -> {
-            if (userRepository.findByUsername("사르").isEmpty()) {
-                User ssar = userRepository.save(newUser("사르", "ADMIN", true));
-            }
-        };
-    }
+//    @Profile("prod")
+//    @Bean
+//    CommandLineRunner initProd(UserRepository userRepository) {
+//        return args -> {
+//            if (userRepository.findByUsername("사르").isEmpty()) {
+//                User ssar = userRepository.save(newUser("사르", "ADMIN", true));
+//            }
+//        };
+//    }
 
 }
