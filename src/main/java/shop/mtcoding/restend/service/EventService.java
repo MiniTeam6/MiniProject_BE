@@ -340,6 +340,7 @@ public class EventService {
 
 
     @SentrySpan
+
     @Transactional
     public List<EventResponse.EventListOutDTO> 연차당직리스트(String eventType, String yearMonth, User user) {
         List<Event> events = null;

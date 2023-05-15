@@ -33,6 +33,7 @@ public class OrderService {
 	private final UserRepository userRepository;
 
 	@SentrySpan
+
 	@Transactional
 	public OrderResponse.AnnualApprovalOutDTO 연차승인(Long approvalId, OrderRequest.ApprovalInDTO approvalInDTO) {
 		Optional<User> adminUser = userRepository.findById(approvalId);//승인자
