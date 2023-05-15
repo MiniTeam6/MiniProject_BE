@@ -1,4 +1,4 @@
-package shop.minostreet.shoppingmall.domain;
+package shop.mtcoding.restend.model.log;
 
 import lombok.Builder;
 import lombok.Getter;
