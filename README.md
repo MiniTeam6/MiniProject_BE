@@ -3,7 +3,7 @@
 
 
 ## 🧾 주요 기능
-[🔐  로그인 / 회원가입 / 유저 관리권한](#💡-user---회원관련-기능)
+[🔐  로그인 / 회원가입 / 유저 관리권한](#-user---회원관련-기능)
 - JWT Authorization
 - Spring Security
 - 토큰 발급을 이용한 로그인 구현
@@ -36,7 +36,7 @@
 |/api/admin/role/update|GET|💖 회원권한 업데이트|
 |/api/admin/search|GET|💖 회원 검색(유저정보 출력)|
 
-### 💡 User - 연차/당직관련 기능
+### User - 연차/당직관련 기능
 |API Path|HTTP Method|기능|
 |------|---|---|
 |/api/user/myannual|GET|🌟 내 연차 리스트|
