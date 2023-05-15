@@ -735,7 +735,7 @@ public class EventControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
         resultActions.andExpect(jsonPath("$.data.nextAnnualDate").value("2023-06-07"));
-        resultActions.andExpect(jsonPath("$.data.dutyDDay").value("22"));
+        resultActions.andExpect(jsonPath("$.data.annualDDay").value("23"));
         resultActions.andExpect(jsonPath("$.data.nextDutyDate").value("2023-06-05"));
         resultActions.andExpect(jsonPath("$.data.dutyDDay").value("21"));
         resultActions.andExpect(status().isOk());
