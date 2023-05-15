@@ -7,6 +7,7 @@ import lombok.ToString;
 import shop.mtcoding.restend.model.order.Order;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class OrderResponse {
 	/**
@@ -27,6 +28,9 @@ public class OrderResponse {
 		private LocalDate endDate;
 		private String orderState;
 		private String approvalUser;
+		private String imgUrl;
+		private String thumbnailUri; //썸네일 경로
+		private LocalDateTime updatedAt;
 
 		public AnnualApprovalOutDTO(Order order){
 			this.eventId=order.getEvent().getId();
@@ -39,6 +43,9 @@ public class OrderResponse {
 			this.endDate=order.getEvent().getAnnual().getEndDate();
 			this.orderState=order.getOrderState().toString();
 			this.approvalUser=order.getApprover().getUsername();
+			this.imgUrl=order.getEvent().getUser().getImageUri();
+			this.thumbnailUri=order.getEvent().getUser().getThumbnailUri();
+			this.updatedAt=order.getUpdatedAt();
 		}
 	}
 
@@ -58,6 +65,9 @@ public class OrderResponse {
 		private LocalDate date;
 		private String orderState;
 		private String approvalUser;
+		private String imgUrl;
+		private String thumbnailUri; //썸네일 경로
+		private LocalDateTime updatedAt;
 
 		public DutyApprovalOutDTO(Order order){
 			this.eventId=order.getEvent().getId();
@@ -69,6 +79,9 @@ public class OrderResponse {
 			this.date=order.getEvent().getDuty().getDate();
 			this.orderState=order.getOrderState().toString();
 			this.approvalUser=order.getApprover().getUsername();
+			this.imgUrl=order.getEvent().getUser().getImageUri();
+			this.thumbnailUri=order.getEvent().getUser().getThumbnailUri();
+			this.updatedAt=order.getUpdatedAt();
 		}
 	}
 
@@ -88,6 +101,9 @@ public class OrderResponse {
 		private LocalDate startDate;
 		private LocalDate endDate;
 		private String orderState;
+		private String imgUrl;
+		private String thumbnailUri; //썸네일 경로
+		private LocalDateTime createdAt;
 
 
 		public AnnualRequestOutDTO(Order order){
@@ -100,6 +116,9 @@ public class OrderResponse {
 			this.endDate=order.getEvent().getAnnual().getEndDate();
 			this.orderState=order.getOrderState().toString();
 			this.userEmail=order.getEvent().getUser().getEmail();
+			this.imgUrl=order.getEvent().getUser().getImageUri();
+			this.thumbnailUri=order.getEvent().getUser().getThumbnailUri();
+			this.createdAt=order.getCreatedAt();
 		}
 	}
 
@@ -118,6 +137,9 @@ public class OrderResponse {
 		private Long orderId;
 		private LocalDate date;
 		private String orderState;
+		private String imgUrl;
+		private String thumbnailUri; //썸네일 경로
+		private LocalDateTime createdAt;
 
 
 		public DutyRequestOutDTO(Order order){
@@ -129,6 +151,9 @@ public class OrderResponse {
 			this.orderId= order.getId();
 			this.date=order.getEvent().getDuty().getDate();
 			this.orderState=order.getOrderState().toString();
+			this.imgUrl=order.getEvent().getUser().getImageUri();
+			this.thumbnailUri=order.getEvent().getUser().getThumbnailUri();
+			this.createdAt=order.getCreatedAt();
 		}
 	}
 

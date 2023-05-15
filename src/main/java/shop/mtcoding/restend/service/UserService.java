@@ -70,7 +70,7 @@ public class UserService {
         Optional<User> userOP =userRepository.findByEmail(signupInDTO.getEmail());
         if(userOP.isPresent()){
             // 이 부분이 try catch 안에 있으면 Exception500에게 제어권을 뺏긴다.
-            throw new Exception400("email", "이메일이 존재합니다");
+            throw new Exception400("email", "이메일이 존재합니다",3);
         }
         String encPassword = passwordEncoder.encode(signupInDTO.getPassword()); // 60Byte
         signupInDTO.setPassword(encPassword);
@@ -81,7 +81,7 @@ public class UserService {
             User userPS = userRepository.save(signupInDTO.toEntity(imageUri, thumbnailUri));
             return new UserResponse.SignupOutDTO(userPS);
         }catch (Exception e){
-            throw new Exception500("회원가입 실패 : "+e.getMessage());
+            throw new Exception500("회원가입 실패 : "+e.getMessage(),5);
         }
     }
 
@@ -123,7 +123,7 @@ public class UserService {
     public UserResponse.UserDetailOutDTO 회원상세보기(Long id) {
 
         User userPS = userRepository.findById(id).orElseThrow(
-                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
+                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다",4)
         );
         return new UserResponse.UserDetailOutDTO(userPS);
     }
@@ -132,7 +132,7 @@ public class UserService {
     @Transactional
     public UserResponse.UserDetailOutDTO 회원정보수정(Long id, UserRequest.ModifyInDTO modifyInDTO, MultipartFile image) throws IOException {
         User userPS = userRepository.findById(id).orElseThrow(
-                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
+                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다",4)
         );
 
         // 이미지 변동 사항 파악
@@ -165,7 +165,7 @@ public class UserService {
      */
 
     public Page<UserResponse.UserListOutDTO> 회원리스트검색(String type,String keyword,int page, int size){
-        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "username"));
+        Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.ASC, "username"));
         if(type.equals("username")){
             Page<User> users = userRepository.findByUsernameContainingAndStatusTrue(keyword, pageable);
             return users.map(request-> new UserResponse.UserListOutDTO(request));
@@ -201,7 +201,7 @@ public class UserService {
     public UserResponse.UserRoleUpdateOutDTO 권한업데이트(UserRequest.RoleUpdateInDTO roleUpdateInDTO){
         Optional<User> user = userRepository.findByEmail(roleUpdateInDTO.getEmail());
         if(user.isEmpty()){
-            throw new Exception404(roleUpdateInDTO.getEmail()+"  User를 찾을 수 없습니다. ");
+            throw new Exception400("요청 User 찾을 수 없음",roleUpdateInDTO.getEmail()+"  User를 찾을 수 없습니다. ",4);
         }
 
         user.get().setRole(UserRole.valueOf(roleUpdateInDTO.getRole()));
@@ -209,7 +209,7 @@ public class UserService {
             User userPS=userRepository.save(user.get());
             return new UserResponse.UserRoleUpdateOutDTO(userPS);
         }catch (Exception e){
-            throw new Exception500(e+roleUpdateInDTO.getEmail()+"유저권한 업데이트 실패");
+            throw new Exception500(e+roleUpdateInDTO.getEmail()+"유저권한 업데이트 실패",5);
         }
     }
 
@@ -217,14 +217,14 @@ public class UserService {
     public UserResponse.StatusUpdateOutDTO 회원가입승인(UserRequest.StatusUpdateInDTO statusUpdateInDTO){
         Optional<User> user = userRepository.findByEmail(statusUpdateInDTO.getEmail());
         if(user.isEmpty()){
-            throw new Exception404(statusUpdateInDTO.getEmail()+"  User를 찾을 수 없습니다. ");
+            throw new Exception400("요청 User 찾을 수 없음",statusUpdateInDTO.getEmail()+"  User를 찾을 수 없습니다. ",4);
         }
         user.get().setStatus(true);
         try{
             User userPS=userRepository.save(user.get());
             return new UserResponse.StatusUpdateOutDTO(userPS);
         }catch (Exception e){
-            throw new Exception500(e+statusUpdateInDTO.getEmail()+"유저권한 업데이트 실패");
+            throw new Exception500(e+statusUpdateInDTO.getEmail()+"유저권한 업데이트 실패",5);
         }
     }
 
@@ -238,7 +238,7 @@ public class UserService {
 
     public Slice<EventResponse.MyEventListOutDTO> 내연차리스트(MyUserDetails myUserDetails, Pageable pageable) {
         User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
-                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
+                ()-> new Exception400("요청 User 찾을 수 없음", "해당 유저를 찾을 수 없습니다",4)
         );
 
         //Sort sort = pageable.getSort().and(Sort.by("startDate").descending());
@@ -267,7 +267,7 @@ public class UserService {
 
     public Slice<EventResponse.MyEventListOutDTO> 내당직리스트(MyUserDetails myUserDetails, Pageable pageable) {
         User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
-                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
+                ()-> new Exception400("요청 User 찾을 수 없음", "해당 유저를 찾을 수 없습니다",4)
         );
 
         //Sort sort = pageable.getSort().and(Sort.by("startDate").descending());
@@ -296,7 +296,7 @@ public class UserService {
 
     public EventResponse.NextEventDTO 가장빠른연차당직(MyUserDetails myUserDetails) {
         User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
-                ()-> new Exception400("id", "해당 유저를 찾을 수 없습니다")
+                ()-> new Exception400("요청 User 찾을 수 없음", "해당 유저를 찾을 수 없습니다",4)
         );
 
         List<Order> orders = orderRepository.findByOrderState(OrderState.APPROVED);

@@ -82,10 +82,10 @@ class AdminControllerTest2 {
 		Event event2 = eventRepository.save(dummy.newEvent(cos, "DUTY", null, duty1));
 		Event event3 = eventRepository.save(dummy.newEvent(cos, "ANNUAL", annual2, null));
 		Event event4 = eventRepository.save(dummy.newEvent(cos, "DUTY", null, duty2));
-		orderRepository.save(dummy.newOrder(event1, OrderState.WAITING, cos));
-		orderRepository.save(dummy.newOrder(event2, OrderState.WAITING, cos));
-		orderRepository.save(dummy.newOrder(event3, OrderState.APPROVED, cos));
-		orderRepository.save(dummy.newOrder(event4, OrderState.APPROVED, cos));
+		orderRepository.save(dummy.newOrder(event1, OrderState.WAITING, null));
+		orderRepository.save(dummy.newOrder(event2, OrderState.WAITING, null));
+		orderRepository.save(dummy.newOrder(event3, OrderState.APPROVED, ssar));
+		orderRepository.save(dummy.newOrder(event4, OrderState.APPROVED, ssar));
 		em.clear();
 	}
 
@@ -196,7 +196,6 @@ class AdminControllerTest2 {
 	@DisplayName("연차승인 리스트")
 	void annualApprovalList() throws Exception{
 
-
 		ResultActions resultActions = mvc.perform(get("/api/admin/annual/approval"));
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
@@ -212,7 +211,7 @@ class AdminControllerTest2 {
 		resultActions.andExpect(jsonPath("$.data.content[0].startDate").value("2023-06-07"));
 		resultActions.andExpect(jsonPath("$.data.content[0].endDate").value("2023-06-09"));
 		resultActions.andExpect(jsonPath("$.data.content[0].orderState").value("APPROVED"));
-//		resultActions.andExpect(jsonPath("$.data.content[0].approvalUser").value("사르"));
+		resultActions.andExpect(jsonPath("$.data.content[0].approvalUser").value("사르"));
 	}
 
 	@Test
@@ -225,8 +224,6 @@ class AdminControllerTest2 {
 		String responseBody = resultActions.andReturn().getResponse().getContentAsString();
 		System.out.println("테스트 : " + responseBody);
 
-
-
 		resultActions.andExpect(jsonPath("$.status").value(200));
 		resultActions.andExpect(jsonPath("$.msg").value("성공"));
 		resultActions.andExpect(jsonPath("$.data.content[0].eventId").value(4L));
@@ -237,7 +234,7 @@ class AdminControllerTest2 {
 		resultActions.andExpect(jsonPath("$.data.content[0].orderId").value(4L));
 		resultActions.andExpect(jsonPath("$.data.content[0].date").value("2023-06-05"));
 		resultActions.andExpect(jsonPath("$.data.content[0].orderState").value("APPROVED"));
-		//resultActions.andExpect(jsonPath("$.data.content[0].approvalUser").value("사르"));
+		resultActions.andExpect(jsonPath("$.data.content[0].approvalUser").value("사르"));
 
 	}
 }

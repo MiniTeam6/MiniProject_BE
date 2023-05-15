@@ -2,11 +2,14 @@ package shop.mtcoding.restend.core;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.operation.preprocess.Preprocessors;
+import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.restdocs.payload.PayloadDocumentation;
 import org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -16,17 +19,35 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.nio.charset.StandardCharsets;
 
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
+import static org.springframework.restdocs.snippet.Attributes.key;
+
 @ExtendWith({ SpringExtension.class, RestDocumentationExtension.class })
 public class MyRestDoc {
     protected MockMvc mockMvc;
+    protected RestDocumentationResultHandler documentImage;
     protected RestDocumentationResultHandler document;
 
     @BeforeEach
     private void setup(WebApplicationContext webApplicationContext,
                        RestDocumentationContextProvider restDocumentation) {
+        this.documentImage = MockMvcRestDocumentation.document("{class-name}/{method-name}",
+                requestParts(
+                        partWithName("image")
+                                .description("The uploaded image file")
+                                .attributes(key("contentTypes").value(MediaType.IMAGE_JPEG_VALUE))
+                                .attributes(key("fileExtension").value("jpg"))
+                )
+
+        );
         this.document = MockMvcRestDocumentation.document("{class-name}/{method-name}",
-                Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
-                Preprocessors.preprocessResponse(Preprocessors.prettyPrint()));
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint())
+
+                );
 
 
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)

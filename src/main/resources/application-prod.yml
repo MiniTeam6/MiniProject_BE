@@ -1,5 +1,5 @@
 server:
-  port: 5000
+  port: 5999
   servlet:
     encoding:
       charset: utf-8
@@ -7,14 +7,14 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mariadb://${rds.hostname}:${rds.port}/${rds.db.name}?allowPublicKeyRetrieval=true&useSSL=false
-    driver-class-name: org.mariadb.jdbc.Driver
-    username: ${rds.username}
-    password: ${rds.password}
+    url: jdbc:mysql://localhost:${MYSQL_PORT}/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_ROOT_PASSWORD}
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       default_batch_fetch_size: 100
       hibernate:
@@ -25,3 +25,16 @@ logging:
 
 file:
   path: ./upload/ # UPLOAD 폴더 상대경로 / AWS에 S3 사용하는게 좋음
+# S3 버킷 설정 (AWS)
+cloud:
+  aws:
+    credentials:
+      accessKey: ${aws.access.key}
+      secretKey: ${aws.secret.key}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    s3:
+      bucket: ${aws.s3.bucket}
+      #url: ${aws.s3.bucket.url}
