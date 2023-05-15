@@ -68,12 +68,16 @@ jobs:
           sudo apt-get install -y containerd runc
           sudo apt-get install -y docker.io
 
+
+          # 에러 발생 시 --fix-missing 옵션 사용하여 패키지 다시 설치
+
           while true; do
             if sudo apt-get install -y containerd runc docker.io; then
               break
             else
               sudo apt-get update --fix-missing
               sleep 5
+
             fi
           done
 
