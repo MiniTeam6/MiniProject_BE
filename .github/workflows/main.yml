@@ -101,5 +101,3 @@ jobs:
             sudo docker-compose ps -q | xargs -r docker stop
             sudo docker-compose pull -v
             sudo docker-compose up -d
-        retries: 10
-        retry-delay: 10
