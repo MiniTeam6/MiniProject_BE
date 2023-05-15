@@ -1,4 +1,3 @@
-
 package shop.mtcoding.restend.controller;
 
 import java.io.File;
@@ -98,7 +97,6 @@ public class UserControllerTest extends MyRestDoc {
         headers.setContentType(MediaType.APPLICATION_JSON);
         return om.writeValueAsString(multiValueMap);
     }
-
     private DummyEntity dummy = new DummyEntity();
 
     @Autowired
@@ -113,7 +111,7 @@ public class UserControllerTest extends MyRestDoc {
     @BeforeEach
     public void setUp() {
         userRepository.save(dummy.newUser("사르", "ADMIN", true));
-        userRepository.save(dummy.newUser("코스", "USER", true));
+        userRepository.save(dummy.newUser("코스", "USER",true));
 
         em.clear();
     }
@@ -130,10 +128,10 @@ public class UserControllerTest extends MyRestDoc {
 
         String requestBody = om.writeValueAsString(signupInDTO);
         // when
-        System.out.println("테스트 : " + requestBody);
+        System.out.println("테스트 : "+requestBody);
         // when
         MockMultipartFile signUpInDTO = new MockMultipartFile("signupInDTO",
-                null,
+                "signupInDTO.json",
                 "application/json",
                 om.writeValueAsBytes(signupInDTO)
         );
@@ -147,6 +145,7 @@ public class UserControllerTest extends MyRestDoc {
                 .file(signUpInDTO)
                 .file(image)
                 .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+                .content(requestBody)
         );
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
@@ -156,13 +155,11 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.data.username").value("러브"));
         resultActions.andExpect(jsonPath("$.data.email").value("love@nate.com"));
         resultActions.andExpect(status().isOk());
-        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
-
+        resultActions.andDo(MockMvcResultHandlers.print()).andDo(documentImage);
     }
 
     /**
      * https://jjay2222.tistory.com/114
-     *
      * @throws Exception
      */
     @DisplayName("회원가입 실패")
@@ -175,10 +172,10 @@ public class UserControllerTest extends MyRestDoc {
         signupInDTO.setPhone("010-0000-0000");
         signupInDTO.setEmail("ssar@nate.com");
         String requestBody = om.writeValueAsString(signupInDTO);
-        System.out.println("테스트 : " + requestBody);
+        System.out.println("테스트 : "+requestBody);
         // when
         MockMultipartFile signUpInDTO = new MockMultipartFile("signupInDTO",
-                null,
+                "signupInDTO.json",
                 "application/json",
                 om.writeValueAsBytes(signupInDTO)
         );
@@ -192,6 +189,7 @@ public class UserControllerTest extends MyRestDoc {
                 .file(signUpInDTO)
                 .file(image)
                 .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+                .content(requestBody)
         );
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
@@ -203,7 +201,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.data.key").value("email"));
         resultActions.andExpect(jsonPath("$.data.value").value("이메일이 존재합니다"));
         resultActions.andExpect(status().isBadRequest());
-        resultActions.andDo(document);
+        resultActions.andDo(documentImage);
     }
 
     @DisplayName("회원가입 유효성 검사 실패")
@@ -213,13 +211,13 @@ public class UserControllerTest extends MyRestDoc {
         SignupInDTO signupInDTO = new SignupInDTO();
         signupInDTO.setUsername("사");
         signupInDTO.setPassword("aaaa1234@@");
-        signupInDTO.setEmail("ssar@nate.com");
+        signupInDTO.setEmail("asdf@nate.com");
         signupInDTO.setPhone("010-0000-0000");
         String requestBody = om.writeValueAsString(signupInDTO);
-        System.out.println("테스트 : " + requestBody);
+        System.out.println("테스트 : "+requestBody);
         // when
         MockMultipartFile signUpInDTO = new MockMultipartFile("signupInDTO",
-                null,
+                "signupInDTO.json",
                 "application/json",
                 om.writeValueAsBytes(signupInDTO)
         );
@@ -234,10 +232,11 @@ public class UserControllerTest extends MyRestDoc {
                         .file(image)
                         .file(signUpInDTO)
                         .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
+                        .content(requestBody)
         );
 
-//        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-//        System.out.println("테스트 : " + responseBody);
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
 
 //        // then
         resultActions.andExpect(jsonPath("$.status").value(400));
@@ -245,7 +244,7 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(jsonPath("$.data.key").value("username"));
         resultActions.andExpect(jsonPath("$.data.value").value("올바른 이름 형식으로 작성해주세요."));
         resultActions.andExpect(status().isBadRequest());
-        resultActions.andDo(document);
+        resultActions.andDo(documentImage);
     }
 
     @DisplayName("로그인 성공")
@@ -308,7 +307,7 @@ public class UserControllerTest extends MyRestDoc {
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/api/user/users/" + id));
+                .perform(get("/api/user/users/"+id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
@@ -329,7 +328,7 @@ public class UserControllerTest extends MyRestDoc {
 
         // when
         ResultActions resultActions = mvc
-                .perform(get("/api/user/" + id));
+                .perform(get("/api/user/"+id));
         String responseBody = resultActions.andReturn().getResponse().getContentAsString();
         System.out.println("테스트 : " + responseBody);
 
@@ -340,7 +339,6 @@ public class UserControllerTest extends MyRestDoc {
         resultActions.andExpect(status().isUnauthorized());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }
-
 
 //    @DisplayName("회원상세보기 권한 실패")
 //    @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
@@ -362,5 +360,4 @@ public class UserControllerTest extends MyRestDoc {
 //        resultActions.andExpect(status().isForbidden());
 //        resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
 //    }
-
 }

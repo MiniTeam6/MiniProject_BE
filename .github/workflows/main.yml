@@ -98,4 +98,4 @@ jobs:
             cd /home/ubuntu/myapp
             sudo docker-compose ps -q | xargs -r docker stop
             sudo docker-compose pull -v
-            sudo docker-compose up -d:wq
+            sudo docker-compose up -d
