@@ -25,7 +25,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.restdocs.snippet.Attributes.key;
 
-@ExtendWith({ SpringExtension.class, RestDocumentationExtension.class })
+@ExtendWith({SpringExtension.class, RestDocumentationExtension.class})
 public class MyRestDoc {
     protected MockMvc mockMvc;
     protected RestDocumentationResultHandler documentImage;
@@ -35,19 +35,26 @@ public class MyRestDoc {
     private void setup(WebApplicationContext webApplicationContext,
                        RestDocumentationContextProvider restDocumentation) {
         this.documentImage = MockMvcRestDocumentation.document("{class-name}/{method-name}",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
                 requestParts(
+                        partWithName("signupInDTO")
+                                .description("회원가입 폼")
+                                .attributes(key("Content-Type").value(MediaType.APPLICATION_JSON_VALUE))
+                                .attributes(key("constraints").value("50자 이하"))
+                                .attributes(key("example").value("{\"username\":\"abc\",\"password\":\"1234\",\"email\":\"abc@test.com\",\"phone\":\"010-1234-5678\"}"))
+                                .optional(),
                         partWithName("image")
-                                .description("The uploaded image file")
-                                .attributes(key("contentTypes").value(MediaType.IMAGE_JPEG_VALUE))
-                                .attributes(key("fileExtension").value("jpg"))
+                                .description("프로필 이미지 (JPEG, PNG 파일만)")
+                                .attributes(key("contentTypes").value(MediaType.IMAGE_JPEG_VALUE + ", " + MediaType.IMAGE_PNG_VALUE))
+                                .attributes(key("fileExtension").value("jpg, png"))
+                                .optional()
                 )
-
         );
         this.document = MockMvcRestDocumentation.document("{class-name}/{method-name}",
                 preprocessRequest(prettyPrint()),
                 preprocessResponse(prettyPrint())
-
-                );
+        );
 
 
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)

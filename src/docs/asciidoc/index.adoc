@@ -1,13 +1,11 @@
-ifndef::snippets[]
-:snippets: ./build/generated-snippets
-endif::[]
-
-:user: user-controller-test
-
-= 연차/당직 시스템 프로젝트
+= 연차/당직 프로젝트
+이지훈;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
 :toc: left
 :toclevels: 2
-:source-highlighter: highlightjs
+:sectlinks:
 
 //오버뷰 추가
 include::overview.adoc[]

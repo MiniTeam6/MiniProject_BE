@@ -1,6 +1,8 @@
 :event: event-controller-test
+:snippets: ./build/generated-snippets
+[[연차당직-API]]
+== 연차/당직 API
 
-== 연차/당직
 === 연차 신청 (성공)
 // operation::user-controller-test/join_success_test[snippets='http-request,request-fields,http-response,response-fields']
 operation::{event}/event_add_annual_test[snippets='http-request,http-response,curl-request']
@@ -42,10 +44,10 @@ operation::{event}/all_annual_test[snippets='http-request,http-response,curl-req
 operation::{event}/all_duty_test[snippets='http-request,http-response,curl-request']
 
 
-=== 내 연차 리스트 가져오기
+=== 로그인한 사용자의 연차 리스트 가져오기
 operation::{event}/my-annual-list_test[snippets='http-request,http-response']
 
-=== 내 당직 리스트 가져오기
+=== 로그인한 사용자 당직 리스트 가져오기
 operation::{event}/my-duty-list_test[snippets='http-request,http-response']
 
 
