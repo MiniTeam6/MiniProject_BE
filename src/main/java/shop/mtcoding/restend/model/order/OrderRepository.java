@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface OrderRepository extends JpaRepository<Order,Long> {
 	/**
 	 * 대기중인 연차 조회 = 연차요청목록
