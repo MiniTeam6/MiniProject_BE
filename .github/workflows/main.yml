@@ -91,7 +91,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: SSH to EC2 instance
-        uses: appleboy/ssh-action@v0.4.0
+        uses: appleboy/ssh-action@master
         with:
           host: 3.35.56.77
           username: ${{ secrets.SSH_USERNAME }}
