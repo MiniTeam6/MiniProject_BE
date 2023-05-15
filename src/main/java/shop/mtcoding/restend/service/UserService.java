@@ -1,5 +1,6 @@
 package shop.mtcoding.restend.service;
 
+import io.sentry.spring.tracing.SentrySpan;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -44,7 +45,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
-
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
@@ -59,6 +59,7 @@ public class UserService {
     private final S3Service s3Service;
 
 
+    @SentrySpan
     @Transactional
     public UserResponse.SignupOutDTO 회원가입(UserRequest.SignupInDTO signupInDTO, MultipartFile image) throws IOException {
 
@@ -85,12 +86,14 @@ public class UserService {
         }
     }
 
+    @SentrySpan
     public Boolean 이메일중복확인(String email) {
         Optional<User> userOP = userRepository.findByEmail(email);
         return userOP.isPresent();
     }
 
 
+    @SentrySpan
     public Object[] 로그인(UserRequest.LoginInDTO loginInDTO) {
 
         try {
@@ -120,6 +123,7 @@ public class UserService {
     }
 
 
+    @SentrySpan
     public UserResponse.UserDetailOutDTO 회원상세보기(Long id) {
 
         User userPS = userRepository.findById(id).orElseThrow(
@@ -128,7 +132,7 @@ public class UserService {
         return new UserResponse.UserDetailOutDTO(userPS);
     }
 
-
+    @SentrySpan
     @Transactional
     public UserResponse.UserDetailOutDTO 회원정보수정(Long id, UserRequest.ModifyInDTO modifyInDTO, MultipartFile image) throws IOException {
         User userPS = userRepository.findById(id).orElseThrow(
@@ -164,6 +168,7 @@ public class UserService {
      * @return
      */
 
+    @SentrySpan
     public Page<UserResponse.UserListOutDTO> 회원리스트검색(String type,String keyword,int page, int size){
         Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.ASC, "username"));
         if(type.equals("username")){
@@ -175,12 +180,16 @@ public class UserService {
         }
     }
 
+
+    @SentrySpan
     @Transactional
     public Page<UserResponse.UserApprovalListOutDTO> 회원전체리스트(int page, int size){
         Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.ASC, "username"));
         Page<User> users = userRepository.findUsersByStatus(true,pageable);
         return users.map(request-> new UserResponse.UserApprovalListOutDTO(request));
     }
+
+    @SentrySpan
     @Transactional
     public Page<UserResponse.UserApprovalListOutDTO> 회원전체리스트가입일정렬(int page, int size){
         Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.DESC, "createdAt"));
@@ -188,6 +197,7 @@ public class UserService {
         return users.map(request-> new UserResponse.UserApprovalListOutDTO(request));
     }
 
+    @SentrySpan
     @Transactional
     public List<UserResponse.UserListOutDTO> 회원전체리스트2(){
         List<User> users = userRepository.findUsersByStatus2(true);
@@ -197,6 +207,7 @@ public class UserService {
         return userDTOs;
     }
 
+    @SentrySpan
     @Transactional
     public UserResponse.UserRoleUpdateOutDTO 권한업데이트(UserRequest.RoleUpdateInDTO roleUpdateInDTO){
         Optional<User> user = userRepository.findByEmail(roleUpdateInDTO.getEmail());
@@ -213,6 +224,7 @@ public class UserService {
         }
     }
 
+    @SentrySpan
     @Transactional
     public UserResponse.StatusUpdateOutDTO 회원가입승인(UserRequest.StatusUpdateInDTO statusUpdateInDTO){
         Optional<User> user = userRepository.findByEmail(statusUpdateInDTO.getEmail());
@@ -229,13 +241,14 @@ public class UserService {
     }
 
 
+    @SentrySpan
     public Page<UserResponse.UserListOutDTO> 회원가입요청목록(int page, int size){
         Pageable pageable = PageRequest.of(page, size,Sort.by(Sort.Direction.ASC, "username"));
         Page<User>users=userRepository.findUsersByStatus(false,pageable);
         return users.map(request-> new UserResponse.UserListOutDTO(request));
     }
 
-
+    @SentrySpan
     public Slice<EventResponse.MyEventListOutDTO> 내연차리스트(MyUserDetails myUserDetails, Pageable pageable) {
         User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
                 ()-> new Exception400("요청 User 찾을 수 없음", "해당 유저를 찾을 수 없습니다",4)
@@ -264,7 +277,7 @@ public class UserService {
         return myAnnuals;
     }
 
-
+    @SentrySpan
     public Slice<EventResponse.MyEventListOutDTO> 내당직리스트(MyUserDetails myUserDetails, Pageable pageable) {
         User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
                 ()-> new Exception400("요청 User 찾을 수 없음", "해당 유저를 찾을 수 없습니다",4)
@@ -293,7 +306,7 @@ public class UserService {
         return myDuties;
     }
 
-
+    @SentrySpan
     public EventResponse.NextEventDTO 가장빠른연차당직(MyUserDetails myUserDetails) {
         User user = userRepository.findById(myUserDetails.getUser().getId()).orElseThrow(
                 ()-> new Exception400("요청 User 찾을 수 없음", "해당 유저를 찾을 수 없습니다",4)
