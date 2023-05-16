@@ -8,6 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,6 +32,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -35,6 +41,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import shop.mtcoding.restend.RestendApplication;
 import shop.mtcoding.restend.core.MyRestDoc;
 import shop.mtcoding.restend.core.auth.jwt.MyJwtProvider;
 import shop.mtcoding.restend.core.auth.session.MyUserDetails;
@@ -63,7 +70,10 @@ import javax.persistence.EntityManager;
 import javax.validation.constraints.Pattern;
 
 import java.time.LocalDate;
+import java.time.Period;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -75,7 +85,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Sql("classpath:db/teardown.sql")
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+@SpringJUnitWebConfig(classes = RestendApplication.class)
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class EventControllerTest extends MyRestDoc {
+    private static class TimeProvider {
+        public LocalDate now() {
+            return LocalDate.of(2023, 5, 13);
+        }
+    }
     private String buildMultipartParam(String name, String value) throws JsonProcessingException {
         MultiValueMap<String, Object> multiValueMap = new LinkedMultiValueMap<>();
         multiValueMap.add(name, value);
@@ -713,6 +731,11 @@ public class EventControllerTest extends MyRestDoc {
     @WithUserDetails(value = "cos@nate.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
     public void fastest_test() throws Exception {
+        TimeProvider timeProvider = mock(TimeProvider.class);
+//        when(timeProvider.now()).thenReturn(LocalDate.of(2023, 5, 13));
+        LocalDate now = LocalDate.now();
+        when(timeProvider.now()).thenReturn(now);
+
         //given
         ResultActions resultActions = mvc
                 .perform(get("/api/user/nextevent"));
@@ -721,12 +744,17 @@ public class EventControllerTest extends MyRestDoc {
 
         //then
 //        테스트 : {"status":200,"msg":"성공","data":{"nextAnnualDate":"2023-06-07","annualDDay":28,"nextDutyDate":"2023-06-05","dutyDDay":26}}
+
+        LocalDate nextAnnualDate = now.withMonth(6).withDayOfMonth(7);
+        LocalDate nextDutyDate = now.withMonth(6).withDayOfMonth(5);
+        int annualDDay = Period.between(now, nextAnnualDate).getDays();
+        int dutyDDay = Period.between(now, nextDutyDate).getDays();
         resultActions.andExpect(jsonPath("$.status").value(200));
         resultActions.andExpect(jsonPath("$.msg").value("성공"));
-        resultActions.andExpect(jsonPath("$.data.nextAnnualDate").value("2023-06-07"));
-        resultActions.andExpect(jsonPath("$.data.annualDDay").value("23"));
-        resultActions.andExpect(jsonPath("$.data.nextDutyDate").value("2023-06-05"));
-        resultActions.andExpect(jsonPath("$.data.dutyDDay").value("21"));
+        resultActions.andExpect(jsonPath("$.data.nextAnnualDate").value(nextAnnualDate.toString()));
+        resultActions.andExpect(jsonPath("$.data.annualDDay").value(annualDDay));
+        resultActions.andExpect(jsonPath("$.data.nextDutyDate").value(nextDutyDate.toString()));
+        resultActions.andExpect(jsonPath("$.data.dutyDDay").value(dutyDDay));
         resultActions.andExpect(status().isOk());
         resultActions.andDo(MockMvcResultHandlers.print()).andDo(document);
     }

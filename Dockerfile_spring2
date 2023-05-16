@@ -12,10 +12,15 @@ RUN apk update && \
 COPY /build/libs/restend-0.0.1-SNAPSHOT.jar my-app.jar
 
 # 스프링 프로파일을 설정합니다.
-#ENV aws_access_key ${{secrets.aws_access_key}}
-#ENV aws_secret_key ${{secrets.aws_secret_key}}
-#ENV aws_s3_bucket ${{secrets.aws_s3_bucket}}
-#ENV aws_s3_bucket_url ${{secrets.aws_s3_bucket_url}}
+ARG AWS_ACCESS_KEY
+ARG AWS_SECRET_KEY
+ARG AWS_S3_BUCKET
+ARG AWS_S3_BUCKET_URL
+ENV AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+ENV AWS_SECRET_KEY=${AWS_SECRET_KEY}
+ENV AWS_S3_BUCKET=${AWS_S3_BUCKET}
+ENV AWS_S3_BUCKET_URL=${AWS_S3_BUCKET_URL}
+
 
 # 애플리케이션을 실행합니다.
 CMD ["java", "-jar", "my-app.jar"]

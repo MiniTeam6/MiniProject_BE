@@ -8,10 +8,10 @@ on:
     branches:
       - main
 env:
-  aws_access_key: ${{secrets.aws_access_key}}
-  aws_secret_key: ${{secrets.aws_secret_key}}
-  aws_s3_bucket: ${{secrets.aws_s3_bucket}}
-  aws_s3_bucket_url: ${{secrets.aws_s3_bucket_url}}
+  AWS_ACCESS_KEY: ${{secrets.AWS_ACCESS_KEY}}
+  AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
+  AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET}}
+  AWS_S3_BUCKET_URL: ${{secrets.AWS_S3_BUCKET_URL}}
 
 jobs:
   build:
@@ -40,18 +40,48 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
-
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.IMAGE_NAME }}
+          file: Dockerfile_spring2
+          registry: docker.io
+          auth: |
+            {
+              "username": ${{ secrets.DOCKER_USERNAME }},
+              "password": ${{ secrets.DOCKER_PASSWORD }}
+            }
+          build-args: |
+            AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}
+            AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }}
+            AWS_S3_BUCKET=${{ secrets.AWS_S3_BUCKET }}
+            AWS_S3_BUCKET_URL=${{ secrets.AWS_S3_BUCKET_URL }}
       - name: Install Docker and Docker Compose
         run: |
+          #!/bin/bash
+          set -e
+
           sudo apt-get update
           sudo apt-get remove moby-containerd moby-runc
           sudo apt-get install -y containerd runc
           sudo apt-get install -y docker.io
+
+          while true; do
+            if sudo apt-get install -y containerd runc docker.io; then
+              break
+            else
+              sudo apt-get update --fix-missing
+              sleep 5
+            fi
+          done
+
           sudo systemctl start docker
           sudo systemctl enable docker
           sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
+
       - name: Set up AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -59,9 +89,9 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
           aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
       - name: SSH to EC2 instance
-        uses: appleboy/ssh-action@v0.1.10
+        uses: appleboy/ssh-action@master
         with:
-          host: 43.201.253.205
+          host: 3.35.56.77
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |

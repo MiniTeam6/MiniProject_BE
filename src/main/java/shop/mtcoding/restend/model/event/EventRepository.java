@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import shop.mtcoding.restend.model.annual.Annual;
 import shop.mtcoding.restend.model.duty.Duty;
 
@@ -13,7 +14,6 @@ import shop.mtcoding.restend.model.user.User;
 
 import java.time.LocalDate;
 import java.util.List;
-
 
 public interface EventRepository extends JpaRepository<Event, Long> {
 

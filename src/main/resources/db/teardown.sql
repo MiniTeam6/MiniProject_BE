@@ -3,6 +3,8 @@ SET REFERENTIAL_INTEGRITY FALSE;
 truncate table user_tb;
 truncate table event_tb;
 truncate table order_tb;
+truncate table error_log_tb;
+truncate table login_log_tb;
 truncate table annual_tb;
 truncate table duty_tb;
 SET REFERENTIAL_INTEGRITY TRUE;
