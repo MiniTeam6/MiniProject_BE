@@ -24,6 +24,7 @@
 ## 🤹‍♂ Tech Stack
 ## 📜 API
 ### 💡 User - 회원관련 기능
+### [요청/응답 데이터](https://github.com/MiniTeam6/MiniProject_BE/wiki/%F0%9F%91%A9%F0%9F%8F%BB%E2%80%8D%F0%9F%92%BB-%EC%9A%94%EC%B2%AD-%EC%9D%91%EB%8B%B5-%EB%8D%B0%EC%9D%B4%ED%84%B0(%ED%9A%8C%EC%9B%90%EA%B4%80%EB%A0%A8-%EA%B8%B0%EB%8A%A5))
 |API Path|HTTP Method|기능|
 |------|---|---|
 |/api/signup|POST|🌟 회원가입|
@@ -35,6 +36,7 @@
 |/api/user/myinfo|POST|🌟 내 정보 수정|
 
 ### 💡 Admin - 회원관련 기능
+### [요청/응답 데이터](https://github.com/MiniTeam6/MiniProject_BE/wiki/%F0%9F%91%A9%F0%9F%8F%BB%E2%80%8D%F0%9F%92%BB-%EC%9A%94%EC%B2%AD-%EC%9D%91%EB%8B%B5%EB%8D%B0%EC%9D%B4%ED%84%B0(%ED%9A%8C%EC%9B%90-%EA%B4%80%EB%A0%A8%EA%B8%B0%EB%8A%A5)ADMIN)
 |API Path|HTTP Method|기능|
 |------|---|---|
 |/api/admin/signup|GET|💖 회원가입 요청 리스트|
@@ -43,7 +45,8 @@
 |/api/admin/role/update|GET|💖 회원권한 업데이트|
 |/api/admin/search|GET|💖 회원 검색(유저정보 출력)|
 
-### User - 연차/당직관련 기능
+### 💡 User - 연차/당직관련 기능
+### [요청/응답 데이터](https://github.com/MiniTeam6/MiniProject_BE/wiki/%F0%9F%91%A9%F0%9F%8F%BB%E2%80%8D%F0%9F%92%BB-%EC%9A%94%EC%B2%AD-%EC%9D%91%EB%8B%B5%EB%8D%B0%EC%9D%B4%ED%84%B0-(%EC%97%B0%EC%B0%A8-%EB%8B%B9%EC%A7%81-%EA%B4%80%EB%A0%A8-%EA%B8%B0%EB%8A%A5))
 |API Path|HTTP Method|기능|
 |------|---|---|
 |/api/user/myannual|GET|🌟 내 연차 리스트|
@@ -56,6 +59,7 @@
 
 
 ### 💡 Admin - 연차/당직관련 기능
+### [요청/응답 데이터](https://github.com/MiniTeam6/MiniProject_BE/wiki/%F0%9F%91%A9%F0%9F%8F%BB%E2%80%8D%F0%9F%92%BB-%EC%9A%94%EC%B2%AD-%EC%9D%91%EB%8B%B5%EB%8D%B0%EC%9D%B4%ED%84%B0(%EC%97%B0%EC%B0%A8-%EB%8B%B9%EC%A7%81%EA%B4%80%EB%A0%A8%EA%B8%B0%EB%8A%A5)_ADMIN)
 |API Path|HTTP Method|기능|
 |------|---|---|
 |/api/admin/annual/order|POST|💖 연차 승인|
