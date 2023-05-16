@@ -29,15 +29,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")
-public class UserController {
+public class UserController { //user
 
     private final UserService userService;
 
 
     // 회원가입
     @PostMapping("/signup")
-
-    public ResponseEntity<?> signup(@RequestPart @Valid UserRequest.SignupInDTO signupInDTO, Errors errors, MultipartFile image) throws IOException {
+    public ResponseEntity<?> signup(@RequestPart(name = "signupInDTO") @Valid UserRequest.SignupInDTO signupInDTO, Errors errors, @RequestPart(name = "image") MultipartFile image) throws IOException {
 
         UserResponse.SignupOutDTO signupOutDTO = userService.회원가입(signupInDTO, image);
         ResponseDTO<?> responseDTO = new ResponseDTO<>(signupOutDTO);
