@@ -10,6 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import shop.mtcoding.restend.model.event.Event;
 import shop.mtcoding.restend.model.event.EventType;
+import shop.mtcoding.restend.model.user.User;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -86,6 +87,8 @@ public interface OrderRepository extends JpaRepository<Order,Long> {
 	Order findByEvent(Event event);
 
 	List<Order> findByOrderState(OrderState orderState);
+
+	List<Order> findByOrderStateAndEvent_User(OrderState orderState, User user);
 
 	Slice<Order> findByOrderState(OrderState orderState, Pageable pageable);
 

@@ -312,7 +312,7 @@ public class UserService {
                 ()-> new Exception400("요청 User 찾을 수 없음", "해당 유저를 찾을 수 없습니다",4)
         );
 
-        List<Order> orders = orderRepository.findByOrderState(OrderState.APPROVED);
+        List<Order> orders = orderRepository.findByOrderStateAndEvent_User(OrderState.APPROVED, user);
         List<LocalDate> annualDate = orders.stream().filter(order ->
                 order.getEvent().getEventType().equals(EventType.ANNUAL)).map(order ->
                 order.getEvent().getAnnual().getStartDate()).filter(date -> date.isAfter(LocalDate.now()) | date.isEqual(LocalDate.now())).collect(Collectors.toList());
