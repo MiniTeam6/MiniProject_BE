@@ -1,4 +1,4 @@
-= 연차/당직 프로젝트
+= 연차/당직 프로젝트 Pantry
 이지훈;
 :doctype: book
 :icons: font
