@@ -31,7 +31,7 @@ public class S3Service {
     private final AmazonS3Client amazonS3Client;
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
-//    @SentrySpan
+    @SentrySpan
     public String uploadImage(MultipartFile file) throws IOException {
         String fileUri = null;
         String fileName = getFileName(file);
@@ -49,7 +49,7 @@ public class S3Service {
         return fileUri;
     }
 
-//    @SentrySpan
+    @SentrySpan
     public String getFileName(MultipartFile file) {
         // Objects.requireNonNull 을 사용할 수도 있음
         if (Objects.isNull(file) || file.isEmpty()) {
@@ -61,7 +61,7 @@ public class S3Service {
         return uuid + "-" + fileName;
     }
 
-//    @SentrySpan
+    @SentrySpan
     public String getContentType(String extension) {
         String contentType = "";
         // content type을 지정해서 올려주지 않으면 자동으로 "application/octet-stream"으로 고정이 되어
@@ -84,7 +84,7 @@ public class S3Service {
         return contentType;
     }
 
-//    @SentrySpan
+    @SentrySpan
     // 이미지 삭제
     public void deleteFile(String fileUrl) {
         // uri에서 파일명만 추출
@@ -92,7 +92,7 @@ public class S3Service {
     }
 
 
-//    @SentrySpan
+    @SentrySpan
     // 이미지 수정 -> 기존 이미지 삭제 후 새 이미지 업로드 ( 더 좋은 방법은? )
     @Transactional
     public String updateImage(String deleteImageUri, String deleteThumbnailUri, MultipartFile newFile) throws IOException {
@@ -105,7 +105,7 @@ public class S3Service {
         return uploadImage(newFile); // url string 리턴
     }
 
-//    @SentrySpan
+    @SentrySpan
     // 썸네일 파일 업로드
     public String uploadThumbnail(MultipartFile file, String fileUri) throws IllegalArgumentException, IOException {
         String fileName = fileUri.substring(fileUri.lastIndexOf("/") + 1);

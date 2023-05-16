@@ -34,15 +34,15 @@ file:
 cloud:
   aws:
     credentials:
-      accessKey: ${aws.access.key}
-      secretKey: ${aws.secret.key}
+      accessKey: ${AWS_ACCESS_KEY}
+      secretKey: ${AWS_SECRET_KEY}
     region:
       static: ap-northeast-2
     stack:
       auto: false
     s3:
-      bucket: ${aws.s3.bucket}
-      url: ${aws.s3.bucket.url}
+      bucket: ${AWS_S3_BUCKET}
+      url: ${AWS_S3_BUCKET_URL}
 
 sentry:
   dsn: https://1a0da37591cc45e79c99516ec086db2a@o4505186712223744.ingest.sentry.io/4505188161290240

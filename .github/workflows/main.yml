@@ -12,8 +12,6 @@ env:
   AWS_SECRET_KEY: ${{secrets.AWS_SECRET_KEY}}
   AWS_S3_BUCKET: ${{secrets.AWS_S3_BUCKET}}
   AWS_S3_BUCKET_URL: ${{secrets.AWS_S3_BUCKET_URL}}
-  # Set the Actions runner version
-  RUNNER_VERSION: '2.282.1'
 
 jobs:
   build:
