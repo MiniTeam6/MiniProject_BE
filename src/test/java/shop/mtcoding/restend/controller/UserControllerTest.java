@@ -213,7 +213,7 @@ public class UserControllerTest extends MyRestDoc {
         SignupInDTO signupInDTO = new SignupInDTO();
         signupInDTO.setUsername("사");
         signupInDTO.setPassword("aaaa1234@@");
-        signupInDTO.setEmail("ssar@nate.com");
+        signupInDTO.setEmail("asdf@nate.com");
         signupInDTO.setPhone("010-0000-0000");
         String requestBody = om.writeValueAsString(signupInDTO);
         System.out.println("테스트 : " + requestBody);
@@ -236,8 +236,8 @@ public class UserControllerTest extends MyRestDoc {
                         .contentType(MediaType.MULTIPART_FORM_DATA_VALUE)
         );
 
-//        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
-//        System.out.println("테스트 : " + responseBody);
+        String responseBody = resultActions.andReturn().getResponse().getContentAsString();
+        System.out.println("테스트 : " + responseBody);
 
 //        // then
         resultActions.andExpect(jsonPath("$.status").value(400));

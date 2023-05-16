@@ -393,7 +393,7 @@ public class EventControllerTest extends MyRestDoc {
     }
 
 
-//    @Test
+    //    @Test
 //    public void event_add_annual_fail_test() throws Exception {
 //        // given
 //        EventAddInDto eventAddInDto = new EventAddInDto();
