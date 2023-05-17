@@ -30,9 +30,9 @@
 🗓️ 모든 유저 연차/당직 월별 조회
 
 
-## 🔨 Web Architecture
-## 🤹‍♂ Tech Stack
-## 📜 API
+## Web Architecture
+## Tech Stack
+## API
 ### 💡 User - 회원관련 기능
 ### [요청/응답 데이터](https://github.com/MiniTeam6/MiniProject_BE/wiki/%F0%9F%91%A9%F0%9F%8F%BB%E2%80%8D%F0%9F%92%BB-%EC%9A%94%EC%B2%AD-%EC%9D%91%EB%8B%B5-%EB%8D%B0%EC%9D%B4%ED%84%B0(%ED%9A%8C%EC%9B%90%EA%B4%80%EB%A0%A8-%EA%B8%B0%EB%8A%A5))
 |API Path|HTTP Method|기능|
