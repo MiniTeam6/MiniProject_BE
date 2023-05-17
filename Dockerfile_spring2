@@ -9,7 +9,7 @@ RUN apk update && \
     apk add openjdk11 && \
     rm -rf /var/cache/apk/*
 
-COPY /build/libs/restend-0.0.1-SNAPSHOT.jar my-app.jar
+COPY /build/libs/*.jar my-app.jar
 
 # 스프링 프로파일을 설정합니다.
 ARG AWS_ACCESS_KEY
