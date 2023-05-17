@@ -68,6 +68,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class EventControllerTest extends MyRestDoc {
+
     private static class TimeProvider {
         public LocalDate now() {
             return LocalDate.of(2023, 5, 13);

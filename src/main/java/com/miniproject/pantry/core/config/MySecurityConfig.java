@@ -4,6 +4,8 @@ import com.miniproject.pantry.core.exception.Exception403;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,9 +46,56 @@ public class MySecurityConfig {
     }
 
     @Bean
+    @Profile({"prod", "dev"})
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // 1. CSRF 해제
 //        http.csrf().disable(); // postman 접근해야 함!! - CSR 할때!!
+
+        // 2. iframe 거부
+        http.headers().frameOptions().disable();
+
+        // 3. cors 재설정
+        http.cors().configurationSource(configurationSource());
+
+        // 4. jSessionId 사용 거부
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        // 5. form 로긴 해제 (UsernamePasswordAuthenticationFilter 비활성화)
+        http.formLogin().disable();
+
+        // 6. 로그인 인증창이 뜨지 않게 비활성화
+        http.httpBasic().disable();
+
+        // 7. 커스텀 필터 적용 (시큐리티 필터 교환)
+        http.apply(new CustomSecurityFilterManager());
+
+        // 8. 인증 실패 처리
+        http.exceptionHandling().authenticationEntryPoint((request, response, authException) -> {
+            log.warn("인증되지 않은 사용자가 자원에 접근하려 합니다 : "+authException.getMessage());
+            MyFilterResponseUtil.unAuthorized(response, new Exception401("인증되지 않았습니다"));
+        });
+
+        // 10. 권한 실패 처리
+        http.exceptionHandling().accessDeniedHandler((request, response, accessDeniedException) -> {
+            log.warn("권한이 없는 사용자가 자원에 접근하려 합니다 : "+accessDeniedException.getMessage());
+            MyFilterResponseUtil.forbidden(response, new Exception403("권한이 없습니다"));
+        });
+
+        // 11. 인증, 권한 필터 설정
+        http.authorizeRequests(
+                authorize -> authorize.antMatchers("/api/user/**").authenticated()
+                        .antMatchers("/api/admin/**").hasRole("ADMIN")
+                        .anyRequest().permitAll()
+        );
+
+        return http.build();
+    }
+
+    @Bean
+    @Profile({"test"})
+    SecurityFilterChain filterChain2(HttpSecurity http) throws Exception {
+        // 1. CSRF 해제
+        http.csrf().disable(); // postman 접근해야 함!! - CSR 할때!!
 
         // 2. iframe 거부
         http.headers().frameOptions().disable();

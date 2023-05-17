@@ -51,6 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 public class UserControllerTest extends MyRestDoc {
+
     private String buildMultipartParam(String name, String value) throws JsonProcessingException {
         MultiValueMap<String, Object> multiValueMap = new LinkedMultiValueMap<>();
         multiValueMap.add(name, value);
