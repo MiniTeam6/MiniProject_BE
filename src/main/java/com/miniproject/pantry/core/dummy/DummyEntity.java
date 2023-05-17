@@ -33,7 +33,7 @@ public class DummyEntity {
                 .thumbnailUri("https://test")
                 .phone("010-1234-1234")
                 .role(role)
-                .status(true)
+                .status(status)
                 .updatedAt(LocalDateTime.now())
                 .build();
     }
