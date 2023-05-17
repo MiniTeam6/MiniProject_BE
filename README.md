@@ -1,21 +1,18 @@
 # 🗓️ Panrty
-<<<<<<< HEAD
 ### [연차/당직 관리 시스템](https://github.com/MiniTeam6/MiniProject_BE)
 
 ## 목차
-* [🧾 주요 기능](#🧾-주요-기능)<br>
-* [🔨 Web Architecture](#🔨-Web-Architecture)<br>
-* [🤹‍♂ Tech Stack](#🤹‍♂-Tech-Stack)<br>
-* [📜 API](#📜-API)<br>
+* [🧾 주요 기능](#주요-기능)<br>
+* [🔨 Web Architecture](#Web-Architecture)<br>
+* [🤹‍♂ Tech Stack](#🤹‍Tech-Stack)<br>
+* [📜 API](#API)<br>
 * [프로젝트 구조](#프로젝트-구조)<br>
 * [개선해야할 점](#개선해야할-점)<br>
 * [앞으로의 계획](#앞으로의-계획)<br>
 =======
 ### 연차/당직관리 시스템
->>>>>>> 5def761 (csrf, cors 재설정)
 
-
-## 🧾 주요 기능
+## 주요 기능
 🔐  로그인 / 회원가입 / 유저 관리권한
 - JWT 토큰 발급을 이용한 로그인 구현
 - user/admin api 구분
