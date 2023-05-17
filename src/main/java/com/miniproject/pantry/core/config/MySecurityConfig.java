@@ -4,6 +4,7 @@ import com.miniproject.pantry.core.exception.Exception403;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -48,7 +49,7 @@ public class MySecurityConfig {
     @Profile({"prod", "dev"})
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // 1. CSRF 해제
-//        http.csrf().disable(); // postman 접근해야 함!! - CSR 할때!!
+        http.csrf().disable(); // postman 접근해야 함!! - CSR 할때!!
 
         // 2. iframe 거부
         http.headers().frameOptions().disable();
@@ -89,8 +90,6 @@ public class MySecurityConfig {
 
         return http.build();
     }
-
-
 
     @Bean
     @Profile({"test"})
