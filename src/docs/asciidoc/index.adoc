@@ -1,4 +1,4 @@
-= 연차/당직 프로젝트
+= 연차/당직 프로젝트 Pantry
 이지훈;
 :doctype: book
 :icons: font
@@ -14,7 +14,6 @@ include::code.adoc[]
 
 // snippet 파일을 연동
 include::Member-API.adoc[]
-
 
 // snippet 파일을 연동
 include::Event-API.adoc[]

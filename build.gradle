@@ -48,6 +48,7 @@ tasks.asciidoctor {
     baseDirFollowsSourceFile()
 }
 repositories {
+
     mavenCentral()
 }
 
