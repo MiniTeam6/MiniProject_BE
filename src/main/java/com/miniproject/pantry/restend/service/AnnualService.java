@@ -1,0 +1,36 @@
+package com.miniproject.pantry.restend.service;
+
+import com.miniproject.pantry.restend.model.annual.Annual;
+import com.miniproject.pantry.restend.model.annual.AnnualRepository;
+import io.sentry.spring.tracing.SentrySpan;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import com.miniproject.pantry.restend.dto.annual.AnnualRequest;
+
+import com.miniproject.pantry.restend.model.event.Event;
+import com.miniproject.pantry.restend.model.event.EventRepository;
+import com.miniproject.pantry.restend.model.event.EventType;
+import com.miniproject.pantry.restend.model.user.User;
+@Service
+@RequiredArgsConstructor
+public class AnnualService {
+    private final EventRepository eventRepository;
+    private final AnnualRepository annualRepository;
+
+    @SentrySpan
+
+    public Object 연차추가(AnnualRequest.AnnualAddDto eventAddDto, User user) {
+
+        eventRepository.save(Event.builder()
+                .user(user)
+                .eventType(EventType.ANNUAL)
+                .build());
+        annualRepository.save(Annual.builder()
+                .startDate(eventAddDto.getStartDate())
+                .endDate(eventAddDto.getEndDate())
+                .build());
+        return null;
+    }
+
+
+}

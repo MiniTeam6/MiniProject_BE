@@ -12,14 +12,21 @@
 |===
 | 환경 | Host
 
-| Docker
-| `https://docker.com`
+| Back-end
+| `http://3.35.56.77`
 
-| Tomcat
-| `https://tomcat.apache.org/`
+| Front-end
+| `http://Pantry1-env.eba-fdhbkdfm.ap-northeast-2.elasticbeanstalk.com`
 
-| Github Actions
-| `https://github.com`
+| DockerHub
+| `https://hub.docker.com/r/ljh6384/miniproject`
+
+| Back-end Repository
+| `https://github.com/MiniTeam6/MiniProject_BE`
+
+| Front-end Repository
+| `https://github.com/MiniTeam6/MiniProject_FE`
+
 |===
 
 [[overview-http-status-codes]]
@@ -29,19 +36,19 @@
 | Status code | Usage
 
 | `200 OK`
-| successfully
+| 성공적인 응답
 
 | `400 Bad Request`
-| Bad Request
+| 사용자의 잘못된 요청
 
 | `401 Unauthorized`
-| Unauthorized
+| 인증되지 않은 사용자의 요청
 
 | `403 Forbidden`
-| Forbidden
+| 권한이 없는 사용자의 요청
 
 | `500 Internal Server Error`
-| Server Error
+| 서버 오류
 |===
 
 // [[overview-error-response]]
