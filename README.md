@@ -1,5 +1,14 @@
 # 🗓️ Panrty
-### 연차/당직관리 시스템
+### [연차/당직 관리 시스템](https://github.com/MiniTeam6/MiniProject_BE)
+
+## 목차
+* [🧾 주요 기능](#🧾-주요-기능)<br>
+* [🔨 Web Architecture](#🔨-Web-Architecture)<br>
+* [🤹‍♂ Tech Stack](#🤹‍♂-Tech-Stack)<br>
+* [📜 API](#📜-API)<br>
+* [프로젝트 구조](#프로젝트-구조)<br>
+* [개선해야할 점](#개선해야할-점)<br>
+* [앞으로의 계획](#앞으로의-계획)<br>
 
 
 ## 🧾 주요 기능
@@ -68,3 +77,7 @@
 |/api/admin/duty/request|GET|💖 당직신청 리스트|
 |/api/admin/annual/approval|GET|💖 결재된 연차 리스트|
 |/api/admin/duty/approval|GET|💖 결재된 당직 리스트|
+
+## 프로젝트 구조
+## 개선해야할 점
+## 앞으로의 계획
