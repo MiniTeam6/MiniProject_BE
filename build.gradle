@@ -23,8 +23,10 @@ asciidoctorj {
 
 tasks.bootJar {
     dependsOn tasks.asciidoctor
-    from(tasks.asciidoctor.outputDir) {
-        into 'static/docs'
+    copy {
+        // src/docs/asciidoc == from 경로
+        from "${asciidoctor.outputDir}"
+        into 'src/main/resources/static/docs'    // /static/docs로 복사!
     }
 }
 
