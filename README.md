@@ -1,5 +1,6 @@
 # 🗓️ Panrty
 ### [연차/당직 관리 시스템](https://github.com/MiniTeam6/MiniProject_BE)
+### [PDF](https://github.com/MiniTeam6/MiniProject_BE/blob/main/Pantry_PPT.pdf)
 
 ## 목차
 * [🧾 주요 기능](#주요-기능)<br>
